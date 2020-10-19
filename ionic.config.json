@@ -1,0 +1,7 @@
+{
+    "name": "Ich bin eine Biene",
+    "integrations": {
+        "capacitor": {}
+    },
+    "type": "react"
+}

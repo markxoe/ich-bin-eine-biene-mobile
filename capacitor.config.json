@@ -1,0 +1,13 @@
+{
+    "appId": "org.toastbrot.ichbineinebiene-mobile",
+    "appName": "Ich bin eine Biene",
+    "bundledWebRuntime": false,
+    "npmClient": "npm",
+    "webDir": "build",
+    "plugins": {
+        "SplashScreen": {
+            "launchShowDuration": 0
+        }
+    },
+    "cordova": {}
+}
