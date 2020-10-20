@@ -12,7 +12,12 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import React from "react";
+import "./Settings.css";
+
 import packagejs from "../../package.json";
+
+import biene from "../res/biene.png";
+
 const PageSettings: React.FC = () => {
   return (
     <IonPage>
@@ -44,6 +49,10 @@ const PageSettings: React.FC = () => {
           <IonLabel>Website</IonLabel>
           <IonButton href="https://toastbrot.org/">Web</IonButton>
         </IonItem>
+
+        <div className="ion-margin-top ion-text-center">
+          <img className="bienemini" src={biene} />
+        </div>
       </IonContent>
     </IonPage>
   );
