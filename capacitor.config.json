@@ -1,5 +1,5 @@
 {
-    "appId": "org.toastbrot.ichbineinebiene-mobile",
+    "appId": "org.toastbrot.ichbineinebienemobile",
     "appName": "Ich bin eine Biene",
     "bundledWebRuntime": false,
     "npmClient": "npm",
