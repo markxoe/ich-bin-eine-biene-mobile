@@ -8,7 +8,7 @@
 /* Wenn die Biene die Klasse bienerotate bekommt, rotiert sie */
 
 .bienerotate {
-    animation: rotation 2s infinite linear;
+    animation: rotation 0.2s;
 }
 
 @keyframes rotation {

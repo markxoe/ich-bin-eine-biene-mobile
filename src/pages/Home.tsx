@@ -18,7 +18,7 @@ import "./Home.css";
 import biene from "../res/biene.png";
 
 const Home: React.FC = () => {
-  const [rotateBee, setRotateBee] = useState<boolean>(false);
+  const [rotation,setRotation] = useState<boolean>(false);
 
   return (
     <IonPage>
@@ -48,9 +48,10 @@ const Home: React.FC = () => {
             <IonCol>
               <div className="ion-text-center">
                 <img
-                  onClick={() => setRotateBee((e) => !e)}
-                  className={rotateBee ? "bienerotate" : "biene"}
+                  onClick={() => {setRotation(true)}}
+                  className={rotation ? "bienerotate" : "biene"}
                   src={biene}
+                  onAnimationEnd={()=>setRotation(false)}
                 />
               </div>
             </IonCol>
