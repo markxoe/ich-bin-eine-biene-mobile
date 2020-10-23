@@ -51,7 +51,7 @@ const PageSettings: React.FC = () => {
         </IonItem>
 
         <div className="ion-margin-top ion-text-center">
-          <img className="bienemini" src={biene} />
+          <img className="bienemini" src={biene} alt="" />
         </div>
       </IonContent>
     </IonPage>

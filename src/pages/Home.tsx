@@ -51,6 +51,7 @@ const Home: React.FC = () => {
                   onClick={() => {setRotation(true)}}
                   className={rotation ? "bienerotate" : "biene"}
                   src={biene}
+                  alt=""
                   onAnimationEnd={()=>setRotation(false)}
                 />
               </div>
