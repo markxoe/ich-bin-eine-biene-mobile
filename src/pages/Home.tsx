@@ -11,15 +11,17 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { settingsOutline } from "ionicons/icons";
 import "./Home.css";
 
 import biene from "../res/biene.png";
 
-const Home: React.FC = () => {
-  const [rotation,setRotation] = useState<boolean>(false);
+import { AppContext } from "../store/State";
 
+const Home: React.FC = () => {
+  const [rotation, setRotation] = useState<boolean>(false);
+  const { state, dispatch } = useContext(AppContext);
   return (
     <IonPage>
       <IonHeader>
@@ -52,7 +54,7 @@ const Home: React.FC = () => {
                   className={rotation ? "bienerotate" : "biene"}
                   src={biene}
                   alt=""
-                  onAnimationEnd={()=>setRotation(false)}
+                  onAnimationEnd={() => setRotation(false)}
                 />
               </div>
             </IonCol>
