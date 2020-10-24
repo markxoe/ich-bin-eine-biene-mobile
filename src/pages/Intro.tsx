@@ -9,8 +9,15 @@ import {
 
 import Biene from "../res/biene.png";
 import "./Intro.css";
+import { useHistory } from "react-router";
+import { Storage } from "@capacitor/core";
+import { StoreKeyPrefix } from "../const";
 
 const PageIntro: React.FC = () => {
+  const history = useHistory();
+  const doneIntro = () =>{
+    Storage.set({key:StoreKeyPrefix+"introdone",value:"Done"}).then(()=>history.push("/home"));
+  }
   return (
     <IonPage>
       <IonContent>
@@ -20,7 +27,7 @@ const PageIntro: React.FC = () => {
             autoHeight: true,
             breakpoints: {
               800: {
-                slidesPerView: 2,
+                slidesPerView: 1,
                 spaceBetween: 20,
               },
             },
@@ -45,7 +52,7 @@ const PageIntro: React.FC = () => {
           <IonSlide>
             <div>
               <h1>Ich bin eine Biene</h1>
-              <IonButton color="tertiary">Prost!</IonButton>
+              <IonButton color="tertiary" onClick={()=>doneIntro()}>Prost!</IonButton>
             </div>
           </IonSlide>
         </IonSlides>

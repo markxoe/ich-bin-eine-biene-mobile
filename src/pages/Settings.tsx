@@ -17,8 +17,10 @@ import "./Settings.css";
 import packagejs from "../../package.json";
 
 import biene from "../res/biene.png";
+import { useHistory } from "react-router";
 
 const PageSettings: React.FC = () => {
+  const history = useHistory()
   return (
     <IonPage>
       <IonHeader>
@@ -30,6 +32,8 @@ const PageSettings: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
+        <IonItemDivider>Allgemein</IonItemDivider>
+        <IonItem detail onClick={()=>history.push("/intro")}><IonLabel>Intro erneut durchführen</IonLabel></IonItem>
         <IonItemDivider>Info</IonItemDivider>
         <IonItem>
           <IonLabel>Entwickler</IonLabel>

@@ -10,6 +10,7 @@ import {
   IonRow,
   IonTitle,
   IonToolbar,
+  useIonViewWillEnter,
 } from "@ionic/react";
 import React, { useContext, useState } from "react";
 import { settingsOutline } from "ionicons/icons";
@@ -18,10 +19,23 @@ import "./Home.css";
 import biene from "../res/biene.png";
 
 import { AppContext } from "../store/State";
+import { Storage } from "@capacitor/core";
+import { StoreKeyPrefix } from "../const"
+import { useHistory } from "react-router";
 
 const Home: React.FC = () => {
   const [rotation, setRotation] = useState<boolean>(false);
   const { state, dispatch } = useContext(AppContext);
+  const history = useHistory()
+
+  useIonViewWillEnter(()=>{
+    Storage.get({key:StoreKeyPrefix+"introdone"}).then((result)=>{
+      if(result.value != "Done"){
+        history.push("/intro")
+      }
+    })
+  })
+
   return (
     <IonPage>
       <IonHeader>
