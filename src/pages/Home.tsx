@@ -18,23 +18,38 @@ import "./Home.css";
 
 import biene from "../res/biene.png";
 
-import { AppContext } from "../store/State";
-import { Storage } from "@capacitor/core";
-import { StoreKeyPrefix } from "../const"
+import { AppContext, StateSet } from "../store/State";
+import { Plugins, Storage } from "@capacitor/core";
+import { StoreKeyPrefix } from "../const";
 import { useHistory } from "react-router";
+
+const { SplashScreen } = Plugins;
 
 const Home: React.FC = () => {
   const [rotation, setRotation] = useState<boolean>(false);
   const { state, dispatch } = useContext(AppContext);
-  const history = useHistory()
+  const history = useHistory();
 
-  useIonViewWillEnter(()=>{
-    Storage.get({key:StoreKeyPrefix+"introdone"}).then((result)=>{
-      if(result.value != "Done"){
-        history.push("/intro")
+  useIonViewWillEnter(async () => {
+    await Storage.get({ key: StoreKeyPrefix + "introdone" }).then((result) => {
+      if (result.value != "Done") {
+        history.push("/intro");
       }
-    })
-  })
+    });
+    console.log("Done loading Intro");
+    await Storage.get({ key: StoreKeyPrefix + "state" }).then((result) => {
+      if (result && result.value) {
+        const res = JSON.parse(result.value);
+        dispatch(StateSet(res));
+      } else {
+        console.log("No State in Memory");
+      }
+    });
+    console.log("Done loading State");
+
+    await SplashScreen.hide();
+    console.log("Done hiding Splash screen");
+  });
 
   return (
     <IonPage>
@@ -64,7 +79,9 @@ const Home: React.FC = () => {
             <IonCol>
               <div className="ion-text-center">
                 <img
-                  onClick={() => {setRotation(true)}}
+                  onClick={() => {
+                    setRotation(true);
+                  }}
                   className={rotation ? "bienerotate" : "biene"}
                   src={biene}
                   alt=""
