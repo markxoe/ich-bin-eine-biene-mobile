@@ -19,7 +19,9 @@ Mark Oude Elberink
 ### Bald: [0.3.0] Kuchen :cake:
 
 - Intro Seite bei Erstbenutzung
-- Vorbereitungen für kommende Features
+- Logo update
+- "Salto" Knopf als Bedienungshilfe
+- Daten-löschen Knopf
 
 ### [0.2.0] Tomate :tomato:
 
