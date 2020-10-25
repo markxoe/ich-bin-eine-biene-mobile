@@ -12,17 +12,22 @@ import {
   IonToggle,
   IonToolbar,
 } from "@ionic/react";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "./Settings.css";
 
 import packagejs from "../../package.json";
 
 import biene from "../res/biene.png";
 import { useHistory } from "react-router";
-import { ActionSettingsSetClickButtonForBee, AppContext } from "../store/State";
+import { AppContext, saveState } from "../store/State";
+import { ActionSettingsSetClickButtonForBee } from "../store/Actions";
 
 const PageSettings: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
+
+  useEffect(() => {
+    if (state.dataLoadedFromMemory) saveState(state);
+  }, [state]);
 
   const history = useHistory();
   return (

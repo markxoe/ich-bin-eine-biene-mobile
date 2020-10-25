@@ -22,12 +22,14 @@ import "./Home.css";
 
 import biene from "../res/biene.png";
 
+import { AppContext, saveState } from "../store/State";
+
 import {
-  AppContext,
   ActionBieneClickIncrease,
   ActionDataLoadedFromMemory,
-  StateSet,
-} from "../store/State";
+  ActionSetState,
+} from "../store/Actions";
+
 import { Plugins, Storage } from "@capacitor/core";
 import { StoreKeyPrefix } from "../const";
 import { useHistory } from "react-router";
@@ -41,7 +43,7 @@ const Home: React.FC = () => {
 
   useIonViewWillEnter(async () => {
     await Storage.get({ key: StoreKeyPrefix + "introdone" }).then((result) => {
-      if (result.value != "Done") {
+      if (result.value !== "Done") {
         history.push("/intro");
       }
     });
@@ -50,7 +52,7 @@ const Home: React.FC = () => {
     await Storage.get({ key: StoreKeyPrefix + "state" }).then((result) => {
       if (result && result.value) {
         const res = JSON.parse(result.value);
-        dispatch(StateSet(res));
+        dispatch(ActionSetState(res));
       } else {
         console.log("No State in Memory");
       }
@@ -64,17 +66,9 @@ const Home: React.FC = () => {
     dispatch(ActionDataLoadedFromMemory());
   });
 
-  // Save current state to Memory
-  const saveState = () => {
-    Storage.set({
-      key: StoreKeyPrefix + "state",
-      value: JSON.stringify(state),
-    }).then(() => console.log("State Saved"));
-  };
-
   // Save current State everytime the state changes
   useEffect(() => {
-    if (state.dataLoadedFromMemory) saveState();
+    if (state.dataLoadedFromMemory) saveState(state);
   }, [state]);
 
   return (

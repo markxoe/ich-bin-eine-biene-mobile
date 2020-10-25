@@ -1,14 +1,9 @@
+import { Storage } from "@capacitor/core";
 import React, { useReducer } from "react";
-import { actionType, stateType } from "./types";
-let AppContext = React.createContext<{
-  state: stateType;
-  dispatch: React.Dispatch<actionType>;
-}>({} as ContextType);
+import { StoreKeyPrefix } from "../const";
+import { actionType, stateType, ContextType } from "./types";
 
-interface ContextType {
-  state: stateType;
-  dispatch: ({ type }: { type: string }) => void;
-}
+let AppContext = React.createContext<ContextType>({} as ContextType);
 
 const initialState: stateType = {
   dataLoadedFromMemory: false,
@@ -42,33 +37,6 @@ let reducer = (state: stateType, action: actionType): stateType => {
   return state;
 };
 
-/**
- * Überschreibt den derzeitigen State
- * @param newState Zu setzender State
- */
-export const StateSet = (newState: stateType): actionType => ({
-  type: "setState",
-  payload: newState,
-});
-
-/**
- * Wenn die Biene geklickt wird
- */
-export const ActionBieneClickIncrease = (): actionType => ({
-  type: "bieneClickIncrease",
-});
-
-/**
- * Wenn Daten aus dem Speicher geladen wurden
- */
-export const ActionDataLoadedFromMemory = (): actionType => ({
-  type: "setDataLoaded",
-});
-
-export const ActionSettingsSetClickButtonForBee = (
-  activated: boolean
-): actionType => ({ type: "setclickButtonForBee", payload: activated });
-
 function AppContextProvider(props: any) {
   let [state, dispatch] = useReducer(reducer, initialState);
   let value = { state, dispatch };
@@ -77,6 +45,17 @@ function AppContextProvider(props: any) {
     <AppContext.Provider value={value}>{props.children}</AppContext.Provider>
   );
 }
+
+/**
+ * Speichert den state in den Speicher
+ * @param state der aktuelle State
+ */
+export const saveState = async (state: stateType) => {
+  await Storage.set({
+    key: StoreKeyPrefix + "state",
+    value: JSON.stringify(state),
+  }).then(() => console.log("State Saved"));
+};
 
 let AppContextConsumer = AppContext.Consumer;
 

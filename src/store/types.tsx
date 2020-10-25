@@ -3,12 +3,17 @@ export interface stateType {
   biene: {
     clickCounter: number;
   };
-  settings:{
+  settings: {
     clickButtonForBee: boolean;
-  }
+  };
 }
 
 export interface actionType {
   type: string;
   payload?: any;
+}
+
+export interface ContextType {
+  state: stateType;
+  dispatch: React.Dispatch<actionType>;
 }
