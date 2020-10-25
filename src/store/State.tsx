@@ -10,12 +10,26 @@ interface ContextType {
   dispatch: ({ type }: { type: string }) => void;
 }
 
-const initialState: stateType = {};
+const initialState: stateType = {
+  dataLoadedFromMemory: false,
+  biene: { clickCounter: 0 },
+};
 
-let reducer = (state: stateType, action: actionType) => {
+let reducer = (state: stateType, action: actionType): stateType => {
   switch (action.type) {
     case "setState": {
       return { ...state, ...action.payload };
+    }
+
+    case "setDataLoaded": {
+      return { ...state, dataLoadedFromMemory: true };
+    }
+
+    case "bieneClickIncrease": {
+      return {
+        ...state,
+        biene: { clickCounter: state.biene.clickCounter + 1 },
+      };
     }
   }
   return state;
@@ -28,6 +42,20 @@ let reducer = (state: stateType, action: actionType) => {
 export const StateSet = (newState: stateType): actionType => ({
   type: "setState",
   payload: newState,
+});
+
+/**
+ * Wenn die Biene geklickt wird
+ */
+export const ActionBieneClickIncrease = (): actionType => ({
+  type: "bieneClickIncrease",
+});
+
+/**
+ * Wenn Daten aus dem Speicher geladen wurden
+ */
+export const ActionDataLoadedFromMemory = (): actionType => ({
+  type: "setDataLoaded",
 });
 
 function AppContextProvider(props: any) {

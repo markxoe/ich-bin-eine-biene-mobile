@@ -1,6 +1,10 @@
 import {
   IonButton,
   IonButtons,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
   IonCol,
   IonContent,
   IonGrid,
@@ -12,13 +16,18 @@ import {
   IonToolbar,
   useIonViewWillEnter,
 } from "@ionic/react";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { settingsOutline } from "ionicons/icons";
 import "./Home.css";
 
 import biene from "../res/biene.png";
 
-import { AppContext, StateSet } from "../store/State";
+import {
+  AppContext,
+  ActionBieneClickIncrease,
+  ActionDataLoadedFromMemory,
+  StateSet,
+} from "../store/State";
 import { Plugins, Storage } from "@capacitor/core";
 import { StoreKeyPrefix } from "../const";
 import { useHistory } from "react-router";
@@ -37,6 +46,7 @@ const Home: React.FC = () => {
       }
     });
     console.log("Done loading Intro");
+
     await Storage.get({ key: StoreKeyPrefix + "state" }).then((result) => {
       if (result && result.value) {
         const res = JSON.parse(result.value);
@@ -49,7 +59,23 @@ const Home: React.FC = () => {
 
     await SplashScreen.hide();
     console.log("Done hiding Splash screen");
+
+    // Save, that the State is loaded from Memory, so that it can be overwritten
+    dispatch(ActionDataLoadedFromMemory());
   });
+
+  // Save current state to Memory
+  const saveState = () => {
+    Storage.set({
+      key: StoreKeyPrefix + "state",
+      value: JSON.stringify(state),
+    }).then(() => console.log("State Saved"));
+  };
+
+  // Save current State everytime the state changes
+  useEffect(() => {
+    if (state.dataLoadedFromMemory) saveState();
+  }, [state]);
 
   return (
     <IonPage>
@@ -85,9 +111,27 @@ const Home: React.FC = () => {
                   className={rotation ? "bienerotate" : "biene"}
                   src={biene}
                   alt=""
-                  onAnimationEnd={() => setRotation(false)}
+                  onAnimationEnd={() => {
+                    setRotation(false);
+                    dispatch(ActionBieneClickIncrease());
+                  }}
                 />
               </div>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol>
+              <IonCard>
+                <IonCardHeader>
+                  <IonCardTitle>Statistiken</IonCardTitle>
+                </IonCardHeader>
+                <IonCardContent>
+                  <h3>
+                    Deine Biene hat schon {state.biene.clickCounter} Saltos
+                    gemacht
+                  </h3>
+                </IonCardContent>
+              </IonCard>
             </IonCol>
           </IonRow>
         </IonGrid>
