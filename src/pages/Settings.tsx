@@ -9,18 +9,22 @@ import {
   IonLabel,
   IonPage,
   IonTitle,
+  IonToggle,
   IonToolbar,
 } from "@ionic/react";
-import React from "react";
+import React, { useContext } from "react";
 import "./Settings.css";
 
 import packagejs from "../../package.json";
 
 import biene from "../res/biene.png";
 import { useHistory } from "react-router";
+import { ActionSettingsSetClickButtonForBee, AppContext } from "../store/State";
 
 const PageSettings: React.FC = () => {
-  const history = useHistory()
+  const { state, dispatch } = useContext(AppContext);
+
+  const history = useHistory();
   return (
     <IonPage>
       <IonHeader>
@@ -32,8 +36,20 @@ const PageSettings: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
+        <IonItemDivider>Bedienungshilfen</IonItemDivider>
+        <IonItem>
+          <IonLabel>Separater Knopf</IonLabel>
+          <IonToggle
+            checked={state.settings.clickButtonForBee}
+            onIonChange={(c) =>
+              dispatch(ActionSettingsSetClickButtonForBee(c.detail.checked))
+            }
+          />
+        </IonItem>
         <IonItemDivider>Allgemein</IonItemDivider>
-        <IonItem detail onClick={()=>history.push("/intro")}><IonLabel>Intro erneut durchführen</IonLabel></IonItem>
+        <IonItem detail onClick={() => history.push("/intro")}>
+          <IonLabel>Intro erneut durchführen</IonLabel>
+        </IonItem>
         <IonItemDivider>Info</IonItemDivider>
         <IonItem>
           <IonLabel>Entwickler</IonLabel>

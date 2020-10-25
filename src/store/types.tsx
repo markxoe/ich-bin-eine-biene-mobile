@@ -3,6 +3,9 @@ export interface stateType {
   biene: {
     clickCounter: number;
   };
+  settings:{
+    clickButtonForBee: boolean;
+  }
 }
 
 export interface actionType {

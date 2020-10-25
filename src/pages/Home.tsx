@@ -133,6 +133,20 @@ const Home: React.FC = () => {
                 </IonCardContent>
               </IonCard>
             </IonCol>
+
+            <IonCol
+              size="12"
+              sizeSm="auto"
+              hidden={!state.settings.clickButtonForBee}
+            >
+              <IonCard>
+                <IonCardContent>
+                  <IonButton onClick={() => setRotation(true)}>
+                    Salto!
+                  </IonButton>
+                </IonCardContent>
+              </IonCard>
+            </IonCol>
           </IonRow>
         </IonGrid>
       </IonContent>

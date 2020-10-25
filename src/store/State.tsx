@@ -13,6 +13,9 @@ interface ContextType {
 const initialState: stateType = {
   dataLoadedFromMemory: false,
   biene: { clickCounter: 0 },
+  settings: {
+    clickButtonForBee: false,
+  },
 };
 
 let reducer = (state: stateType, action: actionType): stateType => {
@@ -23,6 +26,10 @@ let reducer = (state: stateType, action: actionType): stateType => {
 
     case "setDataLoaded": {
       return { ...state, dataLoadedFromMemory: true };
+    }
+
+    case "setclickButtonForBee": {
+      return { ...state, settings: { clickButtonForBee: action.payload } };
     }
 
     case "bieneClickIncrease": {
@@ -57,6 +64,10 @@ export const ActionBieneClickIncrease = (): actionType => ({
 export const ActionDataLoadedFromMemory = (): actionType => ({
   type: "setDataLoaded",
 });
+
+export const ActionSettingsSetClickButtonForBee = (
+  activated: boolean
+): actionType => ({ type: "setclickButtonForBee", payload: activated });
 
 function AppContextProvider(props: any) {
   let [state, dispatch] = useReducer(reducer, initialState);
