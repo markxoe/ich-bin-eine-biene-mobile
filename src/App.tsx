@@ -4,7 +4,9 @@ import { IonApp, IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import Home from "./pages/Home";
 import PageSettings from "./pages/Settings";
+import PageIntro from "./pages/Intro"
 
+import { AppContextProvider } from "./store/State";
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 
@@ -25,15 +27,18 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 
 const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/" render={() => <Redirect to="/home" />} />
-        <Route exact path="/home" component={Home} />
-        <Route exact path="/settings" component={PageSettings} />
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
+  <AppContextProvider>
+    <IonApp>
+      <IonReactRouter>
+        <IonRouterOutlet>
+          <Route exact path="/" render={() => <Redirect to="/home" />} />
+          <Route exact path="/home" component={Home} />
+          <Route exact path="/settings" component={PageSettings} />
+          <Route exact path="/intro" component={PageIntro}/>
+        </IonRouterOutlet>
+      </IonReactRouter>
+    </IonApp>
+  </AppContextProvider>
 );
 
 export default App;

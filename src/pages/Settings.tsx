@@ -1,4 +1,5 @@
 import {
+  IonAlert,
   IonBackButton,
   IonButton,
   IonButtons,
@@ -9,16 +10,34 @@ import {
   IonLabel,
   IonPage,
   IonTitle,
+  IonToggle,
   IonToolbar,
 } from "@ionic/react";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Settings.css";
 
 import packagejs from "../../package.json";
 
 import biene from "../res/biene.png";
+import { useHistory } from "react-router";
+import { AppContext, saveState } from "../store/State";
+import { ActionSettingsSetClickButtonForBee } from "../store/Actions";
+import { Storage } from "@capacitor/core";
 
 const PageSettings: React.FC = () => {
+  const { state, dispatch } = useContext(AppContext);
+  const [deleteAllAlert, showdeleteAllAlert] = useState<boolean>(false);
+  const deleteAlertRef = React.createRef<HTMLIonAlertElement>();
+  const history = useHistory();
+
+  useEffect(() => {
+    if (state.dataLoadedFromMemory) saveState(state);
+  }, [state]);
+
+  const deleteAllData = () => {
+    Storage.clear();
+  };
+
   return (
     <IonPage>
       <IonHeader>
@@ -30,6 +49,24 @@ const PageSettings: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
+        <IonItemDivider>Bedienungshilfen</IonItemDivider>
+        <IonItem>
+          <IonLabel>Separater Knopf</IonLabel>
+          <IonToggle
+            checked={state.settings.clickButtonForBee}
+            onIonChange={(c) =>
+              dispatch(ActionSettingsSetClickButtonForBee(c.detail.checked))
+            }
+          />
+        </IonItem>
+        <IonItemDivider>Allgemein</IonItemDivider>
+        <IonItem detail onClick={() => history.push("/intro")}>
+          <IonLabel>Intro erneut durchführen</IonLabel>
+        </IonItem>
+        <IonItem>
+          <IonLabel>Alle Daten Löschen</IonLabel>
+          <IonButton onClick={() => showdeleteAllAlert(true)}>Alles</IonButton>
+        </IonItem>
         <IonItemDivider>Info</IonItemDivider>
         <IonItem>
           <IonLabel>Entwickler</IonLabel>
@@ -51,8 +88,30 @@ const PageSettings: React.FC = () => {
         </IonItem>
 
         <div className="ion-margin-top ion-text-center">
-          <img className="bienemini" src={biene} />
+          <img className="bienemini" src={biene} alt="" />
         </div>
+        <IonAlert
+          ref={deleteAlertRef}
+          isOpen={deleteAllAlert}
+          message="Wirklich ALLES löschen?"
+          buttons={[
+            {
+              text: "Ja",
+              role: "cancel",
+              handler: () => {
+                deleteAllData();
+                showdeleteAllAlert(false);
+              },
+            },
+            {
+              text: "Nein",
+              role: "cancel",
+              handler: () => {
+                showdeleteAllAlert(false);
+              },
+            },
+          ]}
+        />
       </IonContent>
     </IonPage>
   );
