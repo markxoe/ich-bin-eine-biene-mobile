@@ -76,7 +76,7 @@ const Home: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>Ich bin eine Biene</IonTitle>
-          <IonButtons collapse slot="end">
+          <IonButtons slot="end">
             <IonButton routerLink="/settings" color="primary">
               <IonIcon icon={settingsOutline} />
             </IonButton>
@@ -84,16 +84,16 @@ const Home: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
+        {/* <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Ich bin eine Biene</IonTitle>
             <IonButtons slot="end">
-              <IonButton color="primary">
+              <IonButton routerLink="/settings" color="primary">
                 <IonIcon icon={settingsOutline} />
               </IonButton>
             </IonButtons>
           </IonToolbar>
-        </IonHeader>
+        </IonHeader> */}
         <IonGrid className="ion-margin-top">
           <IonRow>
             <IonCol>
