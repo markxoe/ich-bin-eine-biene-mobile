@@ -34,22 +34,22 @@ const PageIntro: React.FC = () => {
           }}
           className="height-full"
         >
-          <IonSlide>
+          <IonSlide className="ion-padding">
             <div>
               <h1>Willkommen...</h1>
               <img src={Biene} className="introBiene" />
             </div>
           </IonSlide>
-          <IonSlide>
+          <IonSlide className="ion-padding">
             <div>
               <h1 style={{}}>Willkommen</h1>
               <h2>Bei der sinnlosesten App der Welt...</h2>
             </div>
           </IonSlide>
-          <IonSlide>
+          <IonSlide className="ion-padding">
             <h1>Denn...</h1>
           </IonSlide>
-          <IonSlide>
+          <IonSlide className="ion-padding">
             <div>
               <h1>Ich bin eine Biene</h1>
               <IonButton color="tertiary" onClick={()=>doneIntro()}>Prost!</IonButton>

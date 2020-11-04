@@ -5,3 +5,14 @@
 .introBiene {
     height: 52px !important;
 }
+
+#spacer{
+    height: var(--ion-statusbar-padding);
+}
+
+.swiper-wrapper{
+    height:100% !important;
+}
+ion-slide{
+    height:100% !important;
+}
