@@ -14,6 +14,7 @@ import {
   IonRow,
   IonTitle,
   IonToolbar,
+  isPlatform,
   useIonViewWillEnter,
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
@@ -42,7 +43,7 @@ const Home: React.FC = () => {
   const history = useHistory();
 
   useIonViewWillEnter(async () => {
-    StatusBar.setStyle({style:StatusBarStyle.Dark})
+    if(isPlatform("capacitor")) StatusBar.setStyle({style:StatusBarStyle.Dark})
     await Storage.get({ key: StoreKeyPrefix + "introdone" }).then((result) => {
       if (result.value !== "Done") {
         history.push("/intro");
