@@ -7,6 +7,8 @@ import {
   IonCardTitle,
   IonCol,
   IonContent,
+  IonFab,
+  IonFabButton,
   IonGrid,
   IonHeader,
   IonIcon,
@@ -18,7 +20,7 @@ import {
   useIonViewWillEnter,
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
-import { settingsOutline } from "ionicons/icons";
+import { settingsOutline, storefront } from "ionicons/icons";
 import "./Home.css";
 
 import biene from "../res/biene.png";
@@ -79,6 +81,9 @@ const Home: React.FC = () => {
         <IonToolbar>
           <IonTitle>Ich bin eine Biene</IonTitle>
           <IonButtons collapse slot="end">
+            {/* <IonButton routerLink="/store" color="primary">
+              <IonIcon icon={storefrontOutline} />
+            </IonButton> */}
             <IonButton routerLink="/settings" color="primary">
               <IonIcon icon={settingsOutline} />
             </IonButton>
@@ -90,6 +95,9 @@ const Home: React.FC = () => {
           <IonToolbar>
             <IonTitle size="large">Ich bin eine Biene</IonTitle>
             <IonButtons slot="end">
+              {/* <IonButton routerLink="/store" color="primary">
+                <IonIcon icon={storefrontOutline} />
+              </IonButton> */}
               <IonButton routerLink="/settings" color="primary">
                 <IonIcon icon={settingsOutline} />
               </IonButton>
@@ -126,6 +134,7 @@ const Home: React.FC = () => {
                     Deine Biene hat schon {state.biene.clickCounter} Saltos
                     gemacht
                   </h3>
+                  {/* <IonButton routerLink="/store">Store</IonButton> */}
                 </IonCardContent>
               </IonCard>
             </IonCol>
@@ -145,6 +154,11 @@ const Home: React.FC = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
+        <IonFab vertical="bottom" horizontal="end" slot="fixed">
+          <IonFabButton routerLink="/store">
+            <IonIcon icon={storefront} />
+          </IonFabButton>
+        </IonFab>
       </IonContent>
     </IonPage>
   );
