@@ -14,6 +14,7 @@ import {
   IonRow,
   IonTitle,
   IonToolbar,
+  isPlatform,
   useIonViewWillEnter,
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
@@ -30,11 +31,11 @@ import {
   ActionSetState,
 } from "../store/Actions";
 
-import { Plugins, Storage } from "@capacitor/core";
+import { Plugins, Storage,StatusBarStyle } from "@capacitor/core";
 import { StoreKeyPrefix } from "../const";
 import { useHistory } from "react-router";
 
-const { SplashScreen } = Plugins;
+const { SplashScreen,StatusBar } = Plugins;
 
 const Home: React.FC = () => {
   const [rotation, setRotation] = useState<boolean>(false);
@@ -42,6 +43,7 @@ const Home: React.FC = () => {
   const history = useHistory();
 
   useIonViewWillEnter(async () => {
+    if(isPlatform("capacitor")) StatusBar.setStyle({style:StatusBarStyle.Dark})
     await Storage.get({ key: StoreKeyPrefix + "introdone" }).then((result) => {
       if (result.value !== "Done") {
         history.push("/intro");
@@ -88,7 +90,7 @@ const Home: React.FC = () => {
           <IonToolbar>
             <IonTitle size="large">Ich bin eine Biene</IonTitle>
             <IonButtons slot="end">
-              <IonButton color="primary">
+              <IonButton routerLink="/settings" color="primary">
                 <IonIcon icon={settingsOutline} />
               </IonButton>
             </IonButtons>

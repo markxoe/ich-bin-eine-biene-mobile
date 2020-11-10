@@ -4,6 +4,13 @@
     height: 54px;
 }
 
+.ios ion-title {
+    padding-left: 39px !important;
+    padding-right: 39px !important;
+    padding-inline-start: 39px !important;
+    padding-inline-end: 39px !important;
+}
+
 
 /* Wenn die Biene die Klasse bienerotate bekommt, rotiert sie */
 
