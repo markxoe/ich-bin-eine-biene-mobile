@@ -95,8 +95,8 @@ const Home: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         <IonGrid className="ion-margin-top">
-          <IonRow>
-            <IonCol>
+          <IonRow className="ion-justify-content-center">
+            <IonCol size="auto">
               <div className="ion-text-center">
                 <img
                   onClick={() => {
