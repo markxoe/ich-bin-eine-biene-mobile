@@ -11,22 +11,19 @@ import {
   IonHeader,
   IonItem,
   IonItemDivider,
-  IonLabel,
   IonPage,
   IonProgressBar,
   IonText,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { AppContext, saveState } from "../store/State";
+import { AppContext } from "../store/State";
 import { additionalBeePrice, rotateSpeedLevel } from "../globals";
 import {
   ActionBieneAddAdditional,
   ActionBieneClickDecrease,
-  ActionBieneClickIncrease,
   ActionRotateSpeedLevelIncrease,
 } from "../store/Actions";
-import { micOutline } from "ionicons/icons";
 
 const StorePage: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);

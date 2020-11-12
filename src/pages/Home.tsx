@@ -17,11 +17,10 @@ import {
   IonTitle,
   IonToolbar,
   isPlatform,
-  useIonViewDidEnter,
   useIonViewWillEnter,
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
-import { save, settingsOutline, storefront } from "ionicons/icons";
+import { settingsOutline, storefront } from "ionicons/icons";
 import "./Home.css";
 
 import biene from "../res/biene.png";
@@ -34,12 +33,12 @@ import {
   ActionSetState,
 } from "../store/Actions";
 
-import { Plugins, Storage,StatusBarStyle } from "@capacitor/core";
+import { Plugins, Storage, StatusBarStyle } from "@capacitor/core";
 import { StoreKeyPrefix } from "../const";
 import { useHistory } from "react-router";
 import { rotateSpeedLevel } from "../globals";
 
-const { SplashScreen,StatusBar } = Plugins;
+const { SplashScreen, StatusBar } = Plugins;
 
 const Home: React.FC = () => {
   const [rotation, setRotation] = useState<boolean>(false);
@@ -47,7 +46,8 @@ const Home: React.FC = () => {
   const history = useHistory();
 
   useIonViewWillEnter(async () => {
-    if(isPlatform("capacitor")) StatusBar.setStyle({style:StatusBarStyle.Dark})
+    if (isPlatform("capacitor"))
+      StatusBar.setStyle({ style: StatusBarStyle.Dark });
     await Storage.get({ key: StoreKeyPrefix + "introdone" }).then((result) => {
       if (result.value !== "Done") {
         history.push("/intro");
@@ -115,7 +115,12 @@ const Home: React.FC = () => {
                   onClick={() => {
                     setRotation(true);
                   }}
-                  className={rotation ? rotateSpeedLevel.levels[state.biene.rotateSpeedLevel].class : "biene"}
+                  className={
+                    rotation
+                      ? rotateSpeedLevel.levels[state.biene.rotateSpeedLevel]
+                          .class
+                      : "biene"
+                  }
                   src={biene}
                   alt=""
                   onAnimationEnd={() => {
@@ -125,19 +130,24 @@ const Home: React.FC = () => {
                 />
               </div>
             </IonCol>
-            {state.biene.additionalBienen.map(()=>(
+            {state.biene.additionalBienen.map(() => (
               <IonCol size="auto">
-              <div className="ion-text-center">
-                <img
-                  onClick={() => {
-                    setRotation(true);
-                  }}
-                  className={rotation ? rotateSpeedLevel.levels[state.biene.rotateSpeedLevel].class : "biene"}
-                  src={biene}
-                  alt=""
-                />
-              </div>
-            </IonCol>
+                <div className="ion-text-center">
+                  <img
+                    onClick={() => {
+                      setRotation(true);
+                    }}
+                    className={
+                      rotation
+                        ? rotateSpeedLevel.levels[state.biene.rotateSpeedLevel]
+                            .class
+                        : "biene"
+                    }
+                    src={biene}
+                    alt=""
+                  />
+                </div>
+              </IonCol>
             ))}
           </IonRow>
           <IonRow>
