@@ -2,6 +2,7 @@ export interface stateType {
   dataLoadedFromMemory: boolean;
   biene: {
     clickCounter: number;
+    rotateSpeedLevel: number;
   };
   settings: {
     clickButtonForBee: boolean;

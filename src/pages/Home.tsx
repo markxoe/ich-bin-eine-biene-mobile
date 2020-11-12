@@ -17,10 +17,11 @@ import {
   IonTitle,
   IonToolbar,
   isPlatform,
+  useIonViewDidEnter,
   useIonViewWillEnter,
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
-import { settingsOutline, storefront } from "ionicons/icons";
+import { save, settingsOutline, storefront } from "ionicons/icons";
 import "./Home.css";
 
 import biene from "../res/biene.png";
@@ -36,6 +37,7 @@ import {
 import { Plugins, Storage,StatusBarStyle } from "@capacitor/core";
 import { StoreKeyPrefix } from "../const";
 import { useHistory } from "react-router";
+import { rotateSpeedLevel } from "../globals";
 
 const { SplashScreen,StatusBar } = Plugins;
 
@@ -57,6 +59,7 @@ const Home: React.FC = () => {
       if (result && result.value) {
         const res = JSON.parse(result.value);
         dispatch(ActionSetState(res));
+        console.log(res);
       } else {
         console.log("No State in Memory");
       }
@@ -112,7 +115,7 @@ const Home: React.FC = () => {
                   onClick={() => {
                     setRotation(true);
                   }}
-                  className={rotation ? "bienerotate" : "biene"}
+                  className={rotation ? rotateSpeedLevel.levels[state.biene.rotateSpeedLevel].class : "biene"}
                   src={biene}
                   alt=""
                   onAnimationEnd={() => {

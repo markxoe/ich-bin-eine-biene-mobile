@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import {
   IonBackButton,
+  IonButton,
   IonButtons,
   IonCard,
   IonCardContent,
@@ -16,6 +17,12 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { AppContext, saveState } from "../store/State";
+import { rotateSpeedLevel } from "../globals";
+import {
+  ActionBieneClickDecrease,
+  ActionBieneClickIncrease,
+  ActionRotateSpeedLevelIncrease,
+} from "../store/Actions";
 
 const StorePage: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -39,6 +46,23 @@ const StorePage: React.FC = () => {
               Saltos
               <IonText slot="end">{state.biene.clickCounter}</IonText>
             </IonItem>
+            <IonItem>
+              Drehlevel
+              <IonText slot="end">
+                {state.biene.rotateSpeedLevel}/{rotateSpeedLevel.max}
+              </IonText>
+            </IonItem>
+          </IonCardContent>
+        </IonCard>
+        <IonCard>
+          <IonCardHeader>
+            <IonCardTitle>Drehlevel</IonCardTitle>
+          </IonCardHeader>
+          <IonCardContent>
+            <IonButton
+              onClick={() => {dispatch(ActionRotateSpeedLevelIncrease());dispatch(ActionBieneClickDecrease(rotateSpeedLevel.price))}}
+              disabled={!(state.biene.rotateSpeedLevel < (rotateSpeedLevel.max))||(state.biene.clickCounter<rotateSpeedLevel.price)}
+  >Level {state.biene.rotateSpeedLevel+1} Kaufen</IonButton>
           </IonCardContent>
         </IonCard>
       </IonContent>

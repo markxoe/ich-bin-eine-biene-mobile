@@ -1,5 +1,7 @@
 .biene,
-.bienerotate {
+.bienerotate,
+.bienerotate-level-2,
+.bienerotate-level-3 {
     font-size: 3rem;
     height: 54px;
 }
@@ -16,6 +18,14 @@
 
 .bienerotate {
     animation: rotation 0.2s;
+}
+
+.bienerotate-level-2 {
+    animation: rotation 0.1s;
+}
+
+.bienerotate-level-3 {
+    animation: rotation 0.05s;
 }
 
 @keyframes rotation {

@@ -7,7 +7,7 @@ let AppContext = React.createContext<ContextType>({} as ContextType);
 
 const initialState: stateType = {
   dataLoadedFromMemory: false,
-  biene: { clickCounter: 0 },
+  biene: { clickCounter: 0, rotateSpeedLevel: 0 },
   settings: {
     clickButtonForBee: false,
   },
@@ -30,7 +30,24 @@ let reducer = (state: stateType, action: actionType): stateType => {
     case "bieneClickIncrease": {
       return {
         ...state,
-        biene: { clickCounter: state.biene.clickCounter + 1 },
+        biene: { ...state.biene, clickCounter: state.biene.clickCounter + 1 },
+      };
+    }
+
+    case "bieneClickDecrease": {
+      return {
+        ...state,
+        biene: { ...state.biene, clickCounter: state.biene.clickCounter - action.payload },
+      };
+    }
+
+    case "rotateSpeedLevelIncrease": {
+      return {
+        ...state,
+        biene: {
+          ...state.biene,
+          rotateSpeedLevel: state.biene.rotateSpeedLevel + 1,
+        },
       };
     }
   }
