@@ -20,6 +20,7 @@ Mark Oude Elberink
 
 - Store (mit geklickten Bienen)
 - Kaufbare Drehgeschwindigkeits Level
+- Kaufbare Weitere Bienen
 
 ### [0.3.0] Kuchen :cake:
 
