@@ -125,6 +125,20 @@ const Home: React.FC = () => {
                 />
               </div>
             </IonCol>
+            {state.biene.additionalBienen.map(()=>(
+              <IonCol size="auto">
+              <div className="ion-text-center">
+                <img
+                  onClick={() => {
+                    setRotation(true);
+                  }}
+                  className={rotation ? rotateSpeedLevel.levels[state.biene.rotateSpeedLevel].class : "biene"}
+                  src={biene}
+                  alt=""
+                />
+              </div>
+            </IonCol>
+            ))}
           </IonRow>
           <IonRow>
             <IonCol>

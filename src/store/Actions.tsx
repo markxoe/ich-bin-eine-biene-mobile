@@ -1,4 +1,4 @@
-import { actionType, stateType } from "./types";
+import { actionType, bieneTypes, stateType } from "./types";
 
 /**
  * Überschreibt den derzeitigen State
@@ -43,4 +43,9 @@ export const ActionRotateSpeedLevelIncrease = (): actionType => ({type:"rotateSp
 export const ActionBieneClickDecrease = (levels:number = 1):actionType => ({
   type: "bieneClickDecrease",
   payload:levels
+})
+
+export const ActionBieneAddAdditional = (type:number = bieneTypes.bee):actionType => ({
+  type:"bieneAdditionalAdd",
+  payload:type
 })

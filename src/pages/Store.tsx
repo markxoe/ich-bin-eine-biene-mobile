@@ -17,8 +17,9 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { AppContext, saveState } from "../store/State";
-import { rotateSpeedLevel } from "../globals";
+import { additionalBeePrice, rotateSpeedLevel } from "../globals";
 import {
+  ActionBieneAddAdditional,
   ActionBieneClickDecrease,
   ActionBieneClickIncrease,
   ActionRotateSpeedLevelIncrease,
@@ -52,6 +53,12 @@ const StorePage: React.FC = () => {
                 {state.biene.rotateSpeedLevel}/{rotateSpeedLevel.max}
               </IonText>
             </IonItem>
+            <IonItem>
+              Weitere Bienen
+              <IonText slot="end">
+                {state.biene.additionalBienen.length}
+              </IonText>
+            </IonItem>
           </IonCardContent>
         </IonCard>
         <IonCard>
@@ -63,6 +70,16 @@ const StorePage: React.FC = () => {
               onClick={() => {dispatch(ActionRotateSpeedLevelIncrease());dispatch(ActionBieneClickDecrease(rotateSpeedLevel.price))}}
               disabled={!(state.biene.rotateSpeedLevel < (rotateSpeedLevel.max))||(state.biene.clickCounter<rotateSpeedLevel.price)}
   >Level {state.biene.rotateSpeedLevel+1} Kaufen</IonButton>
+          </IonCardContent>
+        </IonCard>
+        <IonCard>
+          <IonCardHeader>
+            <IonCardTitle>
+              Weitere Bienen
+            </IonCardTitle>
+          </IonCardHeader>
+          <IonCardContent>
+            <IonButton onClick={()=>{dispatch(ActionBieneAddAdditional());dispatch(ActionBieneClickDecrease(additionalBeePrice))}} disabled={state.biene.clickCounter<additionalBeePrice}>Neue Biene kaufen</IonButton>
           </IonCardContent>
         </IonCard>
       </IonContent>

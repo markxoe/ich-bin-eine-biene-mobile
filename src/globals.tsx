@@ -14,3 +14,5 @@ export const rotateSpeedLevel = {
 export const BeePrices = {
   speedLevel:20
 }
+
+export const additionalBeePrice = 100;
