@@ -11,9 +11,11 @@ export const ActionSetState = (newState: stateType): actionType => ({
 
 /**
  * Wenn die Biene geklickt wird
+ * @param amount Anzahl der Klicks
  */
-export const ActionBieneClickIncrease = (): actionType => ({
+export const ActionBieneClickIncrease = (amount: number = 1): actionType => ({
   type: "bieneClickIncrease",
+  payload: amount,
 });
 
 /**

@@ -35,7 +35,7 @@ let reducer = (state: stateType, action: actionType): stateType => {
     case "bieneClickIncrease": {
       return {
         ...state,
-        biene: { ...state.biene, clickCounter: state.biene.clickCounter + 1 },
+        biene: { ...state.biene, clickCounter: state.biene.clickCounter + action.payload },
       };
     }
 

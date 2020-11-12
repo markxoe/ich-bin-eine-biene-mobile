@@ -125,7 +125,7 @@ const Home: React.FC = () => {
                   alt=""
                   onAnimationEnd={() => {
                     setRotation(false);
-                    dispatch(ActionBieneClickIncrease());
+                    dispatch(ActionBieneClickIncrease(1+state.biene.additionalBienen.length));
                   }}
                 />
               </div>
