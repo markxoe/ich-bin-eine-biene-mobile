@@ -16,7 +16,12 @@ const initialState: stateType = {
 let reducer = (state: stateType, action: actionType): stateType => {
   switch (action.type) {
     case "setState": {
-      return { ...state, ...action.payload };
+      return {
+        ...state,
+        ...action.payload,
+        biene: { ...state.biene, ...action.payload.biene },
+        settings: { ...state.settings, ...action.payload.settings },
+      };
     }
 
     case "setDataLoaded": {
@@ -37,7 +42,10 @@ let reducer = (state: stateType, action: actionType): stateType => {
     case "bieneClickDecrease": {
       return {
         ...state,
-        biene: { ...state.biene, clickCounter: state.biene.clickCounter - action.payload },
+        biene: {
+          ...state.biene,
+          clickCounter: state.biene.clickCounter - action.payload,
+        },
       };
     }
 
