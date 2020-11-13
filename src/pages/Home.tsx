@@ -45,7 +45,7 @@ const Home: React.FC = () => {
   const [rotation, setRotation] = useState<boolean>(false);
   const { state, dispatch } = useContext(AppContext);
   const history = useHistory();
-  const [canBuy,setCanBuy] = useState<boolean>(false);
+  const [canBuy, setCanBuy] = useState<boolean>(false);
   useIonViewWillEnter(async () => {
     if (isPlatform("capacitor"))
       StatusBar.setStyle({ style: StatusBarStyle.Dark });
@@ -76,7 +76,10 @@ const Home: React.FC = () => {
 
   // Save current State everytime the state changes
   useEffect(() => {
-    setCanBuy((state.biene.clickCounter>getAdditionalBeePrice(state.biene.additionalBienen.length)));
+    setCanBuy(
+      state.biene.clickCounter >
+        getAdditionalBeePrice(state.biene.additionalBienen.length)
+    );
     if (state.dataLoadedFromMemory) saveState(state);
   }, [state]);
 
@@ -127,7 +130,11 @@ const Home: React.FC = () => {
                   alt=""
                   onAnimationEnd={() => {
                     setRotation(false);
-                    dispatch(ActionBieneClickIncrease(1+state.biene.additionalBienen.length));
+                    dispatch(
+                      ActionBieneClickIncrease(
+                        1 + state.biene.additionalBienen.length
+                      )
+                    );
                   }}
                 />
               </div>
@@ -164,7 +171,11 @@ const Home: React.FC = () => {
                     gemacht
                   </h3>
                   {/* <IonButton routerLink="/store">Store</IonButton> */}
-                  {canBuy?(<IonChip>Du kannst dir was im Store kaufen</IonChip>):""}
+                  {canBuy ? (
+                    <IonChip>Du kannst dir was im Store kaufen</IonChip>
+                  ) : (
+                    ""
+                  )}
                 </IonCardContent>
               </IonCard>
             </IonCol>
@@ -172,8 +183,7 @@ const Home: React.FC = () => {
             <IonCol
               size="12"
               sizeSm="auto"
-              hidden={!state.settings.clickButtonForBee}
-            >
+              hidden={!state.settings.clickButtonForBee}>
               <IonCard>
                 <IonCardContent>
                   <IonButton onClick={() => setRotation(true)}>
@@ -185,7 +195,9 @@ const Home: React.FC = () => {
           </IonRow>
         </IonGrid>
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton color={canBuy?"success":"primary"} routerLink="/store">
+          <IonFabButton
+            color={canBuy ? "success" : "primary"}
+            routerLink="/store">
             <IonIcon icon={storefront} />
           </IonFabButton>
         </IonFab>

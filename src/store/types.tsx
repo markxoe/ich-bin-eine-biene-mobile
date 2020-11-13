@@ -3,7 +3,7 @@ export interface stateType {
   biene: {
     clickCounter: number;
     rotateSpeedLevel: number;
-    additionalBienen:number[];
+    additionalBienen: number[];
   };
   settings: {
     clickButtonForBee: boolean;
@@ -20,7 +20,6 @@ export interface ContextType {
   dispatch: React.Dispatch<actionType>;
 }
 
-
 export const bieneTypes = {
-  bee:1
-}
+  bee: 1,
+};

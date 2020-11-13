@@ -36,27 +36,31 @@ export const ActionSettingsSetClickButtonForBee = (
 /**
  * Erhöht das Level der Bienen Geschwindigkeit
  */
-export const ActionRotateSpeedLevelIncrease = (): actionType => ({type:"rotateSpeedLevelIncrease"});
+export const ActionRotateSpeedLevelIncrease = (): actionType => ({
+  type: "rotateSpeedLevelIncrease",
+});
 
 /**
  * Erniedrigt das Level der Bienenclicks
  * @param levels Anzahl
  */
-export const ActionBieneClickDecrease = (levels:number = 1):actionType => ({
+export const ActionBieneClickDecrease = (levels: number = 1): actionType => ({
   type: "bieneClickDecrease",
-  payload:levels
-})
+  payload: levels,
+});
 
-export const ActionBieneAddAdditional = (type:number = bieneTypes.bee):actionType => ({
-  type:"bieneAdditionalAdd",
-  payload:type
-})
+export const ActionBieneAddAdditional = (
+  type: number = bieneTypes.bee
+): actionType => ({
+  type: "bieneAdditionalAdd",
+  payload: type,
+});
 
 export const ActionMakeMeAPresent = () => ActionBieneClickIncrease(200);
 
 /**
  * Resette den State aufs unsprüngliche
  */
-export const ActionResetState = ():actionType => ({
-  type:"resetState"
-})
+export const ActionResetState = (): actionType => ({
+  type: "resetState",
+});

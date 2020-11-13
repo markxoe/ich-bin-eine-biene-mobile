@@ -21,7 +21,10 @@ import packagejs from "../../package.json";
 import biene from "../res/biene.png";
 import { useHistory } from "react-router";
 import { AppContext, saveState } from "../store/State";
-import { ActionResetState, ActionSettingsSetClickButtonForBee } from "../store/Actions";
+import {
+  ActionResetState,
+  ActionSettingsSetClickButtonForBee,
+} from "../store/Actions";
 
 const PageSettings: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);

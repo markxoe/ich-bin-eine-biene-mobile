@@ -35,8 +35,8 @@ const App: React.FC = () => (
           <Route exact path="/" render={() => <Redirect to="/home" />} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/settings" component={PageSettings} />
-          <Route exact path="/intro" component={PageIntro}/>
-          <Route exact path="/store" component={StorePage}/>
+          <Route exact path="/intro" component={PageIntro} />
+          <Route exact path="/store" component={StorePage} />
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>

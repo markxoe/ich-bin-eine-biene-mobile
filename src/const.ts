@@ -1,1 +1,1 @@
-export const StoreKeyPrefix = "ichbineinebiene."
+export const StoreKeyPrefix = "ichbineinebiene.";

@@ -21,25 +21,33 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { AppContext } from "../store/State";
-import { getAdditionalBeePrice, getRotateSpeedLevelPrice, rotateSpeedLevel } from "../globals";
+import {
+  getAdditionalBeePrice,
+  getRotateSpeedLevelPrice,
+  rotateSpeedLevel,
+} from "../globals";
 import {
   ActionBieneAddAdditional,
   ActionBieneClickDecrease,
   ActionMakeMeAPresent,
   ActionRotateSpeedLevelIncrease,
 } from "../store/Actions";
-import { RefresherEventDetail } from '@ionic/core';
-import { chevronDownCircleOutline, flashOutline } from "ionicons/icons"
+import { RefresherEventDetail } from "@ionic/core";
+import { chevronDownCircleOutline, flashOutline } from "ionicons/icons";
 
 const StorePage: React.FC = () => {
-  const [showThx,setShowThx] = useState<boolean>(false);
+  const [showThx, setShowThx] = useState<boolean>(false);
   const { state, dispatch } = useContext(AppContext);
-  const additionalBeePrice = getAdditionalBeePrice(state.biene.additionalBienen.length);
-  const rotateSpeedLevelPrice = getRotateSpeedLevelPrice(state.biene.rotateSpeedLevel);
+  const additionalBeePrice = getAdditionalBeePrice(
+    state.biene.additionalBienen.length
+  );
+  const rotateSpeedLevelPrice = getRotateSpeedLevelPrice(
+    state.biene.rotateSpeedLevel
+  );
 
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
-    console.log('Begin async operation');
-  
+    console.log("Begin async operation");
+
     setTimeout(() => {
       dispatch(ActionMakeMeAPresent());
       event.detail.complete();
@@ -62,8 +70,7 @@ const StorePage: React.FC = () => {
             pullingIcon={flashOutline}
             pullingText="Hier könnte deine Werbung sein!"
             refreshingSpinner="crescent"
-            refreshingText="Ein kleines Geschenk">
-          </IonRefresherContent>
+            refreshingText="Ein kleines Geschenk"></IonRefresherContent>
         </IonRefresher>
         <IonCard>
           <IonCardHeader>
@@ -100,8 +107,7 @@ const StorePage: React.FC = () => {
             disabled={
               !(state.biene.rotateSpeedLevel < rotateSpeedLevel.max) ||
               state.biene.clickCounter < rotateSpeedLevelPrice
-            }
-          >
+            }>
             Level {state.biene.rotateSpeedLevel + 1} Kaufen
           </IonButton>
           <IonText slot="end">Preis: {rotateSpeedLevelPrice}</IonText>
@@ -134,8 +140,7 @@ const StorePage: React.FC = () => {
               dispatch(ActionBieneClickDecrease(additionalBeePrice));
               setShowThx(true);
             }}
-            disabled={state.biene.clickCounter < additionalBeePrice}
-          >
+            disabled={state.biene.clickCounter < additionalBeePrice}>
             Neue Biene kaufen
           </IonButton>
           <IonText slot="end">Preis: {additionalBeePrice}</IonText>
@@ -144,7 +149,7 @@ const StorePage: React.FC = () => {
           Weitere Bienen
           <IonText slot="end">{state.biene.additionalBienen.length}/∞</IonText>
         </IonItem>
-        
+
         <IonItem>
           <IonProgressBar
             color={
@@ -155,13 +160,19 @@ const StorePage: React.FC = () => {
             value={Math.min(state.biene.clickCounter / additionalBeePrice, 1.0)}
           />
         </IonItem>
-        <IonToast isOpen={showThx} message="Danke für den Kauf!" buttons={[{
-            text: 'Bitte!',
-            role: 'cancel',
-            handler: () => {
-              setShowThx(false);
-            }
-          }]} />
+        <IonToast
+          isOpen={showThx}
+          message="Danke für den Kauf!"
+          buttons={[
+            {
+              text: "Bitte!",
+              role: "cancel",
+              handler: () => {
+                setShowThx(false);
+              },
+            },
+          ]}
+        />
       </IonContent>
     </IonPage>
   );
