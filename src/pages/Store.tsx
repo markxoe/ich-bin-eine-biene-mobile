@@ -18,7 +18,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { AppContext } from "../store/State";
-import { additionalBeePrice, rotateSpeedLevel } from "../globals";
+import { getAdditionalBeePrice, rotateSpeedLevel } from "../globals";
 import {
   ActionBieneAddAdditional,
   ActionBieneClickDecrease,
@@ -27,6 +27,7 @@ import {
 
 const StorePage: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
+  const additionalBeePrice = getAdditionalBeePrice(state.biene.additionalBienen.length);
   return (
     <IonPage>
       <IonHeader>

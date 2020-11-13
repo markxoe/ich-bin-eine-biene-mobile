@@ -15,4 +15,6 @@ export const BeePrices = {
   speedLevel:20
 }
 
-export const additionalBeePrice = 100;
+export const getAdditionalBeePrice = (level:number) => {
+  return (level*(level*0.2))*100+500;
+}
