@@ -5,6 +5,7 @@ import {
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
+  IonChip,
   IonCol,
   IonContent,
   IonFab,
@@ -36,7 +37,7 @@ import {
 import { Plugins, Storage, StatusBarStyle } from "@capacitor/core";
 import { StoreKeyPrefix } from "../const";
 import { useHistory } from "react-router";
-import { rotateSpeedLevel } from "../globals";
+import { getAdditionalBeePrice, rotateSpeedLevel } from "../globals";
 
 const { SplashScreen, StatusBar } = Plugins;
 
@@ -44,7 +45,7 @@ const Home: React.FC = () => {
   const [rotation, setRotation] = useState<boolean>(false);
   const { state, dispatch } = useContext(AppContext);
   const history = useHistory();
-
+  const [canBuy,setCanBuy] = useState<boolean>(false);
   useIonViewWillEnter(async () => {
     if (isPlatform("capacitor"))
       StatusBar.setStyle({ style: StatusBarStyle.Dark });
@@ -75,6 +76,7 @@ const Home: React.FC = () => {
 
   // Save current State everytime the state changes
   useEffect(() => {
+    setCanBuy((state.biene.clickCounter>getAdditionalBeePrice(state.biene.additionalBienen.length)));
     if (state.dataLoadedFromMemory) saveState(state);
   }, [state]);
 
@@ -162,6 +164,7 @@ const Home: React.FC = () => {
                     gemacht
                   </h3>
                   {/* <IonButton routerLink="/store">Store</IonButton> */}
+                  {canBuy?(<IonChip>Du kannst dir was im Store kaufen</IonChip>):""}
                 </IonCardContent>
               </IonCard>
             </IonCol>
@@ -182,7 +185,7 @@ const Home: React.FC = () => {
           </IonRow>
         </IonGrid>
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton routerLink="/store">
+          <IonFabButton color={canBuy?"success":"primary"} routerLink="/store">
             <IonIcon icon={storefront} />
           </IonFabButton>
         </IonFab>
