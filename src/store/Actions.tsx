@@ -1,4 +1,4 @@
-import { actionType, stateType } from "./types";
+import { actionType, bieneTypes, stateType } from "./types";
 
 /**
  * Überschreibt den derzeitigen State
@@ -11,9 +11,11 @@ export const ActionSetState = (newState: stateType): actionType => ({
 
 /**
  * Wenn die Biene geklickt wird
+ * @param amount Anzahl der Klicks
  */
-export const ActionBieneClickIncrease = (): actionType => ({
+export const ActionBieneClickIncrease = (amount: number = 1): actionType => ({
   type: "bieneClickIncrease",
+  payload: amount,
 });
 
 /**
@@ -30,3 +32,35 @@ export const ActionDataLoadedFromMemory = (): actionType => ({
 export const ActionSettingsSetClickButtonForBee = (
   activated: boolean
 ): actionType => ({ type: "setclickButtonForBee", payload: activated });
+
+/**
+ * Erhöht das Level der Bienen Geschwindigkeit
+ */
+export const ActionRotateSpeedLevelIncrease = (): actionType => ({
+  type: "rotateSpeedLevelIncrease",
+});
+
+/**
+ * Erniedrigt das Level der Bienenclicks
+ * @param levels Anzahl
+ */
+export const ActionBieneClickDecrease = (levels: number = 1): actionType => ({
+  type: "bieneClickDecrease",
+  payload: levels,
+});
+
+export const ActionBieneAddAdditional = (
+  type: number = bieneTypes.bee
+): actionType => ({
+  type: "bieneAdditionalAdd",
+  payload: type,
+});
+
+export const ActionMakeMeAPresent = () => ActionBieneClickIncrease(200);
+
+/**
+ * Resette den State aufs unsprüngliche
+ */
+export const ActionResetState = (): actionType => ({
+  type: "resetState",
+});

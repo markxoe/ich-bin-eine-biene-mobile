@@ -5,8 +5,11 @@ import {
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
+  IonChip,
   IonCol,
   IonContent,
+  IonFab,
+  IonFabButton,
   IonGrid,
   IonHeader,
   IonIcon,
@@ -18,7 +21,7 @@ import {
   useIonViewWillEnter,
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
-import { settingsOutline } from "ionicons/icons";
+import { settingsOutline, storefront } from "ionicons/icons";
 import "./Home.css";
 
 import biene from "../res/biene.png";
@@ -31,19 +34,21 @@ import {
   ActionSetState,
 } from "../store/Actions";
 
-import { Plugins, Storage,StatusBarStyle } from "@capacitor/core";
+import { Plugins, Storage, StatusBarStyle } from "@capacitor/core";
 import { StoreKeyPrefix } from "../const";
 import { useHistory } from "react-router";
+import { getAdditionalBeePrice, rotateSpeedLevel } from "../globals";
 
-const { SplashScreen,StatusBar } = Plugins;
+const { SplashScreen, StatusBar } = Plugins;
 
 const Home: React.FC = () => {
   const [rotation, setRotation] = useState<boolean>(false);
   const { state, dispatch } = useContext(AppContext);
   const history = useHistory();
-
+  const [canBuy, setCanBuy] = useState<boolean>(false);
   useIonViewWillEnter(async () => {
-    if(isPlatform("capacitor")) StatusBar.setStyle({style:StatusBarStyle.Dark})
+    if (isPlatform("capacitor"))
+      StatusBar.setStyle({ style: StatusBarStyle.Dark });
     await Storage.get({ key: StoreKeyPrefix + "introdone" }).then((result) => {
       if (result.value !== "Done") {
         history.push("/intro");
@@ -55,6 +60,7 @@ const Home: React.FC = () => {
       if (result && result.value) {
         const res = JSON.parse(result.value);
         dispatch(ActionSetState(res));
+        console.log(res);
       } else {
         console.log("No State in Memory");
       }
@@ -70,6 +76,10 @@ const Home: React.FC = () => {
 
   // Save current State everytime the state changes
   useEffect(() => {
+    setCanBuy(
+      state.biene.clickCounter >
+        getAdditionalBeePrice(state.biene.additionalBienen.length)
+    );
     if (state.dataLoadedFromMemory) saveState(state);
   }, [state]);
 
@@ -79,6 +89,9 @@ const Home: React.FC = () => {
         <IonToolbar>
           <IonTitle>Ich bin eine Biene</IonTitle>
           <IonButtons collapse slot="end">
+            {/* <IonButton routerLink="/store" color="primary">
+              <IonIcon icon={storefrontOutline} />
+            </IonButton> */}
             <IonButton routerLink="/settings" color="primary">
               <IonIcon icon={settingsOutline} />
             </IonButton>
@@ -90,6 +103,9 @@ const Home: React.FC = () => {
           <IonToolbar>
             <IonTitle size="large">Ich bin eine Biene</IonTitle>
             <IonButtons slot="end">
+              {/* <IonButton routerLink="/store" color="primary">
+                <IonIcon icon={storefrontOutline} />
+              </IonButton> */}
               <IonButton routerLink="/settings" color="primary">
                 <IonIcon icon={settingsOutline} />
               </IonButton>
@@ -104,16 +120,44 @@ const Home: React.FC = () => {
                   onClick={() => {
                     setRotation(true);
                   }}
-                  className={rotation ? "bienerotate" : "biene"}
+                  className={
+                    rotation
+                      ? rotateSpeedLevel.levels[state.biene.rotateSpeedLevel]
+                          .class
+                      : "biene"
+                  }
                   src={biene}
                   alt=""
                   onAnimationEnd={() => {
                     setRotation(false);
-                    dispatch(ActionBieneClickIncrease());
+                    dispatch(
+                      ActionBieneClickIncrease(
+                        1 + state.biene.additionalBienen.length
+                      )
+                    );
                   }}
                 />
               </div>
             </IonCol>
+            {state.biene.additionalBienen.map(() => (
+              <IonCol size="auto">
+                <div className="ion-text-center">
+                  <img
+                    onClick={() => {
+                      setRotation(true);
+                    }}
+                    className={
+                      rotation
+                        ? rotateSpeedLevel.levels[state.biene.rotateSpeedLevel]
+                            .class
+                        : "biene"
+                    }
+                    src={biene}
+                    alt=""
+                  />
+                </div>
+              </IonCol>
+            ))}
           </IonRow>
           <IonRow>
             <IonCol>
@@ -126,6 +170,12 @@ const Home: React.FC = () => {
                     Deine Biene hat schon {state.biene.clickCounter} Saltos
                     gemacht
                   </h3>
+                  {/* <IonButton routerLink="/store">Store</IonButton> */}
+                  {canBuy ? (
+                    <IonChip>Du kannst dir was im Store kaufen</IonChip>
+                  ) : (
+                    ""
+                  )}
                 </IonCardContent>
               </IonCard>
             </IonCol>
@@ -133,8 +183,7 @@ const Home: React.FC = () => {
             <IonCol
               size="12"
               sizeSm="auto"
-              hidden={!state.settings.clickButtonForBee}
-            >
+              hidden={!state.settings.clickButtonForBee}>
               <IonCard>
                 <IonCardContent>
                   <IonButton onClick={() => setRotation(true)}>
@@ -145,6 +194,13 @@ const Home: React.FC = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
+        <IonFab vertical="bottom" horizontal="end" slot="fixed">
+          <IonFabButton
+            color={canBuy ? "success" : "primary"}
+            routerLink="/store">
+            <IonIcon icon={storefront} />
+          </IonFabButton>
+        </IonFab>
       </IonContent>
     </IonPage>
   );

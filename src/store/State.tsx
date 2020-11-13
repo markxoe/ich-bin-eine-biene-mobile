@@ -7,7 +7,7 @@ let AppContext = React.createContext<ContextType>({} as ContextType);
 
 const initialState: stateType = {
   dataLoadedFromMemory: false,
-  biene: { clickCounter: 0 },
+  biene: { clickCounter: 0, rotateSpeedLevel: 0, additionalBienen: [] },
   settings: {
     clickButtonForBee: false,
   },
@@ -16,7 +16,16 @@ const initialState: stateType = {
 let reducer = (state: stateType, action: actionType): stateType => {
   switch (action.type) {
     case "setState": {
-      return { ...state, ...action.payload };
+      return {
+        ...state,
+        ...action.payload,
+        biene: { ...state.biene, ...action.payload.biene },
+        settings: { ...state.settings, ...action.payload.settings },
+      };
+    }
+
+    case "resetState": {
+      return initialState;
     }
 
     case "setDataLoaded": {
@@ -30,7 +39,40 @@ let reducer = (state: stateType, action: actionType): stateType => {
     case "bieneClickIncrease": {
       return {
         ...state,
-        biene: { clickCounter: state.biene.clickCounter + 1 },
+        biene: {
+          ...state.biene,
+          clickCounter: state.biene.clickCounter + action.payload,
+        },
+      };
+    }
+
+    case "bieneClickDecrease": {
+      return {
+        ...state,
+        biene: {
+          ...state.biene,
+          clickCounter: state.biene.clickCounter - action.payload,
+        },
+      };
+    }
+
+    case "rotateSpeedLevelIncrease": {
+      return {
+        ...state,
+        biene: {
+          ...state.biene,
+          rotateSpeedLevel: state.biene.rotateSpeedLevel + 1,
+        },
+      };
+    }
+
+    case "bieneAdditionalAdd": {
+      return {
+        ...state,
+        biene: {
+          ...state.biene,
+          additionalBienen: state.biene.additionalBienen.concat(action.payload),
+        },
       };
     }
   }

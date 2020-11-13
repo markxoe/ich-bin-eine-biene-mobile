@@ -15,9 +15,11 @@ import { StoreKeyPrefix } from "../const";
 
 const PageIntro: React.FC = () => {
   const history = useHistory();
-  const doneIntro = () =>{
-    Storage.set({key:StoreKeyPrefix+"introdone",value:"Done"}).then(()=>history.push("/home"));
-  }
+  const doneIntro = () => {
+    Storage.set({ key: StoreKeyPrefix + "introdone", value: "Done" }).then(() =>
+      history.push("/home")
+    );
+  };
   return (
     <IonPage>
       <IonContent>
@@ -32,8 +34,7 @@ const PageIntro: React.FC = () => {
               },
             },
           }}
-          className="height-full"
-        >
+          className="height-full">
           <IonSlide className="ion-padding">
             <div>
               <h1>Willkommen...</h1>
@@ -52,7 +53,9 @@ const PageIntro: React.FC = () => {
           <IonSlide className="ion-padding">
             <div>
               <h1>Ich bin eine Biene</h1>
-              <IonButton color="tertiary" onClick={()=>doneIntro()}>Prost!</IonButton>
+              <IonButton color="tertiary" onClick={() => doneIntro()}>
+                Prost!
+              </IonButton>
             </div>
           </IonSlide>
         </IonSlides>
