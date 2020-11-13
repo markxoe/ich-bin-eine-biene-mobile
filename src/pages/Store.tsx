@@ -18,7 +18,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { AppContext } from "../store/State";
-import { getAdditionalBeePrice, rotateSpeedLevel } from "../globals";
+import { getAdditionalBeePrice, getRotateSpeedLevelPrice, rotateSpeedLevel } from "../globals";
 import {
   ActionBieneAddAdditional,
   ActionBieneClickDecrease,
@@ -28,6 +28,7 @@ import {
 const StorePage: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
   const additionalBeePrice = getAdditionalBeePrice(state.biene.additionalBienen.length);
+  const rotateSpeedLevelPrice = getRotateSpeedLevelPrice(state.biene.rotateSpeedLevel);
   return (
     <IonPage>
       <IonHeader>
@@ -68,11 +69,11 @@ const StorePage: React.FC = () => {
           <IonButton
             onClick={() => {
               dispatch(ActionRotateSpeedLevelIncrease());
-              dispatch(ActionBieneClickDecrease(rotateSpeedLevel.price));
+              dispatch(ActionBieneClickDecrease(rotateSpeedLevelPrice));
             }}
             disabled={
               !(state.biene.rotateSpeedLevel < rotateSpeedLevel.max) ||
-              state.biene.clickCounter < rotateSpeedLevel.price
+              state.biene.clickCounter < rotateSpeedLevelPrice
             }
           >
             Level {state.biene.rotateSpeedLevel + 1} Kaufen
@@ -85,16 +86,16 @@ const StorePage: React.FC = () => {
           </IonText>
         </IonItem>
         <IonItem>
-          <IonText>Preis: {rotateSpeedLevel.price}</IonText>
+          <IonText>Preis: {rotateSpeedLevelPrice}</IonText>
         </IonItem>
         <IonItem>
           <IonProgressBar
             value={Math.min(
-              state.biene.clickCounter / rotateSpeedLevel.price,
+              state.biene.clickCounter / rotateSpeedLevelPrice,
               1.0
             )}
             color={
-              state.biene.clickCounter < rotateSpeedLevel.price
+              state.biene.clickCounter < rotateSpeedLevelPrice
                 ? "danger"
                 : "success"
             }

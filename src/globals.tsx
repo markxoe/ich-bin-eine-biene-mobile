@@ -1,9 +1,11 @@
 export const rotateSpeedLevelClasses = [".bienerotate",".bienerotate-level-2",".bienerotate-level-3"];
 export const rotateSpeedLevelMax = 3;
 
+export const getRotateSpeedLevelPrice = (level:number) => {
+  return (level*200)+100;
+}
 export const rotateSpeedLevel = {
   max:2,
-  price:30,
   levels:[
     {class:"bienerotate"},
     {class:"bienerotate-level-2"},
