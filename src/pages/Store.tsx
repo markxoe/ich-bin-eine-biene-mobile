@@ -13,6 +13,8 @@ import {
   IonItemDivider,
   IonPage,
   IonProgressBar,
+  IonRefresher,
+  IonRefresherContent,
   IonText,
   IonTitle,
   IonToolbar,
@@ -22,13 +24,26 @@ import { getAdditionalBeePrice, getRotateSpeedLevelPrice, rotateSpeedLevel } fro
 import {
   ActionBieneAddAdditional,
   ActionBieneClickDecrease,
+  ActionMakeMeAPresent,
   ActionRotateSpeedLevelIncrease,
 } from "../store/Actions";
+import { RefresherEventDetail } from '@ionic/core';
+import { chevronDownCircleOutline, flashOutline } from "ionicons/icons"
 
 const StorePage: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
   const additionalBeePrice = getAdditionalBeePrice(state.biene.additionalBienen.length);
   const rotateSpeedLevelPrice = getRotateSpeedLevelPrice(state.biene.rotateSpeedLevel);
+
+  function doRefresh(event: CustomEvent<RefresherEventDetail>) {
+    console.log('Begin async operation');
+  
+    setTimeout(() => {
+      dispatch(ActionMakeMeAPresent());
+      event.detail.complete();
+    }, 10000);
+  }
+
   return (
     <IonPage>
       <IonHeader>
@@ -40,6 +55,14 @@ const StorePage: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
+        <IonRefresher slot="fixed" pullMin={400} onIonRefresh={doRefresh}>
+          <IonRefresherContent
+            pullingIcon={flashOutline}
+            pullingText="Hier könnte deine Werbung sein!"
+            refreshingSpinner="crescent"
+            refreshingText="Ein kleines Geschenk">
+          </IonRefresherContent>
+        </IonRefresher>
         <IonCard>
           <IonCardHeader>
             <IonCardTitle>Kontostand</IonCardTitle>

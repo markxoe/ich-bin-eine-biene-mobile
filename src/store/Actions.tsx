@@ -51,3 +51,5 @@ export const ActionBieneAddAdditional = (type:number = bieneTypes.bee):actionTyp
   type:"bieneAdditionalAdd",
   payload:type
 })
+
+export const ActionMakeMeAPresent = () => ActionBieneClickIncrease(200);
