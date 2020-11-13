@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   IonBackButton,
   IonButton,
@@ -17,6 +17,7 @@ import {
   IonRefresherContent,
   IonText,
   IonTitle,
+  IonToast,
   IonToolbar,
 } from "@ionic/react";
 import { AppContext } from "../store/State";
@@ -31,6 +32,7 @@ import { RefresherEventDetail } from '@ionic/core';
 import { chevronDownCircleOutline, flashOutline } from "ionicons/icons"
 
 const StorePage: React.FC = () => {
+  const [showThx,setShowThx] = useState<boolean>(false);
   const { state, dispatch } = useContext(AppContext);
   const additionalBeePrice = getAdditionalBeePrice(state.biene.additionalBienen.length);
   const rotateSpeedLevelPrice = getRotateSpeedLevelPrice(state.biene.rotateSpeedLevel);
@@ -93,6 +95,7 @@ const StorePage: React.FC = () => {
             onClick={() => {
               dispatch(ActionRotateSpeedLevelIncrease());
               dispatch(ActionBieneClickDecrease(rotateSpeedLevelPrice));
+              setShowThx(true);
             }}
             disabled={
               !(state.biene.rotateSpeedLevel < rotateSpeedLevel.max) ||
@@ -129,6 +132,7 @@ const StorePage: React.FC = () => {
             onClick={() => {
               dispatch(ActionBieneAddAdditional());
               dispatch(ActionBieneClickDecrease(additionalBeePrice));
+              setShowThx(true);
             }}
             disabled={state.biene.clickCounter < additionalBeePrice}
           >
@@ -151,6 +155,13 @@ const StorePage: React.FC = () => {
             value={Math.min(state.biene.clickCounter / additionalBeePrice, 1.0)}
           />
         </IonItem>
+        <IonToast isOpen={showThx} message="Danke für den Kauf!" buttons={[{
+            text: 'Bitte!',
+            role: 'cancel',
+            handler: () => {
+              setShowThx(false);
+            }
+          }]} />
       </IonContent>
     </IonPage>
   );
