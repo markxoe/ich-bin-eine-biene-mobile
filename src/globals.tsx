@@ -18,5 +18,5 @@ export const BeePrices = {
 }
 
 export const getAdditionalBeePrice = (level:number) => {
-  return (level*(level*0.2))*100+500;
+  return (level*(level*0.2))*100+200;
 }
