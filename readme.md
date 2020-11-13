@@ -16,7 +16,7 @@ Mark Oude Elberink
 
 ## Changelog
 
-### Bald: [0.4.0] Baum :christmas_tree:
+### Beta: [0.4.0] Baum :christmas_tree:
 
 - Store (mit geklickten Bienen)
 - Kaufbare Drehgeschwindigkeits Level
