@@ -21,8 +21,7 @@ import packagejs from "../../package.json";
 import biene from "../res/biene.png";
 import { useHistory } from "react-router";
 import { AppContext, saveState } from "../store/State";
-import { ActionSettingsSetClickButtonForBee } from "../store/Actions";
-import { Storage } from "@capacitor/core";
+import { ActionResetState, ActionSettingsSetClickButtonForBee } from "../store/Actions";
 
 const PageSettings: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -31,12 +30,8 @@ const PageSettings: React.FC = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if (state.dataLoadedFromMemory) saveState(state);
+    saveState(state);
   }, [state]);
-
-  const deleteAllData = () => {
-    Storage.clear();
-  };
 
   return (
     <IonPage>
@@ -99,7 +94,7 @@ const PageSettings: React.FC = () => {
               text: "Ja",
               role: "cancel",
               handler: () => {
-                deleteAllData();
+                dispatch(ActionResetState());
                 showdeleteAllAlert(false);
               },
             },

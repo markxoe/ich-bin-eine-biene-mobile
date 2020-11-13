@@ -53,3 +53,10 @@ export const ActionBieneAddAdditional = (type:number = bieneTypes.bee):actionTyp
 })
 
 export const ActionMakeMeAPresent = () => ActionBieneClickIncrease(200);
+
+/**
+ * Resette den State aufs unsprüngliche
+ */
+export const ActionResetState = ():actionType => ({
+  type:"resetState"
+})

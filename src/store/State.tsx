@@ -24,6 +24,10 @@ let reducer = (state: stateType, action: actionType): stateType => {
       };
     }
 
+    case "resetState": {
+      return initialState;
+    }
+
     case "setDataLoaded": {
       return { ...state, dataLoadedFromMemory: true };
     }
