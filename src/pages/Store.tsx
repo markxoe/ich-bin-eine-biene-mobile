@@ -78,15 +78,13 @@ const StorePage: React.FC = () => {
           >
             Level {state.biene.rotateSpeedLevel + 1} Kaufen
           </IonButton>
+          <IonText slot="end">Preis: {rotateSpeedLevelPrice}</IonText>
         </IonItem>
         <IonItem>
           Drehlevel
           <IonText slot="end">
             {state.biene.rotateSpeedLevel}/{rotateSpeedLevel.max}
           </IonText>
-        </IonItem>
-        <IonItem>
-          <IonText>Preis: {rotateSpeedLevelPrice}</IonText>
         </IonItem>
         <IonItem>
           <IonProgressBar
@@ -113,13 +111,13 @@ const StorePage: React.FC = () => {
           >
             Neue Biene kaufen
           </IonButton>
-          <br />
+          <IonText slot="end">Preis: {additionalBeePrice}</IonText>
         </IonItem>
         <IonItem>
           Weitere Bienen
           <IonText slot="end">{state.biene.additionalBienen.length}/∞</IonText>
         </IonItem>
-        <IonItem>Preis: {additionalBeePrice}</IonItem>
+        
         <IonItem>
           <IonProgressBar
             color={
