@@ -39,7 +39,7 @@ import { StoreKeyPrefix } from "../const";
 import { useHistory } from "react-router";
 import { getAdditionalBeePrice, rotateSpeedLevel } from "../globals";
 
-const { SplashScreen, StatusBar } = Plugins;
+const { SplashScreen, StatusBar, App } = Plugins;
 
 const Home: React.FC = () => {
   const [rotation, setRotation] = useState<boolean>(false);
@@ -49,8 +49,10 @@ const Home: React.FC = () => {
   useIonViewWillEnter(async () => {
     if (isPlatform("capacitor"))
       StatusBar.setStyle({ style: StatusBarStyle.Dark });
+    const url = await App.getLaunchUrl().then(url=>url.url);
+    console.log(url);
     await Storage.get({ key: StoreKeyPrefix + "introdone" }).then((result) => {
-      if (result.value !== "Done") {
+      if (result.value !== "Done" && !(url??"").includes("no-intro")) {
         history.push("/intro");
       }
     });
