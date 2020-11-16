@@ -1,9 +1,10 @@
 export const rotateSpeedLevel = {
-  max: 2,
+  max: 3,
   levels: [
     { class: "bienerotate" },
     { class: "bienerotate-level-2" },
     { class: "bienerotate-level-3" },
+    { class: "bienerotate-level-4" },
   ],
 };
 

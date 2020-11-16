@@ -56,7 +56,7 @@ export const ActionBieneAddAdditional = (
   payload: type,
 });
 
-export const ActionMakeMeAPresent = () => ActionBieneClickIncrease(200);
+export const ActionMakeMeAPresent = () => ActionBieneClickIncrease(2000);
 
 /**
  * Resette den State aufs unsprüngliche
