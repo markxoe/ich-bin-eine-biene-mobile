@@ -7,7 +7,7 @@ let AppContext = React.createContext<ContextType>({} as ContextType);
 
 const initialState: stateType = {
   dataLoadedFromMemory: false,
-  biene: { clickCounter: 0, rotateSpeedLevel: 0, additionalBienen: [] },
+  biene: { clickCounter: 0, rotateSpeedLevel: 0, additionalBienen: [], multiplierLevel:0 },
   settings: {
     clickButtonForBee: false,
   },
