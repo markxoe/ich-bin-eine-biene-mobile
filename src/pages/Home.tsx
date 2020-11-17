@@ -42,17 +42,20 @@ import { getAdditionalBeePrice, rotateSpeedLevel } from "../globals";
 const { SplashScreen, StatusBar, App } = Plugins;
 
 const Home: React.FC = () => {
-  const [rotation, setRotation] = useState<boolean>(false);
   const { state, dispatch } = useContext(AppContext);
   const history = useHistory();
+  const [rotation, setRotation] = useState<boolean>(false);
   const [canBuy, setCanBuy] = useState<boolean>(false);
+  
   useIonViewWillEnter(async () => {
     if (isPlatform("capacitor"))
       StatusBar.setStyle({ style: StatusBarStyle.Dark });
-    const url = await App.getLaunchUrl().then(url=>url.url);
+
+    const url = await App.getLaunchUrl().then((url) => url.url);
+
     console.log(url);
     await Storage.get({ key: StoreKeyPrefix + "introdone" }).then((result) => {
-      if (result.value !== "Done" && !(url??"").includes("no-intro")) {
+      if (result.value !== "Done" && !(url ?? "").includes("no-intro")) {
         history.push("/intro");
       }
     });

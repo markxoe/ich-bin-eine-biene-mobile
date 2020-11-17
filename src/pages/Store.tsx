@@ -36,8 +36,9 @@ import { RefresherEventDetail } from "@ionic/core";
 import { chevronDownCircleOutline, flashOutline } from "ionicons/icons";
 
 const StorePage: React.FC = () => {
-  const [showThx, setShowThx] = useState<boolean>(false);
   const { state, dispatch } = useContext(AppContext);
+  const [showThx, setShowThx] = useState<boolean>(false);
+
   const additionalBeePrice = getAdditionalBeePrice(
     state.biene.additionalBienen.length
   );

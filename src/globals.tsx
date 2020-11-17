@@ -8,7 +8,6 @@ export const rotateSpeedLevel = {
   ],
 };
 
-
 export const getRotateSpeedLevelPrice = (level: number): number => {
   return Math.round(level * 200 + 100);
 };
