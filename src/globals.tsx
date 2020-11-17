@@ -14,3 +14,6 @@ export const getRotateSpeedLevelPrice = (level: number): number => {
 export const getAdditionalBeePrice = (level: number): number => {
   return Math.round(level * (level * 0.2) * 100 + 200);
 };
+export const getMultiplierPrice = (level: number): number => {
+  return Math.round(level * 20 * (level * 20) + 5000);
+};
