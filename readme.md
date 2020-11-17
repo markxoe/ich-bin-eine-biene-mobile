@@ -16,7 +16,12 @@ Mark Oude Elberink
 
 ## Changelog
 
-### Beta: [0.4.0] Baum :christmas_tree:
+### [0.4.1] Baum: Patch 1
+
+- Bug Fix
+- Ein Speedlevel mehr
+
+### [0.4.0] Baum :christmas_tree:
 
 - Store (mit geklickten Bienen)
 - Kaufbare Drehgeschwindigkeits Level
