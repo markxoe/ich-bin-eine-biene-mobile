@@ -131,7 +131,8 @@ const Home: React.FC = () => {
                     setRotation(false);
                     dispatch(
                       ActionBieneClickIncrease(
-                        1 + state.biene.additionalBienen.length
+                        (1 + state.biene.additionalBienen.length) *
+                          (state.biene.multiplierLevel + 1)
                       )
                     );
                   }}
