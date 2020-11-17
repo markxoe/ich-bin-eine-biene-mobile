@@ -95,7 +95,6 @@ const PageSettings: React.FC = () => {
           buttons={[
             {
               text: "Ja",
-              role: "cancel",
               handler: () => {
                 dispatch(ActionResetState());
                 showdeleteAllAlert(false);
@@ -103,7 +102,6 @@ const PageSettings: React.FC = () => {
             },
             {
               text: "Nein",
-              role: "cancel",
               handler: () => {
                 showdeleteAllAlert(false);
               },
