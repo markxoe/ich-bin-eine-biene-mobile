@@ -46,6 +46,7 @@ const Home: React.FC = () => {
   const history = useHistory();
   const [rotation, setRotation] = useState<boolean>(false);
   const [canBuy, setCanBuy] = useState<boolean>(false);
+  const [save, refreshSave] = useState<boolean>(false);
   
   useIonViewWillEnter(async () => {
     if (isPlatform("capacitor"))
@@ -79,14 +80,29 @@ const Home: React.FC = () => {
     dispatch(ActionDataLoadedFromMemory());
   });
 
-  // Save current State everytime the state changes
+  // Refresh the CanBuy alert everytime the state changes
   useEffect(() => {
     setCanBuy(
       state.biene.clickCounter >
         getAdditionalBeePrice(state.biene.additionalBienen.length)
     );
-    if (state.dataLoadedFromMemory) saveState(state);
   }, [state]);
+
+  // Here comes the saving Part:
+  // useEfect 1: Refreshes the State "save" every 3 seconds
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      refreshSave((i) => !i);
+    }, 3000);
+    return () => {
+      window.clearInterval(timer);
+    };
+  }, []);
+
+  // useEffect 2 refreshes everytime "save" gets refreshed, so that it gets saved only every 3 seconds -> Performance!!!
+  useEffect(() => {
+    if (state.dataLoadedFromMemory) saveState(state);
+  }, [save]);
 
   return (
     <IonPage>
