@@ -37,7 +37,11 @@ import {
 import { Plugins, Storage, StatusBarStyle } from "@capacitor/core";
 import { StoreKeyPrefix } from "../const";
 import { useHistory } from "react-router";
-import { getAdditionalBeePrice, rotateSpeedLevel } from "../globals";
+import {
+  getAdditionalBeePrice,
+  getMultiplierPrice,
+  rotateSpeedLevel,
+} from "../globals";
 
 const { SplashScreen, StatusBar, App } = Plugins;
 
@@ -83,7 +87,9 @@ const Home: React.FC = () => {
   useEffect(() => {
     setCanBuy(
       state.biene.clickCounter >
-        getAdditionalBeePrice(state.biene.additionalBienen.length)
+        getAdditionalBeePrice(state.biene.additionalBienen.length) ||
+        state.biene.clickCounter >
+          getMultiplierPrice(state.biene.multiplierLevel)
     );
     if (state.dataLoadedFromMemory) saveState(state);
   }, [state]);
