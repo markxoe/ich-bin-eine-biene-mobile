@@ -74,7 +74,8 @@ const StorePage: React.FC = () => {
             pullingIcon={flashOutline}
             pullingText="Hier könnte deine Werbung sein!"
             refreshingSpinner="crescent"
-            refreshingText="Ein kleines Geschenk"></IonRefresherContent>
+            refreshingText="Ein kleines Geschenk"
+          />
         </IonRefresher>
         <IonCard>
           <IonCardHeader>

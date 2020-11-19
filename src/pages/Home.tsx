@@ -52,7 +52,7 @@ const Home: React.FC = () => {
   const [rotation, setRotation] = useState<boolean>(false);
   const [canBuy, setCanBuy] = useState<boolean>(false);
   const [save, refreshSave] = useState<boolean>(false);
-  
+
   useIonViewWillEnter(async () => {
     if (isPlatform("capacitor"))
       StatusBar.setStyle({ style: StatusBarStyle.Dark });
@@ -183,9 +183,16 @@ const Home: React.FC = () => {
             ))}
           </IonRow>
           <IonRow className="ion-justify-content-center">
-            <IonCol size="auto" >
-              <IonChip hidden={state.biene.multiplierLevel === 0} color={getMultiplierPrice(state.biene.multiplierLevel)>state.biene.clickCounter?"warning":"success"}>
-                Multiplier: x {state.biene.multiplierLevel+1}
+            <IonCol size="auto">
+              <IonChip
+                hidden={state.biene.multiplierLevel === 0}
+                color={
+                  getMultiplierPrice(state.biene.multiplierLevel) >
+                  state.biene.clickCounter
+                    ? "warning"
+                    : "success"
+                }>
+                Multiplier: x {state.biene.multiplierLevel + 1}
               </IonChip>
               {/* <IonChip hidden={state.biene.additionalBienen.length === 0} color={getAdditionalBeePrice(state.biene.additionalBienen.length)>state.biene.clickCounter?"warning":"success"}>
                 Weitere Bienen: {state.biene.additionalBienen.length}
