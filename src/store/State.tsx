@@ -7,7 +7,12 @@ let AppContext = React.createContext<ContextType>({} as ContextType);
 
 const initialState: stateType = {
   dataLoadedFromMemory: false,
-  biene: { clickCounter: 0, rotateSpeedLevel: 0, additionalBienen: [] },
+  biene: {
+    clickCounter: 0,
+    rotateSpeedLevel: 0,
+    additionalBienen: [],
+    multiplierLevel: 0,
+  },
   settings: {
     clickButtonForBee: false,
   },
@@ -72,6 +77,16 @@ let reducer = (state: stateType, action: actionType): stateType => {
         biene: {
           ...state.biene,
           additionalBienen: state.biene.additionalBienen.concat(action.payload),
+        },
+      };
+    }
+
+    case "bieneMultiplierIncrease": {
+      return {
+        ...state,
+        biene: {
+          ...state.biene,
+          multiplierLevel: state.biene.multiplierLevel + 1,
         },
       };
     }

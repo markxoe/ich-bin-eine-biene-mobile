@@ -1,4 +1,5 @@
 import {
+  IonBadge,
   IonButton,
   IonButtons,
   IonCard,
@@ -37,7 +38,11 @@ import {
 import { Plugins, Storage, StatusBarStyle } from "@capacitor/core";
 import { StoreKeyPrefix } from "../const";
 import { useHistory } from "react-router";
-import { getAdditionalBeePrice, rotateSpeedLevel } from "../globals";
+import {
+  getAdditionalBeePrice,
+  getMultiplierPrice,
+  rotateSpeedLevel,
+} from "../globals";
 
 const { SplashScreen, StatusBar, App } = Plugins;
 
@@ -84,7 +89,9 @@ const Home: React.FC = () => {
   useEffect(() => {
     setCanBuy(
       state.biene.clickCounter >
-        getAdditionalBeePrice(state.biene.additionalBienen.length)
+        getAdditionalBeePrice(state.biene.additionalBienen.length) ||
+        state.biene.clickCounter >
+          getMultiplierPrice(state.biene.multiplierLevel)
     );
   }, [state]);
 
@@ -147,7 +154,8 @@ const Home: React.FC = () => {
                     setRotation(false);
                     dispatch(
                       ActionBieneClickIncrease(
-                        1 + state.biene.additionalBienen.length
+                        (1 + state.biene.additionalBienen.length) *
+                          (state.biene.multiplierLevel + 1)
                       )
                     );
                   }}
@@ -173,6 +181,19 @@ const Home: React.FC = () => {
                 </div>
               </IonCol>
             ))}
+          </IonRow>
+          <IonRow className="ion-justify-content-center">
+            <IonCol size="auto" >
+              <IonChip hidden={state.biene.multiplierLevel === 0} color={getMultiplierPrice(state.biene.multiplierLevel)>state.biene.clickCounter?"warning":"success"}>
+                Multiplier: x {state.biene.multiplierLevel+1}
+              </IonChip>
+              {/* <IonChip hidden={state.biene.additionalBienen.length === 0} color={getAdditionalBeePrice(state.biene.additionalBienen.length)>state.biene.clickCounter?"warning":"success"}>
+                Weitere Bienen: {state.biene.additionalBienen.length}
+              </IonChip>
+              <IonChip hidden={state.biene.additionalBienen.length === 0} color="warning">
+                Saltos: {state.biene.clickCounter}
+              </IonChip> */}
+            </IonCol>
           </IonRow>
           <IonRow>
             <IonCol>

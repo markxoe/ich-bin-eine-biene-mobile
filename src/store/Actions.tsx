@@ -59,6 +59,13 @@ export const ActionBieneAddAdditional = (
 export const ActionMakeMeAPresent = () => ActionBieneClickIncrease(2000);
 
 /**
+ * Erhöht den Multiplier um 1
+ */
+export const ActionMultiplierIncrease = (): actionType => ({
+  type: "bieneMultiplierIncrease",
+});
+
+/**
  * Resette den State aufs unsprüngliche
  */
 export const ActionResetState = (): actionType => ({

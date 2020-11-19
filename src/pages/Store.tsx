@@ -23,6 +23,7 @@ import {
 import { AppContext } from "../store/State";
 import {
   getAdditionalBeePrice,
+  getMultiplierPrice,
   getRotateSpeedLevelPrice,
   rotateSpeedLevel,
 } from "../globals";
@@ -30,6 +31,7 @@ import {
   ActionBieneAddAdditional,
   ActionBieneClickDecrease,
   ActionMakeMeAPresent,
+  ActionMultiplierIncrease,
   ActionRotateSpeedLevelIncrease,
 } from "../store/Actions";
 import { RefresherEventDetail } from "@ionic/core";
@@ -45,6 +47,7 @@ const StorePage: React.FC = () => {
   const rotateSpeedLevelPrice = getRotateSpeedLevelPrice(
     state.biene.rotateSpeedLevel
   );
+  const multiplierLevelPrice = getMultiplierPrice(state.biene.multiplierLevel);
 
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
     console.log("Begin async operation");
@@ -161,6 +164,38 @@ const StorePage: React.FC = () => {
             value={Math.min(state.biene.clickCounter / additionalBeePrice, 1.0)}
           />
         </IonItem>
+
+        <IonItemDivider>Multiplier</IonItemDivider>
+        <IonItem>
+          <IonButton
+            onClick={() => {
+              dispatch(ActionMultiplierIncrease());
+              dispatch(ActionBieneClickDecrease(multiplierLevelPrice));
+              setShowThx(true);
+            }}
+            disabled={state.biene.clickCounter < multiplierLevelPrice}>
+            Multiplier kaufen
+          </IonButton>
+          <IonText slot="end">Preis: {multiplierLevelPrice}</IonText>
+        </IonItem>
+        <IonItem>
+          Dein Multiplier
+          <IonText slot="end">{state.biene.multiplierLevel}/∞</IonText>
+        </IonItem>
+        <IonItem>
+          <IonProgressBar
+            color={
+              state.biene.clickCounter < multiplierLevelPrice
+                ? "danger"
+                : "success"
+            }
+            value={Math.min(
+              state.biene.clickCounter / multiplierLevelPrice,
+              1.0
+            )}
+          />
+        </IonItem>
+
         <IonToast
           isOpen={showThx}
           message="Danke für den Kauf!"
