@@ -16,6 +16,12 @@ Mark Oude Elberink
 
 ## Changelog
 
+### Beta: [0.5.0] Torsten :man:
+
+- Multiplier
+- Neue UI
+- Bug Fixes
+
 ### [0.4.1] Baum: Patch 1
 
 - Bug Fix
