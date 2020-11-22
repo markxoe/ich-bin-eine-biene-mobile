@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   IonBackButton,
   IonButton,
@@ -20,7 +20,7 @@ import {
   IonToast,
   IonToolbar,
 } from "@ionic/react";
-import { AppContext } from "../store/State";
+import { AppContext, saveState } from "../store/State";
 import {
   getAdditionalBeePrice,
   getMultiplierPrice,
@@ -35,7 +35,7 @@ import {
   ActionRotateSpeedLevelIncrease,
 } from "../store/Actions";
 import { RefresherEventDetail } from "@ionic/core";
-import { chevronDownCircleOutline, flashOutline } from "ionicons/icons";
+import { flashOutline } from "ionicons/icons";
 
 const StorePage: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -57,6 +57,10 @@ const StorePage: React.FC = () => {
       event.detail.complete();
     }, 10000);
   }
+
+  useEffect(() => {
+    saveState(state);
+  }, [state]);
 
   return (
     <IonPage>
