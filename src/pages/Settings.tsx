@@ -24,6 +24,7 @@ import { AppContext, saveState } from "../store/State";
 import {
   ActionResetState,
   ActionSettingsSetClickButtonForBee,
+  ActionSettingsSetNewUI,
 } from "../store/Actions";
 
 const PageSettings: React.FC = () => {
@@ -58,6 +59,16 @@ const PageSettings: React.FC = () => {
           />
         </IonItem>
         <IonItemDivider>Allgemein</IonItemDivider>
+
+        <IonItem>
+          <IonLabel>Neues User Interface</IonLabel>
+          <IonToggle
+            checked={state.settings.newUI}
+            onIonChange={(c) =>
+              dispatch(ActionSettingsSetNewUI(c.detail.checked))
+            }
+          />
+        </IonItem>
         <IonItem detail onClick={() => history.push("/intro")}>
           <IonLabel>Intro erneut durchführen</IonLabel>
         </IonItem>

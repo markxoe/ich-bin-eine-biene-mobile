@@ -8,6 +8,7 @@ export interface stateType {
   };
   settings: {
     clickButtonForBee: boolean;
+    newUI: boolean;
   };
 }
 

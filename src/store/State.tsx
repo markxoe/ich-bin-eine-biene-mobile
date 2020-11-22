@@ -15,6 +15,7 @@ const initialState: stateType = {
   },
   settings: {
     clickButtonForBee: false,
+    newUI: false,
   },
 };
 
@@ -38,7 +39,10 @@ let reducer = (state: stateType, action: actionType): stateType => {
     }
 
     case "setclickButtonForBee": {
-      return { ...state, settings: { clickButtonForBee: action.payload } };
+      return {
+        ...state,
+        settings: { ...state.settings, clickButtonForBee: action.payload },
+      };
     }
 
     case "bieneClickIncrease": {
@@ -87,6 +91,16 @@ let reducer = (state: stateType, action: actionType): stateType => {
         biene: {
           ...state.biene,
           multiplierLevel: state.biene.multiplierLevel + 1,
+        },
+      };
+    }
+
+    case "setsettingnewui": {
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          newUI: action.payload,
         },
       };
     }
