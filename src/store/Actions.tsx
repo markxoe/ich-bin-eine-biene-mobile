@@ -56,7 +56,7 @@ export const ActionBieneAddAdditional = (
   payload: type,
 });
 
-export const ActionMakeMeAPresent = () => ActionBieneClickIncrease(2000);
+export const ActionMakeMeAPresent = () => ActionBieneClickIncrease(400);
 
 /**
  * Erhöht den Multiplier um 1
