@@ -194,16 +194,28 @@ const Home: React.FC = () => {
                 }>
                 Multiplier: x {state.biene.multiplierLevel + 1}
               </IonChip>
-              {/* <IonChip hidden={state.biene.additionalBienen.length === 0} color={getAdditionalBeePrice(state.biene.additionalBienen.length)>state.biene.clickCounter?"warning":"success"}>
+              <IonChip
+                hidden={
+                  !(
+                    state.biene.additionalBienen.length !== 0 &&
+                    state.settings.newUI
+                  )
+                }
+                color={
+                  getAdditionalBeePrice(state.biene.additionalBienen.length) >
+                  state.biene.clickCounter
+                    ? "warning"
+                    : "success"
+                }>
                 Weitere Bienen: {state.biene.additionalBienen.length}
               </IonChip>
-              <IonChip hidden={state.biene.additionalBienen.length === 0} color="warning">
+              <IonChip hidden={!state.settings.newUI} color="warning">
                 Saltos: {state.biene.clickCounter}
-              </IonChip> */}
+              </IonChip>
             </IonCol>
           </IonRow>
           <IonRow>
-            <IonCol>
+            <IonCol hidden={state.settings.newUI}>
               <IonCard>
                 <IonCardHeader>
                   <IonCardTitle>Statistiken</IonCardTitle>
