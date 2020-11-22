@@ -27,17 +27,17 @@ import {
   ActionSettingsSetNewUI,
 } from "../store/Actions";
 
-import {Plugins} from "@capacitor/core"
-const {App} = Plugins
+import { Plugins } from "@capacitor/core";
+const { App } = Plugins;
 const PageSettings: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
   const [deleteAllAlert, showdeleteAllAlert] = useState<boolean>(false);
   const deleteAlertRef = React.createRef<HTMLIonAlertElement>();
   const history = useHistory();
 
-  // useEffect(() => {
-  //   saveState(state);
-  // }, [state]);
+  useEffect(() => {
+    saveState(state);
+  }, [state]);
 
   return (
     <IonPage>
