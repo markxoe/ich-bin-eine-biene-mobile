@@ -20,22 +20,24 @@ import packagejs from "../../package.json";
 
 import biene from "../res/biene.png";
 import { useHistory } from "react-router";
-import { AppContext, saveState } from "../store/State";
+import { AppContext, saveState, initialState } from "../store/State";
 import {
   ActionResetState,
   ActionSettingsSetClickButtonForBee,
   ActionSettingsSetNewUI,
 } from "../store/Actions";
 
+import {Plugins} from "@capacitor/core"
+const {App} = Plugins
 const PageSettings: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
   const [deleteAllAlert, showdeleteAllAlert] = useState<boolean>(false);
   const deleteAlertRef = React.createRef<HTMLIonAlertElement>();
   const history = useHistory();
 
-  useEffect(() => {
-    saveState(state);
-  }, [state]);
+  // useEffect(() => {
+  //   saveState(state);
+  // }, [state]);
 
   return (
     <IonPage>
@@ -108,6 +110,8 @@ const PageSettings: React.FC = () => {
               text: "Ja",
               handler: () => {
                 dispatch(ActionResetState());
+                saveState(initialState);
+                App.exitApp();
                 showdeleteAllAlert(false);
               },
             },

@@ -130,4 +130,4 @@ export const saveState = async (state: stateType) => {
 
 let AppContextConsumer = AppContext.Consumer;
 
-export { AppContext, AppContextProvider, AppContextConsumer };
+export { AppContext, AppContextProvider, AppContextConsumer, initialState };
