@@ -181,7 +181,7 @@ const Home: React.FC = () => {
                 </div>
               </IonCol>
             ))}
-            {[].map((a) => (
+            {state.biene.autoRotatingBees.map((a) => (
               <IonCol size="auto">
                 <div className="ion-text-center">
                   <img
