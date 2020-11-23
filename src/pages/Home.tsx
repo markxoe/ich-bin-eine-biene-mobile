@@ -203,6 +203,18 @@ const Home: React.FC = () => {
           <IonRow className="ion-justify-content-center">
             <IonCol size="auto">
               <IonChip
+                hidden={
+                  !(
+                    state.biene.autoRotatingBees.length !== 0 &&
+                    state.settings.newUI
+                  )
+                }
+                color={
+                  10000 > state.biene.clickCounter ? "warning" : "success"
+                }>
+                Autodreher: x {state.biene.autoRotatingBees.length}
+              </IonChip>
+              <IonChip
                 hidden={state.biene.multiplierLevel === 0}
                 color={
                   getMultiplierPrice(state.biene.multiplierLevel) >
