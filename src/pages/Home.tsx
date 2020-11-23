@@ -89,10 +89,8 @@ const Home: React.FC = () => {
   // Refresh the CanBuy alert everytime the state changes
   useEffect(() => {
     setCanBuy(
-      state.biene.clickCounter >
-        getAdditionalBeePrice(state) ||
-        state.biene.clickCounter >
-          getMultiplierPrice(state)
+      state.biene.clickCounter > getAdditionalBeePrice(state) ||
+        state.biene.clickCounter > getMultiplierPrice(state)
     );
   }, [state]);
 
@@ -191,8 +189,11 @@ const Home: React.FC = () => {
                     onAnimationIteration={() => {
                       dispatch(
                         ActionBieneClickIncrease(
-                          Math.round(((1 + state.biene.additionalBienen.length) *
-                            (state.biene.multiplierLevel + 1))*0.5)
+                          Math.round(
+                            (1 + state.biene.additionalBienen.length) *
+                              (state.biene.multiplierLevel + 1) *
+                              0.5
+                          )
                         )
                       );
                     }}
@@ -220,8 +221,7 @@ const Home: React.FC = () => {
               <IonChip
                 hidden={state.biene.multiplierLevel === 0}
                 color={
-                  getMultiplierPrice(state) >
-                  state.biene.clickCounter
+                  getMultiplierPrice(state) > state.biene.clickCounter
                     ? "warning"
                     : "success"
                 }>
@@ -235,8 +235,7 @@ const Home: React.FC = () => {
                   )
                 }
                 color={
-                  getAdditionalBeePrice(state) >
-                  state.biene.clickCounter
+                  getAdditionalBeePrice(state) > state.biene.clickCounter
                     ? "warning"
                     : "success"
                 }>

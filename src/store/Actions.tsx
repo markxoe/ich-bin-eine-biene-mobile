@@ -33,15 +33,14 @@ export const ActionSettingsSetClickButtonForBee = (
   activated: boolean
 ): actionType => ({ type: "setclickButtonForBee", payload: activated });
 
-
-
 /**
  * Setzt die Einstellung für das neue UI
  * @param activated der neue Wert
  */
-export const ActionSettingsSetNewUI = (
-  activated: boolean
-): actionType => ({ type: "setsettingnewui", payload: activated });
+export const ActionSettingsSetNewUI = (activated: boolean): actionType => ({
+  type: "setsettingnewui",
+  payload: activated,
+});
 
 /**
  * Erhöht das Level der Bienen Geschwindigkeit

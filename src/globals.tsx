@@ -50,9 +50,11 @@ export const getMultiplierPrice = (state: stateType): number => {
 };
 
 export const getAutorotatePrice = (state: stateType): number => {
-  return Math.max((
+  return Math.max(
     (state.biene.autoRotatingBees.length + 1) * 5000 -
-    3000 +
-    (state.biene.additionalBienen.length + state.biene.multiplierLevel) * 100
-  ),getMultiplierPrice(state)+100,getAdditionalBeePrice(state)+100);
+      3000 +
+      (state.biene.additionalBienen.length + state.biene.multiplierLevel) * 100,
+    getMultiplierPrice(state) + 100,
+    getAdditionalBeePrice(state) + 100
+  );
 };
