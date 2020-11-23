@@ -181,6 +181,24 @@ const Home: React.FC = () => {
                 </div>
               </IonCol>
             ))}
+            {[].map((a) => (
+              <IonCol size="auto">
+                <div className="ion-text-center">
+                  <img
+                    src={biene}
+                    className="bieneautorotate"
+                    onAnimationIteration={() => {
+                      dispatch(
+                        ActionBieneClickIncrease(
+                          (1 + state.biene.additionalBienen.length) *
+                            (state.biene.multiplierLevel + 1)
+                        )
+                      );
+                    }}
+                  />
+                </div>
+              </IonCol>
+            ))}
           </IonRow>
           <IonRow className="ion-justify-content-center">
             <IonCol size="auto">

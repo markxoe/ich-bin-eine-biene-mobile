@@ -55,10 +55,11 @@ const StorePage: React.FC = () => {
     setTimeout(() => {
       dispatch(ActionMakeMeAPresent());
       event.detail.complete();
-    }, 10000);
+    }, 100);
   }
 
   useEffect(() => {
+    console.log("state saved")
     saveState(state);
   }, [state]);
 
