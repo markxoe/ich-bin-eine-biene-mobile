@@ -29,6 +29,7 @@ import {
 } from "../globals";
 import {
   ActionBieneAddAdditional,
+  ActionBieneAddAutoRotating,
   ActionBieneClickDecrease,
   ActionMakeMeAPresent,
   ActionMultiplierIncrease,
@@ -48,6 +49,8 @@ const StorePage: React.FC = () => {
     state.biene.rotateSpeedLevel
   );
   const multiplierLevelPrice = getMultiplierPrice(state.biene.multiplierLevel);
+
+  const autorotatingPrice = 10000;
 
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
     console.log("Begin async operation");
@@ -197,6 +200,37 @@ const StorePage: React.FC = () => {
             }
             value={Math.min(
               state.biene.clickCounter / multiplierLevelPrice,
+              1.0
+            )}
+          />
+        </IonItem>
+
+        <IonItemDivider>Autodreher</IonItemDivider>
+        <IonItem>
+          <IonButton
+            onClick={() => {
+              dispatch(ActionBieneAddAutoRotating(0));
+              dispatch(ActionBieneClickDecrease(autorotatingPrice));
+              setShowThx(true);
+            }}
+            disabled={state.biene.clickCounter < autorotatingPrice}>
+            Autodreher kaufen
+          </IonButton>
+          <IonText slot="end">Preis: {autorotatingPrice}</IonText>
+        </IonItem>
+        <IonItem>
+          Deine Autodreher
+          <IonText slot="end">{state.biene.autoRotatingBees.length}/∞</IonText>
+        </IonItem>
+        <IonItem>
+          <IonProgressBar
+            color={
+              state.biene.clickCounter < autorotatingPrice
+                ? "danger"
+                : "success"
+            }
+            value={Math.min(
+              state.biene.clickCounter / autorotatingPrice,
               1.0
             )}
           />
