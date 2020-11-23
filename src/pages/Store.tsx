@@ -43,13 +43,9 @@ const StorePage: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
   const [showThx, setShowThx] = useState<boolean>(false);
 
-  const additionalBeePrice = getAdditionalBeePrice(
-    state.biene.additionalBienen.length
-  );
-  const rotateSpeedLevelPrice = getRotateSpeedLevelPrice(
-    state.biene.rotateSpeedLevel
-  );
-  const multiplierLevelPrice = getMultiplierPrice(state.biene.multiplierLevel);
+  const additionalBeePrice = getAdditionalBeePrice(state);
+  const rotateSpeedLevelPrice = getRotateSpeedLevelPrice(state);
+  const multiplierLevelPrice = getMultiplierPrice(state);
 
   const autorotatingPrice = getAutorotatePrice(state);
 
@@ -63,7 +59,7 @@ const StorePage: React.FC = () => {
   }
 
   useEffect(() => {
-    console.log("state saved")
+    console.log("state saved");
     saveState(state);
   }, [state]);
 
@@ -230,10 +226,7 @@ const StorePage: React.FC = () => {
                 ? "danger"
                 : "success"
             }
-            value={Math.min(
-              state.biene.clickCounter / autorotatingPrice,
-              1.0
-            )}
+            value={Math.min(state.biene.clickCounter / autorotatingPrice, 1.0)}
           />
         </IonItem>
 

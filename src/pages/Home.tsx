@@ -90,9 +90,9 @@ const Home: React.FC = () => {
   useEffect(() => {
     setCanBuy(
       state.biene.clickCounter >
-        getAdditionalBeePrice(state.biene.additionalBienen.length) ||
+        getAdditionalBeePrice(state) ||
         state.biene.clickCounter >
-          getMultiplierPrice(state.biene.multiplierLevel)
+          getMultiplierPrice(state)
     );
   }, [state]);
 
@@ -220,7 +220,7 @@ const Home: React.FC = () => {
               <IonChip
                 hidden={state.biene.multiplierLevel === 0}
                 color={
-                  getMultiplierPrice(state.biene.multiplierLevel) >
+                  getMultiplierPrice(state) >
                   state.biene.clickCounter
                     ? "warning"
                     : "success"
@@ -235,7 +235,7 @@ const Home: React.FC = () => {
                   )
                 }
                 color={
-                  getAdditionalBeePrice(state.biene.additionalBienen.length) >
+                  getAdditionalBeePrice(state) >
                   state.biene.clickCounter
                     ? "warning"
                     : "success"
