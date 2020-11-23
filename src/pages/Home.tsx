@@ -191,8 +191,8 @@ const Home: React.FC = () => {
                     onAnimationIteration={() => {
                       dispatch(
                         ActionBieneClickIncrease(
-                          (1 + state.biene.additionalBienen.length) *
-                            (state.biene.multiplierLevel + 1)
+                          Math.round(((1 + state.biene.additionalBienen.length) *
+                            (state.biene.multiplierLevel + 1))*0.5)
                         )
                       );
                     }}

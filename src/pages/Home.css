@@ -34,7 +34,7 @@
 }
 
 .bieneautorotate {
-  animation: rotation infinite 0.5s;
+  animation: rotation infinite 0.7s;
 }
 
 @keyframes rotation {
