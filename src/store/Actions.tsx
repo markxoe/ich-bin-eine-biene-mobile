@@ -66,6 +66,17 @@ export const ActionBieneAddAdditional = (
   payload: type,
 });
 
+/**
+ * Fügt eine Auto-drehende Biene hinzu
+ * @param type Typ (Normalerweise 0)
+ */
+export const ActionBieneAddAutoRotating = (
+  type: number = bieneTypes.bee
+): actionType => ({
+  type: "bieneAutoRotatingAdd",
+  payload: type,
+});
+
 export const ActionMakeMeAPresent = () => ActionBieneClickIncrease(400);
 
 /**

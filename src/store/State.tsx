@@ -12,6 +12,7 @@ const initialState: stateType = {
     rotateSpeedLevel: 0,
     additionalBienen: [],
     multiplierLevel: 0,
+    autoRotatingBees: [],
   },
   settings: {
     clickButtonForBee: false,
@@ -101,6 +102,16 @@ let reducer = (state: stateType, action: actionType): stateType => {
         settings: {
           ...state.settings,
           newUI: action.payload,
+        },
+      };
+    }
+
+    case "bieneAutoRotatingAdd": {
+      return {
+        ...state,
+        biene: {
+          ...state.biene,
+          autoRotatingBees: state.biene.autoRotatingBees.concat(action.payload),
         },
       };
     }
