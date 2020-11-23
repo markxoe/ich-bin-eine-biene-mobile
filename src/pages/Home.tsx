@@ -40,6 +40,7 @@ import { StoreKeyPrefix } from "../const";
 import { useHistory } from "react-router";
 import {
   getAdditionalBeePrice,
+  getAutorotatePrice,
   getMultiplierPrice,
   rotateSpeedLevel,
 } from "../globals";
@@ -210,9 +211,11 @@ const Home: React.FC = () => {
                   )
                 }
                 color={
-                  10000 > state.biene.clickCounter ? "warning" : "success"
+                  getAutorotatePrice(state) > state.biene.clickCounter
+                    ? "warning"
+                    : "success"
                 }>
-                Autodreher: x {state.biene.autoRotatingBees.length}
+                Autodreher: {state.biene.autoRotatingBees.length}
               </IonChip>
               <IonChip
                 hidden={state.biene.multiplierLevel === 0}

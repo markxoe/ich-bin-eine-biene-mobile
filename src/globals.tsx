@@ -1,3 +1,5 @@
+import { stateType } from "./store/types";
+
 export const rotateSpeedLevel = {
   max: 3,
   levels: [
@@ -16,4 +18,8 @@ export const getAdditionalBeePrice = (level: number): number => {
 };
 export const getMultiplierPrice = (level: number): number => {
   return Math.round(level * 20 * (level * 20) + 5000);
+};
+
+export const getAutorotatePrice = (state: stateType): number => {
+  return ((state.biene.autoRotatingBees.length + 1) * 10000) - 5000;
 };

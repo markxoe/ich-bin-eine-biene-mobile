@@ -23,6 +23,7 @@ import {
 import { AppContext, saveState } from "../store/State";
 import {
   getAdditionalBeePrice,
+  getAutorotatePrice,
   getMultiplierPrice,
   getRotateSpeedLevelPrice,
   rotateSpeedLevel,
@@ -50,7 +51,7 @@ const StorePage: React.FC = () => {
   );
   const multiplierLevelPrice = getMultiplierPrice(state.biene.multiplierLevel);
 
-  const autorotatingPrice = 10000;
+  const autorotatingPrice = getAutorotatePrice(state);
 
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
     console.log("Begin async operation");
