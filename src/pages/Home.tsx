@@ -1,5 +1,4 @@
 import {
-  IonBadge,
   IonButton,
   IonButtons,
   IonCard,
@@ -149,7 +148,7 @@ const Home: React.FC = () => {
                       : "biene"
                   }
                   src={biene}
-                  alt=""
+                  alt="biene"
                   onAnimationEnd={() => {
                     setRotation(false);
                     dispatch(
@@ -176,7 +175,7 @@ const Home: React.FC = () => {
                         : "biene"
                     }
                     src={biene}
-                    alt=""
+                    alt="biene"
                   />
                 </div>
               </IonCol>
@@ -186,6 +185,7 @@ const Home: React.FC = () => {
                 <div className="ion-text-center">
                   <img
                     src={biene}
+                    alt="biene"
                     className="bieneautorotate"
                     onAnimationIteration={() => {
                       dispatch(
