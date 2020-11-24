@@ -7,12 +7,16 @@ import {
   IonHeader,
   IonItem,
   IonItemDivider,
+  IonItemGroup,
   IonLabel,
   IonPage,
+  IonRefresher,
+  IonRefresherContent,
   IonTitle,
   IonToggle,
   IonToolbar,
 } from "@ionic/react";
+import { RefresherEventDetail } from "@ionic/core";
 import React, { useContext, useEffect, useState } from "react";
 import "./Settings.css";
 
@@ -28,12 +32,25 @@ import {
 } from "../store/Actions";
 
 import { Plugins } from "@capacitor/core";
+import { flashOutline } from "ionicons/icons";
 const { App } = Plugins;
 const PageSettings: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
   const [deleteAllAlert, showdeleteAllAlert] = useState<boolean>(false);
+  const [importexportactivated, setImportexportactivated] = useState<boolean>(
+    false
+  );
   const deleteAlertRef = React.createRef<HTMLIonAlertElement>();
   const history = useHistory();
+
+  function doRefresh(event: CustomEvent<RefresherEventDetail>) {
+    console.log("Begin async operation");
+
+    setTimeout(() => {
+      setImportexportactivated(true);
+      event.detail.complete();
+    }, 1000);
+  }
 
   useEffect(() => {
     saveState(state);
@@ -50,6 +67,14 @@ const PageSettings: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
+        <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
+          <IonRefresherContent
+            pullingIcon={flashOutline}
+            pullingText="Import / Export aktivieren"
+            refreshingSpinner="crescent"
+            refreshingText="Import / Export aktivieren"
+          />
+        </IonRefresher>
         <IonItemDivider>Bedienungshilfen</IonItemDivider>
         <IonItem>
           <IonLabel>Separater Knopf</IonLabel>
@@ -97,6 +122,10 @@ const PageSettings: React.FC = () => {
           <IonLabel>Website</IonLabel>
           <IonButton href="https://toastbrot.org/">Web</IonButton>
         </IonItem>
+
+        <IonItemGroup hidden={!importexportactivated}>
+          <IonItemDivider>Import / Export</IonItemDivider>
+        </IonItemGroup>
 
         <div className="ion-margin-top ion-text-center">
           <img className="bienemini" src={biene} alt="" />
