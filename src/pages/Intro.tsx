@@ -38,12 +38,12 @@ const PageIntro: React.FC = () => {
           <IonSlide className="ion-padding">
             <div>
               <h1>Willkommen...</h1>
-              <img src={Biene} className="introBiene" />
+              <img alt="biene" src={Biene} className="introBiene" />
             </div>
           </IonSlide>
           <IonSlide className="ion-padding">
             <div>
-              <h1 style={{}}>Willkommen</h1>
+              <h1>Willkommen</h1>
               <h2>Bei der sinnlosesten App der Welt...</h2>
             </div>
           </IonSlide>

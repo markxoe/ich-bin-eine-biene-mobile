@@ -1,5 +1,4 @@
 import {
-  IonBadge,
   IonButton,
   IonButtons,
   IonCard,
@@ -39,7 +38,9 @@ import { Plugins, Storage, StatusBarStyle } from "@capacitor/core";
 import { StoreKeyPrefix } from "../const";
 import { useHistory } from "react-router";
 import {
+  calculateLevel,
   getAdditionalBeePrice,
+  getAutorotatePrice,
   getMultiplierPrice,
   rotateSpeedLevel,
 } from "../globals";
@@ -88,10 +89,8 @@ const Home: React.FC = () => {
   // Refresh the CanBuy alert everytime the state changes
   useEffect(() => {
     setCanBuy(
-      state.biene.clickCounter >
-        getAdditionalBeePrice(state.biene.additionalBienen.length) ||
-        state.biene.clickCounter >
-          getMultiplierPrice(state.biene.multiplierLevel)
+      state.biene.clickCounter > getAdditionalBeePrice(state) ||
+        state.biene.clickCounter > getMultiplierPrice(state)
     );
   }, [state]);
 
@@ -149,7 +148,7 @@ const Home: React.FC = () => {
                       : "biene"
                   }
                   src={biene}
-                  alt=""
+                  alt="biene"
                   onAnimationEnd={() => {
                     setRotation(false);
                     dispatch(
@@ -176,19 +175,54 @@ const Home: React.FC = () => {
                         : "biene"
                     }
                     src={biene}
-                    alt=""
+                    alt="biene"
+                  />
+                </div>
+              </IonCol>
+            ))}
+            {state.biene.autoRotatingBees.map((a) => (
+              <IonCol size="auto">
+                <div className="ion-text-center">
+                  <img
+                    src={biene}
+                    alt="biene"
+                    className="bieneautorotate"
+                    onAnimationIteration={() => {
+                      dispatch(
+                        ActionBieneClickIncrease(
+                          Math.round(
+                            (1 + state.biene.additionalBienen.length) *
+                              (state.biene.multiplierLevel + 1) *
+                              0.5
+                          )
+                        )
+                      );
+                    }}
                   />
                 </div>
               </IonCol>
             ))}
           </IonRow>
           <IonRow className="ion-justify-content-center">
-            <IonCol size="auto">
+            <IonCol size="auto" class="ion-text-center">
+              <IonChip
+                hidden={
+                  !(
+                    state.biene.autoRotatingBees.length !== 0 &&
+                    state.settings.newUI
+                  )
+                }
+                color={
+                  getAutorotatePrice(state) > state.biene.clickCounter
+                    ? "warning"
+                    : "success"
+                }>
+                Autodreher: {state.biene.autoRotatingBees.length}
+              </IonChip>
               <IonChip
                 hidden={state.biene.multiplierLevel === 0}
                 color={
-                  getMultiplierPrice(state.biene.multiplierLevel) >
-                  state.biene.clickCounter
+                  getMultiplierPrice(state) > state.biene.clickCounter
                     ? "warning"
                     : "success"
                 }>
@@ -202,8 +236,7 @@ const Home: React.FC = () => {
                   )
                 }
                 color={
-                  getAdditionalBeePrice(state.biene.additionalBienen.length) >
-                  state.biene.clickCounter
+                  getAdditionalBeePrice(state) > state.biene.clickCounter
                     ? "warning"
                     : "success"
                 }>
@@ -211,6 +244,9 @@ const Home: React.FC = () => {
               </IonChip>
               <IonChip hidden={!state.settings.newUI} color="warning">
                 Saltos: {state.biene.clickCounter}
+              </IonChip>
+              <IonChip color={calculateLevel(state).levelColor}>
+                Level: {calculateLevel(state).levelName}
               </IonChip>
             </IonCol>
           </IonRow>

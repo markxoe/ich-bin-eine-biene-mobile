@@ -2,7 +2,8 @@
 .bienerotate,
 .bienerotate-level-2,
 .bienerotate-level-3,
-.bienerotate-level-4 {
+.bienerotate-level-4,
+.bieneautorotate {
   font-size: 3rem;
   height: 54px;
 }
@@ -30,6 +31,10 @@
 
 .bienerotate-level-4 {
   animation: rotation 0.07s;
+}
+
+.bieneautorotate {
+  animation: rotation infinite 0.7s;
 }
 
 @keyframes rotation {

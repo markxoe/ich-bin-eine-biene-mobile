@@ -5,6 +5,7 @@ export interface stateType {
     rotateSpeedLevel: number;
     additionalBienen: number[];
     multiplierLevel: number;
+    autoRotatingBees: number[];
   };
   settings: {
     clickButtonForBee: boolean;

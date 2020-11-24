@@ -6,6 +6,7 @@ import {
   IonCard,
   IonCardContent,
   IonCardHeader,
+  IonCardSubtitle,
   IonCardTitle,
   IonContent,
   IonHeader,
@@ -23,12 +24,14 @@ import {
 import { AppContext, saveState } from "../store/State";
 import {
   getAdditionalBeePrice,
+  getAutorotatePrice,
   getMultiplierPrice,
   getRotateSpeedLevelPrice,
   rotateSpeedLevel,
 } from "../globals";
 import {
   ActionBieneAddAdditional,
+  ActionBieneAddAutoRotating,
   ActionBieneClickDecrease,
   ActionMakeMeAPresent,
   ActionMultiplierIncrease,
@@ -41,13 +44,11 @@ const StorePage: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
   const [showThx, setShowThx] = useState<boolean>(false);
 
-  const additionalBeePrice = getAdditionalBeePrice(
-    state.biene.additionalBienen.length
-  );
-  const rotateSpeedLevelPrice = getRotateSpeedLevelPrice(
-    state.biene.rotateSpeedLevel
-  );
-  const multiplierLevelPrice = getMultiplierPrice(state.biene.multiplierLevel);
+  const additionalBeePrice = getAdditionalBeePrice(state);
+  const rotateSpeedLevelPrice = getRotateSpeedLevelPrice(state);
+  const multiplierLevelPrice = getMultiplierPrice(state);
+
+  const autorotatingPrice = getAutorotatePrice(state);
 
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
     console.log("Begin async operation");
@@ -55,10 +56,11 @@ const StorePage: React.FC = () => {
     setTimeout(() => {
       dispatch(ActionMakeMeAPresent());
       event.detail.complete();
-    }, 10000);
+    }, 100);
   }
 
   useEffect(() => {
+    console.log("state saved");
     saveState(state);
   }, [state]);
 
@@ -84,8 +86,9 @@ const StorePage: React.FC = () => {
         <IonCard>
           <IonCardHeader>
             <IonCardTitle>Kontostand</IonCardTitle>
+            <IonCardSubtitle>SALTOS</IonCardSubtitle>
           </IonCardHeader>
-          <IonCardContent>
+          {/* <IonCardContent>
             <IonItem>
               Saltos
               <IonText slot="end">{state.biene.clickCounter}</IonText>
@@ -102,6 +105,9 @@ const StorePage: React.FC = () => {
                 {state.biene.additionalBienen.length}/∞
               </IonText>
             </IonItem>
+          </IonCardContent> */}
+          <IonCardContent>
+            <h1>{state.biene.clickCounter}</h1>
           </IonCardContent>
         </IonCard>
 
@@ -198,6 +204,34 @@ const StorePage: React.FC = () => {
               state.biene.clickCounter / multiplierLevelPrice,
               1.0
             )}
+          />
+        </IonItem>
+
+        <IonItemDivider>Autodreher</IonItemDivider>
+        <IonItem>
+          <IonButton
+            onClick={() => {
+              dispatch(ActionBieneAddAutoRotating(0));
+              dispatch(ActionBieneClickDecrease(autorotatingPrice));
+              setShowThx(true);
+            }}
+            disabled={state.biene.clickCounter < autorotatingPrice}>
+            Autodreher kaufen
+          </IonButton>
+          <IonText slot="end">Preis: {autorotatingPrice}</IonText>
+        </IonItem>
+        <IonItem>
+          Deine Autodreher
+          <IonText slot="end">{state.biene.autoRotatingBees.length}/∞</IonText>
+        </IonItem>
+        <IonItem>
+          <IonProgressBar
+            color={
+              state.biene.clickCounter < autorotatingPrice
+                ? "danger"
+                : "success"
+            }
+            value={Math.min(state.biene.clickCounter / autorotatingPrice, 1.0)}
           />
         </IonItem>
 
