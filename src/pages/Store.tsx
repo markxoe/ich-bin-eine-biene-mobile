@@ -90,24 +90,6 @@ const StorePage: React.FC = () => {
             <IonCardTitle>Kontostand</IonCardTitle>
             <IonCardSubtitle>SALTOS</IonCardSubtitle>
           </IonCardHeader>
-          {/* <IonCardContent>
-            <IonItem>
-              Saltos
-              <IonText slot="end">{state.biene.clickCounter}</IonText>
-            </IonItem>
-            <IonItem>
-              Drehlevel
-              <IonText slot="end">
-                {state.biene.rotateSpeedLevel}/{rotateSpeedLevel.max}
-              </IonText>
-            </IonItem>
-            <IonItem>
-              Weitere Bienen
-              <IonText slot="end">
-                {state.biene.additionalBienen.length}/∞
-              </IonText>
-            </IonItem>
-          </IonCardContent> */}
           <IonCardContent>
             <h1>{state.biene.clickCounter}</h1>
             <IonChip color={calculateLevel(state).levelColor}>
