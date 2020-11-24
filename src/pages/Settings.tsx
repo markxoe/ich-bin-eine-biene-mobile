@@ -9,12 +9,15 @@ import {
   IonItemDivider,
   IonItemGroup,
   IonLabel,
+  IonModal,
   IonPage,
   IonRefresher,
   IonRefresherContent,
+  IonTextarea,
   IonTitle,
   IonToggle,
   IonToolbar,
+  isPlatform,
 } from "@ionic/react";
 import { RefresherEventDetail } from "@ionic/core";
 import React, { useContext, useEffect, useState } from "react";
@@ -27,19 +30,23 @@ import { useHistory } from "react-router";
 import { AppContext, saveState, initialState } from "../store/State";
 import {
   ActionResetState,
+  ActionSetState,
   ActionSettingsSetClickButtonForBee,
   ActionSettingsSetNewUI,
 } from "../store/Actions";
 
 import { Plugins } from "@capacitor/core";
 import { flashOutline } from "ionicons/icons";
-const { App } = Plugins;
+import { stateType } from "../store/types";
+const { App, Share, Clipboard } = Plugins;
 const PageSettings: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
   const [deleteAllAlert, showdeleteAllAlert] = useState<boolean>(false);
   const [importexportactivated, setImportexportactivated] = useState<boolean>(
     false
   );
+  const [showImport, setShowImport] = useState<boolean>(false);
+  const [ImportInput, setImportInput] = useState<string>("");
   const deleteAlertRef = React.createRef<HTMLIonAlertElement>();
   const history = useHistory();
 
@@ -55,6 +62,27 @@ const PageSettings: React.FC = () => {
   useEffect(() => {
     saveState(state);
   }, [state]);
+
+  const ImportData = () => {
+    try {
+      const _in: stateType = JSON.parse(ImportInput);
+      const _in2: stateType = { ...state, ..._in };
+      dispatch(ActionSetState(_in2));
+      const el = document.createElement("ion-toast");
+      document.body.appendChild(el);
+      el.message = "Hat funktioniert!";
+      el.duration = 1000;
+      el.present();
+      setShowImport(false);
+    } catch {
+      const el = document.createElement("ion-toast");
+      document.body.appendChild(el);
+      el.message = "Fehler!";
+      el.duration = 1000;
+      el.present();
+    }
+    
+  };
 
   return (
     <IonPage>
@@ -125,11 +153,65 @@ const PageSettings: React.FC = () => {
 
         <IonItemGroup hidden={!importexportactivated}>
           <IonItemDivider>Import / Export</IonItemDivider>
+          <IonItem>
+            Backup
+            <IonButton
+              slot="end"
+              onClick={() =>
+                isPlatform("capacitor")
+                  ? Share.share({
+                      dialogTitle: "Daten Exportieren",
+                      text: JSON.stringify(state),
+                      title: "Nicht mit andern Teilen!",
+                    })
+                  : Clipboard.write({ string: JSON.stringify(state) })
+              }>
+              Backup
+            </IonButton>
+          </IonItem>
+          <IonItem>
+            Backup laden
+            <IonButton slot="end" onClick={() => setShowImport(true)}>
+              Import
+            </IonButton>
+          </IonItem>
         </IonItemGroup>
 
         <div className="ion-margin-top ion-text-center">
           <img className="bienemini" src={biene} alt="" />
         </div>
+
+        <IonModal
+          swipeToClose={true}
+          isOpen={showImport}
+          onDidDismiss={() => setShowImport(false)}>
+          <IonHeader translucent>
+            <IonToolbar>
+              <IonTitle>Import</IonTitle>
+              <IonButtons slot="end">
+                <IonButton onClick={() => setShowImport(false)}>
+                  Doch nicht
+                </IonButton>
+              </IonButtons>
+            </IonToolbar>
+          </IonHeader>
+
+          <IonContent fullscreen>
+            <IonItem>
+              <IonTextarea
+                onIonChange={(e) => setImportInput(e.detail.value ?? "")}
+                placeholder="{..."></IonTextarea>
+            </IonItem>
+            <IonItem>
+              <IonButton
+                onClick={() => ImportData()}
+                disabled={ImportInput === ""}>
+                Import!
+              </IonButton>
+            </IonItem>
+          </IonContent>
+        </IonModal>
+
         <IonAlert
           ref={deleteAlertRef}
           isOpen={deleteAllAlert}
