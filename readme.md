@@ -16,7 +16,14 @@ Mark Oude Elberink
 
 ## Changelog
 
-### Beta: [0.5.0] Torsten :man:
+### Bald: [0.6.0] Tennis :baseball:
+
+- Autorotation
+- Neue Preise
+- Levels
+- UI Änderungen
+
+### [0.5.0] Torsten :man:
 
 - Multiplier
 - Neue UI
