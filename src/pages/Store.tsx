@@ -6,6 +6,7 @@ import {
   IonCard,
   IonCardContent,
   IonCardHeader,
+  IonCardSubtitle,
   IonCardTitle,
   IonContent,
   IonHeader,
@@ -85,8 +86,9 @@ const StorePage: React.FC = () => {
         <IonCard>
           <IonCardHeader>
             <IonCardTitle>Kontostand</IonCardTitle>
+            <IonCardSubtitle>SALTOS</IonCardSubtitle>
           </IonCardHeader>
-          <IonCardContent>
+          {/* <IonCardContent>
             <IonItem>
               Saltos
               <IonText slot="end">{state.biene.clickCounter}</IonText>
@@ -103,6 +105,9 @@ const StorePage: React.FC = () => {
                 {state.biene.additionalBienen.length}/∞
               </IonText>
             </IonItem>
+          </IonCardContent> */}
+          <IonCardContent>
+            <h1>{state.biene.clickCounter}</h1>
           </IonCardContent>
         </IonCard>
 
