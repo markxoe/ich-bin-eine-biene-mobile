@@ -8,6 +8,7 @@ import {
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
+  IonChip,
   IonContent,
   IonHeader,
   IonItem,
@@ -23,6 +24,7 @@ import {
 } from "@ionic/react";
 import { AppContext, saveState } from "../store/State";
 import {
+  calculateLevel,
   getAdditionalBeePrice,
   getAutorotatePrice,
   getMultiplierPrice,
@@ -108,6 +110,9 @@ const StorePage: React.FC = () => {
           </IonCardContent> */}
           <IonCardContent>
             <h1>{state.biene.clickCounter}</h1>
+            <IonChip color={calculateLevel(state).levelColor}>
+              Level: {calculateLevel(state).levelName}
+            </IonChip>
           </IonCardContent>
         </IonCard>
 
