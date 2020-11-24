@@ -58,3 +58,32 @@ export const getAutorotatePrice = (state: stateType): number => {
     getAdditionalBeePrice(state) + 100
   );
 };
+
+export const calculateLevel = (
+  state: stateType
+): { levelNumber: number; levelColor: string; levelName: string } => {
+  const points = Math.round(
+    (state.biene.additionalBienen.length * 50 +
+      state.biene.multiplierLevel * 100 +
+      state.biene.autoRotatingBees.length * 500 +
+      state.biene.rotateSpeedLevel * 10) /
+      10
+  );
+  const levels: {
+    color: string;
+    name: string;
+    minlevel: number;
+    maxlevel: number;
+  }[] = [
+    { color: "primary", name: "Einsteiger", minlevel: 0, maxlevel: 10 },
+    { color: "secondary", name: "Biene", minlevel: 10, maxlevel: 20 },
+    { color: "success", name: "Brathahn", minlevel: 20, maxlevel: 50 },
+    { color: "warning", name: "Bienenmutter", minlevel: 50, maxlevel: 100 },
+    { color: "danger", name: "Krass", minlevel: 100, maxlevel: 500 },
+    { color: "tertiary", name: "Different", minlevel: 500, maxlevel: 1000000 },
+  ];
+  const got = levels.find((i) => i.minlevel <= points && i.maxlevel > points);
+  return got
+    ? { levelColor: got.color, levelName: got.name, levelNumber: points }
+    : { levelColor: "primary", levelNumber: points, levelName: "" };
+};

@@ -39,6 +39,7 @@ import { Plugins, Storage, StatusBarStyle } from "@capacitor/core";
 import { StoreKeyPrefix } from "../const";
 import { useHistory } from "react-router";
 import {
+  calculateLevel,
   getAdditionalBeePrice,
   getAutorotatePrice,
   getMultiplierPrice,
@@ -203,7 +204,7 @@ const Home: React.FC = () => {
             ))}
           </IonRow>
           <IonRow className="ion-justify-content-center">
-            <IonCol size="auto">
+            <IonCol size="auto" class="ion-text-center">
               <IonChip
                 hidden={
                   !(
@@ -243,6 +244,9 @@ const Home: React.FC = () => {
               </IonChip>
               <IonChip hidden={!state.settings.newUI} color="warning">
                 Saltos: {state.biene.clickCounter}
+              </IonChip>
+              <IonChip color={calculateLevel(state).levelColor}>
+                Level: {calculateLevel(state).levelName}
               </IonChip>
             </IonCol>
           </IonRow>
