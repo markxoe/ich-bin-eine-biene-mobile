@@ -16,7 +16,7 @@ Mark Oude Elberink
 
 ## Changelog
 
-### Bald: [0.6.0] Tennis :baseball:
+### Beta: [0.6.0] Tennis :baseball:
 
 - Autorotation
 - Neue Preise
