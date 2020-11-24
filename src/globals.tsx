@@ -25,7 +25,8 @@ export const getAdditionalBeePrice = (state: stateType): number => {
   return Math.round(
     Math.pow(state.biene.additionalBienen.length, 1.5) * 40 +
       100 +
-      Math.pow(state.biene.multiplierLevel, 1.1) * 300
+      Math.pow(state.biene.multiplierLevel, 1.1) * 300 +
+      Math.pow(state.biene.autoRotatingBees.length, 1.1) * 2500
   );
   //return Math.round(state.biene.additionalBienen.length * (state.biene.additionalBienen.length * 0.2) * 100 + 200);
 };
@@ -41,7 +42,8 @@ export const getMultiplierPrice = (state: stateType): number => {
   return Math.round(
     Math.pow(state.biene.multiplierLevel, 1.1) * 400 +
       500 +
-      state.biene.additionalBienen.length * 200
+      state.biene.additionalBienen.length * 200 +
+      Math.pow(state.biene.autoRotatingBees.length, 1.1) * 2500
   );
 
   // return Math.round(
