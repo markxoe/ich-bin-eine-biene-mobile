@@ -16,7 +16,7 @@ const initialState: stateType = {
   },
   settings: {
     clickButtonForBee: false,
-    newUI: false,
+    newUI: true,
   },
 };
 
