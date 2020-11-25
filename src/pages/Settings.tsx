@@ -81,12 +81,11 @@ const PageSettings: React.FC = () => {
       el.duration = 1000;
       el.present();
     }
-    
   };
 
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader translucent>
         <IonToolbar>
           <IonButtons slot="start">
             <IonBackButton defaultHref="/" />
@@ -94,7 +93,7 @@ const PageSettings: React.FC = () => {
           <IonTitle>Einstellungen</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent>
+      <IonContent fullscreen>
         <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
           <IonRefresherContent
             pullingIcon={flashOutline}

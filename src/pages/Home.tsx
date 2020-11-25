@@ -116,7 +116,7 @@ const Home: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader translucent>
         <IonToolbar>
           <IonTitle>Ich bin eine Biene</IonTitle>
           <IonButtons collapse slot="end">

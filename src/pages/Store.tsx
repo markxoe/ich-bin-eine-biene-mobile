@@ -68,7 +68,7 @@ const StorePage: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader translucent>
         <IonToolbar>
           <IonButtons slot="start">
             <IonBackButton defaultHref="/" />
@@ -76,7 +76,7 @@ const StorePage: React.FC = () => {
           <IonTitle>Store</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent>
+      <IonContent fullscreen>
         <IonRefresher slot="fixed" pullMin={400} onIonRefresh={doRefresh}>
           <IonRefresherContent
             pullingIcon={flashOutline}
