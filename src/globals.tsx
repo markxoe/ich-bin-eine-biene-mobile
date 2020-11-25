@@ -15,25 +15,29 @@ export const getRotateSpeedLevelPrice = (state: stateType): number => {
 };
 export const getAdditionalBeePrice = (state: stateType): number => {
   return Math.round(
-    Math.pow(state.biene.additionalBienen.length, 1.5) * 40 +
+    (Math.pow(state.biene.additionalBienen.length, 1.5) * 50 +
       100 +
       Math.pow(state.biene.multiplierLevel, 1.1) * 300 +
-      Math.pow(state.biene.autoRotatingBees.length, 1.1) * 2500
-  )+200;
+      Math.pow(state.biene.autoRotatingBees.length, 1.1) * 2500) *
+      1.2
+  );
 };
 export const getMultiplierPrice = (state: stateType): number => {
-  return Math.round(
-    Math.pow(state.biene.multiplierLevel, 1.1) * 400 +
-      500 +
-      state.biene.additionalBienen.length * 200 +
-      Math.pow(state.biene.autoRotatingBees.length, 1.1) * 2500
-  )+500;
+  return (
+    Math.round(
+      (Math.pow(state.biene.multiplierLevel, 1.1) * 500 +
+        500 +
+        state.biene.additionalBienen.length * 200 +
+        Math.pow(state.biene.autoRotatingBees.length, 1.1) * 2500) *
+        1.3
+    ) + 500
+  );
 };
 
 export const getAutorotatePrice = (state: stateType): number => {
   return Math.max(
     (state.biene.autoRotatingBees.length + 1) * 20000 -
-      8000 +
+      10000 +
       (state.biene.additionalBienen.length + state.biene.multiplierLevel) * 500,
     getMultiplierPrice(state) + 100,
     getAdditionalBeePrice(state) + 100
