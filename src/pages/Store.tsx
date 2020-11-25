@@ -114,6 +114,7 @@ const StorePage: React.FC = () => {
           </IonButton>
           <IonText slot="end">Preis: {rotateSpeedLevelPrice}</IonText>
         </IonItem>
+        <IonItem>Erhöhen die Drehgeschwindigkeit der Biene</IonItem>
         <IonItem>
           Drehlevel
           <IonText slot="end">
@@ -147,6 +148,7 @@ const StorePage: React.FC = () => {
           </IonButton>
           <IonText slot="end">Preis: {additionalBeePrice}</IonText>
         </IonItem>
+        <IonItem>Geben dir mehr Saltos pro klick</IonItem>
         <IonItem>
           Weitere Bienen
           <IonText slot="end">{state.biene.additionalBienen.length}/∞</IonText>
@@ -176,6 +178,7 @@ const StorePage: React.FC = () => {
           </IonButton>
           <IonText slot="end">Preis: {multiplierLevelPrice}</IonText>
         </IonItem>
+        <IonItem>Geben dir mehr Saltos pro Klick</IonItem>
         <IonItem>
           Dein Multiplier
           <IonText slot="end">{state.biene.multiplierLevel}/∞</IonText>
@@ -207,6 +210,7 @@ const StorePage: React.FC = () => {
           </IonButton>
           <IonText slot="end">Preis: {autorotatingPrice}</IonText>
         </IonItem>
+        <IonItem>Drehen sich automatisch</IonItem>
         <IonItem>
           Deine Autodreher
           <IonText slot="end">{state.biene.autoRotatingBees.length}/∞</IonText>
