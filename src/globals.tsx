@@ -66,7 +66,12 @@ export const calculateLevel = (
     { color: "warning", name: "Bienenmutter", minlevel: 50, maxlevel: 100 },
     { color: "danger", name: "Krass", minlevel: 100, maxlevel: 500 },
     { color: "darkpink", name: "Krank", minlevel: 500, maxlevel: 2000 },
-    { color: "tertiary", name: "Different", minlevel: 2000, maxlevel: 1000000 },
+    {
+      color: "tertiary",
+      name: "Different 🥶",
+      minlevel: 2000,
+      maxlevel: 1000000,
+    },
   ];
   const got = levels.find((i) => i.minlevel <= points && i.maxlevel > points);
   return got
