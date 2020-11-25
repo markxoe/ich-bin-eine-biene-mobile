@@ -13,6 +13,8 @@ import {
   IonGrid,
   IonHeader,
   IonIcon,
+  IonItem,
+  IonModal,
   IonPage,
   IonRow,
   IonTitle,
@@ -53,6 +55,8 @@ const Home: React.FC = () => {
   const [rotation, setRotation] = useState<boolean>(false);
   const [canBuy, setCanBuy] = useState<boolean>(false);
   const [save, refreshSave] = useState<boolean>(false);
+
+  const [openLevels, setOpenLevels] = useState<boolean>(false);
 
   useIonViewWillEnter(async () => {
     if (isPlatform("capacitor"))
@@ -245,7 +249,9 @@ const Home: React.FC = () => {
               <IonChip hidden={!state.settings.newUI} color="warning">
                 Saltos: {state.biene.clickCounter}
               </IonChip>
-              <IonChip color={calculateLevel(state).levelColor}>
+              <IonChip
+                onClick={() => setOpenLevels(true)}
+                color={calculateLevel(state).levelColor}>
                 Level: {calculateLevel(state).levelName}
               </IonChip>
             </IonCol>
@@ -291,6 +297,31 @@ const Home: React.FC = () => {
             <IonIcon icon={storefront} />
           </IonFabButton>
         </IonFab>
+
+        <IonModal
+          onDidDismiss={() => setOpenLevels(false)}
+          swipeToClose
+          isOpen={openLevels}>
+          <IonHeader translucent>
+            <IonToolbar>
+              <IonTitle>Levels</IonTitle>
+              <IonButtons slot="end">
+                <IonButton onClick={() => setOpenLevels(false)}>OK</IonButton>
+              </IonButtons>
+            </IonToolbar>
+          </IonHeader>
+          <IonContent fullscreen>
+            <IonItem color="primary">Einsteiger</IonItem>
+            <IonItem color="secondary">Biene</IonItem>
+            <IonItem color="success">Brathahn</IonItem>
+            <IonItem color="warning">Bienenmutter</IonItem>
+            <IonItem color="danger">Krass</IonItem>
+            <IonItem color="darkpink">Krank</IonItem>
+            <IonItem color="tertiary">
+              Different <span role="img">🥶</span>
+            </IonItem>
+          </IonContent>
+        </IonModal>
       </IonContent>
     </IonPage>
   );
