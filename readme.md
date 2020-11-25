@@ -16,7 +16,12 @@ Mark Oude Elberink
 
 ## Changelog
 
-### Beta: [0.6.0] Tennis :baseball:
+### [0.6.1] Tennis :baseball:
+
+- Weitere Preisänderungen
+- Levelübersicht
+
+### [0.6.0] Tennis :baseball:
 
 - Autorotation
 - Neue Preise
