@@ -228,6 +228,7 @@ const StorePage: React.FC = () => {
 
         <IonToast
           isOpen={showThx}
+          translucent
           message="Danke für den Kauf!"
           buttons={[
             {
