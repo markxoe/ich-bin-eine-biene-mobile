@@ -134,3 +134,21 @@ body {
   --ion-tab-bar-background: #1f1f1f;
   --ion-card-background: #1e1e1e;
 }
+
+:root {
+  --ion-color-darkpink: #8000ff;
+  --ion-color-darkpink-rgb: 128, 0, 255;
+  --ion-color-darkpink-contrast: #ffffff;
+  --ion-color-darkpink-contrast-rgb: 255, 255, 255;
+  --ion-color-darkpink-shade: #7100e0;
+  --ion-color-darkpink-tint: #8d1aff;
+}
+
+.ion-color-darkpink {
+  --ion-color-base: var(--ion-color-darkpink);
+  --ion-color-base-rgb: var(--ion-color-darkpink-rgb);
+  --ion-color-contrast: var(--ion-color-darkpink-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-darkpink-contrast-rgb);
+  --ion-color-shade: var(--ion-color-darkpink-shade);
+  --ion-color-tint: var(--ion-color-darkpink-tint);
+}
