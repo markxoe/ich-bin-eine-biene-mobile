@@ -303,7 +303,6 @@ const Home: React.FC = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
-        {JSON.stringify(state)}
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton
             color={canBuy ? "success" : "primary"}
