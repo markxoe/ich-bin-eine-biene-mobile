@@ -16,6 +16,9 @@ Mark Oude Elberink
 
 ## Changelog
 
+## [0.6.2] Tennis :baseball:
+- Feature für Zukünftige Versionen
+
 ### [0.6.1] Tennis :baseball:
 
 - Weitere Preisänderungen
