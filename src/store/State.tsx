@@ -18,6 +18,7 @@ const initialState: stateType = {
     clickButtonForBee: false,
     newUI: true,
   },
+  statisticsRotations: 0,
 };
 
 let reducer = (state: stateType, action: actionType): stateType => {
@@ -113,6 +114,12 @@ let reducer = (state: stateType, action: actionType): stateType => {
           ...state.biene,
           autoRotatingBees: state.biene.autoRotatingBees.concat(action.payload),
         },
+      };
+    }
+    case "statisticsAdd": {
+      return {
+        ...state,
+        statisticsRotations: state.statisticsRotations + 1,
       };
     }
   }

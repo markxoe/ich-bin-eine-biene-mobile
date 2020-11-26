@@ -11,6 +11,7 @@ export interface stateType {
     clickButtonForBee: boolean;
     newUI: boolean;
   };
+  statisticsRotations: number;
 }
 
 export interface actionType {

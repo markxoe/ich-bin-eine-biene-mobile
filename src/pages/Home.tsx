@@ -34,6 +34,7 @@ import {
   ActionBieneClickIncrease,
   ActionDataLoadedFromMemory,
   ActionSetState,
+  ActionStatisticAdd,
 } from "../store/Actions";
 
 import { Plugins, Storage, StatusBarStyle } from "@capacitor/core";
@@ -161,6 +162,7 @@ const Home: React.FC = () => {
                           (state.biene.multiplierLevel + 1)
                       )
                     );
+                    dispatch(ActionStatisticAdd());
                   }}
                 />
               </div>
@@ -201,6 +203,7 @@ const Home: React.FC = () => {
                           )
                         )
                       );
+                      dispatch(ActionStatisticAdd());
                     }}
                   />
                 </div>
@@ -290,6 +293,7 @@ const Home: React.FC = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
+        {JSON.stringify(state)}
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton
             color={canBuy ? "success" : "primary"}

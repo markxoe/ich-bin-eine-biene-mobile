@@ -91,3 +91,10 @@ export const ActionMultiplierIncrease = (): actionType => ({
 export const ActionResetState = (): actionType => ({
   type: "resetState",
 });
+
+/**
+ * Fügt einen Click für die Statistik zu
+ */
+export const ActionStatisticAdd = (): actionType => ({
+  type: "statisticsAdd",
+});
