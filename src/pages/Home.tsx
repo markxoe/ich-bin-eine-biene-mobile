@@ -31,6 +31,7 @@ import biene from "../res/biene.png";
 import { AppContext, saveState } from "../store/State";
 
 import {
+  ActionBieneAddAdditional,
   ActionBieneClickIncrease,
   ActionDataLoadedFromMemory,
   ActionSetState,
@@ -177,7 +178,7 @@ const Home: React.FC = () => {
                 />
               </div>
             </IonCol>
-            {state.biene.additionalBienen.map(() => (
+            {state.biene.additionalBienen.slice(0,20).map(() => (
               <IonCol size="auto">
                 <div className="ion-text-center">
                   <img
@@ -219,6 +220,9 @@ const Home: React.FC = () => {
                 </div>
               </IonCol>
             ))}
+            <IonCol size="auto" hidden={state.biene.additionalBienen.length<=20}>
+                  <IonChip color="warning">+ {state.biene.additionalBienen.length-20}</IonChip>
+            </IonCol>
           </IonRow>
           <IonRow className="ion-justify-content-center">
             <IonCol size="auto" class="ion-text-center">
@@ -303,6 +307,7 @@ const Home: React.FC = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
+        <IonButton onClick={()=>dispatch(ActionBieneAddAdditional())}></IonButton>
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton
             color={canBuy ? "success" : "primary"}
