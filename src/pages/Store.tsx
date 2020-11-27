@@ -21,6 +21,7 @@ import {
   IonTitle,
   IonToast,
   IonToolbar,
+  useIonViewDidEnter,
   useIonViewWillEnter,
 } from "@ionic/react";
 import { AppContext, saveState } from "../store/State";
@@ -56,8 +57,30 @@ const StorePage: React.FC = () => {
 
   const autorotatingPrice = getAutorotatePrice(state);
 
-  useIonViewWillEnter(() => {
+  useIonViewDidEnter(() => {
     Firebase.setScreenName({ screenName: "store" });
+    const _values: { name: string; value: any }[] = [
+      {
+        name: "AdditionalBeeLength",
+        value: state.biene.additionalBienen.length,
+      },
+      {
+        name: "AutoRotatingLength",
+        value: state.biene.autoRotatingBees.length,
+      },
+      {
+        name: "MultiplierLevel",
+        value: state.biene.multiplierLevel,
+      },
+      {
+        name: "RotateSpeedLevel",
+        value: state.biene.rotateSpeedLevel,
+      },
+    ];
+
+    _values.forEach((obj) => {
+      Firebase.setUserProperty({ name: obj.name, value: obj.value });
+    });
   });
 
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {

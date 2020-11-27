@@ -18,6 +18,7 @@ import {
   IonToggle,
   IonToolbar,
   isPlatform,
+  useIonViewDidEnter,
   useIonViewWillEnter,
 } from "@ionic/react";
 import { RefresherEventDetail } from "@ionic/core";
@@ -53,8 +54,10 @@ const PageSettings: React.FC = () => {
   const deleteAlertRef = React.createRef<HTMLIonAlertElement>();
   const history = useHistory();
 
-  useIonViewWillEnter(() => {
-    Firebase.setScreenName({ screenName: "Settings" });
+  useIonViewDidEnter(() => {
+    Firebase.setScreenName({ screenName: "settings" }).then(() =>
+      console.log("Set Screen Name to Settings")
+    );
   });
 
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {

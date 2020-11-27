@@ -20,6 +20,7 @@ import {
   IonTitle,
   IonToolbar,
   isPlatform,
+  useIonViewDidEnter,
   useIonViewWillEnter,
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
@@ -31,7 +32,6 @@ import biene from "../res/biene.png";
 import { AppContext, saveState } from "../store/State";
 
 import {
-  ActionBieneAddAdditional,
   ActionBieneClickIncrease,
   ActionDataLoadedFromMemory,
   ActionSetState,
@@ -50,6 +50,7 @@ import {
 } from "../globals";
 
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
+import { v4, validate } from "uuid";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 
 const { SplashScreen, StatusBar, App } = Plugins;
@@ -103,10 +104,45 @@ const Home: React.FC = () => {
 
     // Save, that the State is loaded from Memory, so that it can be overwritten
     dispatch(ActionDataLoadedFromMemory());
-    Firebase.setScreenName({ screenName: "home" }).then(() =>
+    await Firebase.setScreenName({ screenName: "home" }).then(() =>
       console.log("Set Screen Name to Home")
     );
+
+    await Storage.get({ key: "toastbrot.userUUID" }).then((res) => {
+      let _uuid: string;
+      if (res.value && validate(res.value)) {
+        _uuid = res.value;
+      } else {
+        _uuid = v4();
+        Storage.set({ key: "toastbrot.userUUID", value: _uuid });
+      }
+      Firebase.setUserId({ userId: _uuid });
+    });
   });
+  // useIonViewDidEnter(async () => {
+  //   const _values: { name: string; value: any }[] = [
+  //     {
+  //       name: "AdditionalBeeLength",
+  //       value: state.biene.additionalBienen.length,
+  //     },
+  //     {
+  //       name: "AutoRotatingLength",
+  //       value: state.biene.autoRotatingBees.length,
+  //     },
+  //     {
+  //       name: "MultiplierLevel",
+  //       value: state.biene.multiplierLevel,
+  //     },
+  //     {
+  //       name: "RotateSpeedLevel",
+  //       value: state.biene.rotateSpeedLevel,
+  //     },
+  //   ];
+
+  //   _values.forEach((obj) => {
+  //     Firebase.setUserProperty({ name: obj.name, value: obj.value });
+  //   });
+  // });
 
   // Refresh the CanBuy alert everytime the state changes
   useEffect(() => {
