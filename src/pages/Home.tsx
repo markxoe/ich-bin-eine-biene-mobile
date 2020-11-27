@@ -53,7 +53,7 @@ import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics
 import { v4, validate } from "uuid";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 
-const { SplashScreen, StatusBar, App } = Plugins;
+const { SplashScreen, StatusBar, App, PushNotifications } = Plugins;
 
 const Home: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -65,6 +65,25 @@ const Home: React.FC = () => {
   const [openLevels, setOpenLevels] = useState<boolean>(false);
 
   useIonViewWillEnter(async () => {
+    const enablePushs = () => {
+      PushNotifications.requestPermission().then((result) => {
+        if (result.granted) {
+          PushNotifications.register();
+        } else {
+          const el = document.createElement("ion-toast");
+          document.body.appendChild(el);
+          el.message = "Bist du dir sicher?";
+          el.buttons = [{ text: "Nein", handler: () => enablePushs() }];
+          el.duration = 5000;
+          el.present();
+        }
+      });
+    };
+    enablePushs();
+    PushNotifications.addListener("registration", (token) => {
+      console.log("Token", token.value);
+    });
+
     if (isPlatform("capacitor"))
       StatusBar.setStyle({ style: StatusBarStyle.Dark });
 
