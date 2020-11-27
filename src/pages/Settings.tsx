@@ -55,14 +55,17 @@ const PageSettings: React.FC = () => {
   const history = useHistory();
 
   useIonViewDidEnter(() => {
-    Firebase.setScreenName({ screenName: "settings" }).then(() =>
-      console.log("Set Screen Name to Settings")
-    );
+    Firebase.setScreenName({ screenName: "settings" })
+      .then(() => console.log("Set Screen Name to Settings"))
+      .catch();
   });
 
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
     console.log("Begin async operation");
-    Firebase.logEvent({ name: "SettingsImportExportActivated", params: {} });
+    Firebase.logEvent({
+      name: "SettingsImportExportActivated",
+      params: { done: true },
+    }).catch();
     setTimeout(() => {
       setImportexportactivated(true);
       event.detail.complete();
@@ -74,7 +77,10 @@ const PageSettings: React.FC = () => {
   }, [state]);
 
   const ImportData = () => {
-    Firebase.logEvent({ name: "SettingsImported", params: {} });
+    Firebase.logEvent({
+      name: "SettingsImported",
+      params: { done: true },
+    }).catch();
     try {
       const _in: stateType = JSON.parse(ImportInput);
       const _in2: stateType = { ...state, ..._in };
@@ -123,7 +129,7 @@ const PageSettings: React.FC = () => {
               Firebase.logEvent({
                 name: "SettingsSeparaterClickButtonChange",
                 params: { activated: c.detail.checked },
-              });
+              }).catch();
             }}
           />
         </IonItem>
@@ -133,9 +139,13 @@ const PageSettings: React.FC = () => {
           <IonLabel>Neues User Interface</IonLabel>
           <IonToggle
             checked={state.settings.newUI}
-            onIonChange={(c) =>
-              dispatch(ActionSettingsSetNewUI(c.detail.checked))
-            }
+            onIonChange={(c) => {
+              dispatch(ActionSettingsSetNewUI(c.detail.checked));
+              Firebase.logEvent({
+                name: "SettingsNeueUIChange",
+                params: { activated: c.detail.checked },
+              });
+            }}
           />
         </IonItem>
         <IonItem detail onClick={() => history.push("/intro")}>
@@ -176,15 +186,19 @@ const PageSettings: React.FC = () => {
             Backup
             <IonButton
               slot="end"
-              onClick={() =>
+              onClick={() => {
                 isPlatform("capacitor")
                   ? Share.share({
                       dialogTitle: "Daten Exportieren",
                       text: JSON.stringify(state),
                       title: "Nicht mit andern Teilen!",
                     })
-                  : Clipboard.write({ string: JSON.stringify(state) })
-              }>
+                  : Clipboard.write({ string: JSON.stringify(state) });
+                Firebase.logEvent({
+                  name: "SettingsExport",
+                  params: { done: true },
+                });
+              }}>
               Backup
             </IonButton>
           </IonItem>
@@ -242,8 +256,8 @@ const PageSettings: React.FC = () => {
                 dispatch(ActionResetState());
                 await Firebase.logEvent({
                   name: "SettingsDeleteAll",
-                  params: {},
-                });
+                  params: { done: true },
+                }).catch();
                 await saveState(initialState);
                 App.exitApp();
                 showdeleteAllAlert(false);

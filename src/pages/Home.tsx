@@ -104,9 +104,9 @@ const Home: React.FC = () => {
 
     // Save, that the State is loaded from Memory, so that it can be overwritten
     dispatch(ActionDataLoadedFromMemory());
-    await Firebase.setScreenName({ screenName: "home" }).then(() =>
-      console.log("Set Screen Name to Home")
-    );
+    await Firebase.setScreenName({ screenName: "home" })
+      .then(() => console.log("Set Screen Name to Home"))
+      .catch(console.info);
 
     await Storage.get({ key: "toastbrot.userUUID" }).then((res) => {
       let _uuid: string;
@@ -116,7 +116,7 @@ const Home: React.FC = () => {
         _uuid = v4();
         Storage.set({ key: "toastbrot.userUUID", value: _uuid });
       }
-      Firebase.setUserId({ userId: _uuid });
+      Firebase.setUserId({ userId: _uuid }).catch();
     });
   });
   // useIonViewDidEnter(async () => {

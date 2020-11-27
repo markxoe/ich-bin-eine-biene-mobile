@@ -58,7 +58,7 @@ const StorePage: React.FC = () => {
   const autorotatingPrice = getAutorotatePrice(state);
 
   useIonViewDidEnter(() => {
-    Firebase.setScreenName({ screenName: "store" });
+    Firebase.setScreenName({ screenName: "store" }).catch();
     const _values: { name: string; value: any }[] = [
       {
         name: "AdditionalBeeLength",
@@ -85,7 +85,7 @@ const StorePage: React.FC = () => {
 
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
     console.log("Begin async operation");
-    Firebase.logEvent({ name: "StoreGetGift", params: {} });
+    Firebase.logEvent({ name: "StoreGetGift", params: { done: true } }).catch();
     setTimeout(() => {
       dispatch(ActionMakeMeAPresent());
       event.detail.complete();
@@ -139,7 +139,7 @@ const StorePage: React.FC = () => {
               Firebase.logEvent({
                 name: "StoreBuyDrehlevel",
                 params: { price: rotateSpeedLevelPrice },
-              });
+              }).catch();
             }}
             disabled={
               !(state.biene.rotateSpeedLevel < rotateSpeedLevel.max) ||
@@ -180,7 +180,7 @@ const StorePage: React.FC = () => {
               Firebase.logEvent({
                 name: "StoreBuyAdditionalBee",
                 params: { price: additionalBeePrice },
-              });
+              }).catch();
             }}
             disabled={state.biene.clickCounter < additionalBeePrice}>
             Neue Biene kaufen
@@ -214,7 +214,7 @@ const StorePage: React.FC = () => {
               Firebase.logEvent({
                 name: "StoreBuyMultiplier",
                 params: { price: multiplierLevelPrice },
-              });
+              }).catch();
             }}
             disabled={state.biene.clickCounter < multiplierLevelPrice}>
             Multiplier kaufen
@@ -250,7 +250,7 @@ const StorePage: React.FC = () => {
               Firebase.logEvent({
                 name: "StoreBuyAutorotater",
                 params: { price: autorotatingPrice },
-              });
+              }).catch();
             }}
             disabled={state.biene.clickCounter < autorotatingPrice}>
             Autodreher kaufen

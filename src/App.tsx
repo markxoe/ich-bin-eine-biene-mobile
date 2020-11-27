@@ -32,7 +32,7 @@ import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 const App: React.FC = () => {
   useIonViewWillEnter(() => {
-    Firebase.setCollectionEnabled({ enabled: true });
+    Firebase.setCollectionEnabled({ enabled: true }).catch();
   });
   return (
     <AppContextProvider>
