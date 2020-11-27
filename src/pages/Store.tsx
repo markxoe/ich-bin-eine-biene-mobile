@@ -21,6 +21,7 @@ import {
   IonTitle,
   IonToast,
   IonToolbar,
+  useIonViewWillEnter,
 } from "@ionic/react";
 import { AppContext, saveState } from "../store/State";
 import {
@@ -41,6 +42,9 @@ import {
 } from "../store/Actions";
 import { RefresherEventDetail } from "@ionic/core";
 import { flashOutline } from "ionicons/icons";
+import { Plugins } from "@capacitor/core";
+import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
+const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 
 const StorePage: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -52,9 +56,13 @@ const StorePage: React.FC = () => {
 
   const autorotatingPrice = getAutorotatePrice(state);
 
+  useIonViewWillEnter(() => {
+    Firebase.setScreenName({ screenName: "store" });
+  });
+
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
     console.log("Begin async operation");
-
+    Firebase.logEvent({ name: "StoreGetGift", params: {} });
     setTimeout(() => {
       dispatch(ActionMakeMeAPresent());
       event.detail.complete();
@@ -105,6 +113,10 @@ const StorePage: React.FC = () => {
               dispatch(ActionRotateSpeedLevelIncrease());
               dispatch(ActionBieneClickDecrease(rotateSpeedLevelPrice));
               setShowThx(true);
+              Firebase.logEvent({
+                name: "StoreBuyDrehlevel",
+                params: { price: rotateSpeedLevelPrice },
+              });
             }}
             disabled={
               !(state.biene.rotateSpeedLevel < rotateSpeedLevel.max) ||
@@ -142,6 +154,10 @@ const StorePage: React.FC = () => {
               dispatch(ActionBieneAddAdditional());
               dispatch(ActionBieneClickDecrease(additionalBeePrice));
               setShowThx(true);
+              Firebase.logEvent({
+                name: "StoreBuyAdditionalBee",
+                params: { price: additionalBeePrice },
+              });
             }}
             disabled={state.biene.clickCounter < additionalBeePrice}>
             Neue Biene kaufen
@@ -172,6 +188,10 @@ const StorePage: React.FC = () => {
               dispatch(ActionMultiplierIncrease());
               dispatch(ActionBieneClickDecrease(multiplierLevelPrice));
               setShowThx(true);
+              Firebase.logEvent({
+                name: "StoreBuyMultiplier",
+                params: { price: multiplierLevelPrice },
+              });
             }}
             disabled={state.biene.clickCounter < multiplierLevelPrice}>
             Multiplier kaufen
@@ -204,6 +224,10 @@ const StorePage: React.FC = () => {
               dispatch(ActionBieneAddAutoRotating(0));
               dispatch(ActionBieneClickDecrease(autorotatingPrice));
               setShowThx(true);
+              Firebase.logEvent({
+                name: "StoreBuyAutorotater",
+                params: { price: autorotatingPrice },
+              });
             }}
             disabled={state.biene.clickCounter < autorotatingPrice}>
             Autodreher kaufen
