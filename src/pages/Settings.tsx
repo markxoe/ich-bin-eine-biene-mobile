@@ -37,7 +37,7 @@ import {
   ActionSettingsSetNewUI,
 } from "../store/Actions";
 
-import { Plugins } from "@capacitor/core";
+import { Plugins, Storage } from "@capacitor/core";
 import { flashOutline } from "ionicons/icons";
 import { stateType } from "../store/types";
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
@@ -51,13 +51,18 @@ const PageSettings: React.FC = () => {
   );
   const [showImport, setShowImport] = useState<boolean>(false);
   const [ImportInput, setImportInput] = useState<string>("");
+  const [userUUID, setUserUUID] = useState<string>("");
   const deleteAlertRef = React.createRef<HTMLIonAlertElement>();
   const history = useHistory();
 
-  useIonViewDidEnter(() => {
+  useIonViewDidEnter(async () => {
     Firebase.setScreenName({ screenName: "settings" })
       .then(() => console.log("Set Screen Name to Settings"))
       .catch();
+
+    await Storage.get({ key: "toastbrot.userUUID" }).then((res) =>
+      setUserUUID(res.value ?? "")
+    );
   });
 
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
@@ -179,6 +184,9 @@ const PageSettings: React.FC = () => {
           <IonLabel>Website</IonLabel>
           <IonButton href="https://toastbrot.org/">Web</IonButton>
         </IonItem>
+
+        <IonItemDivider>Anderes</IonItemDivider>
+        <IonItem>{userUUID}</IonItem>
 
         <IonItemGroup hidden={!importexportactivated}>
           <IonItemDivider>Import / Export</IonItemDivider>
