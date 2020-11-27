@@ -49,6 +49,9 @@ import {
   rotateSpeedLevel,
 } from "../globals";
 
+import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
+const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
+
 const { SplashScreen, StatusBar, App } = Plugins;
 
 const Home: React.FC = () => {
@@ -100,6 +103,9 @@ const Home: React.FC = () => {
 
     // Save, that the State is loaded from Memory, so that it can be overwritten
     dispatch(ActionDataLoadedFromMemory());
+    Firebase.setScreenName({ screenName: "home" }).then(() =>
+      console.log("Set Screen Name to Home")
+    );
   });
 
   // Refresh the CanBuy alert everytime the state changes
@@ -178,7 +184,7 @@ const Home: React.FC = () => {
                 />
               </div>
             </IonCol>
-            {state.biene.additionalBienen.slice(0,20).map(() => (
+            {state.biene.additionalBienen.slice(0, 20).map(() => (
               <IonCol size="auto">
                 <div className="ion-text-center">
                   <img
@@ -220,8 +226,12 @@ const Home: React.FC = () => {
                 </div>
               </IonCol>
             ))}
-            <IonCol size="auto" hidden={state.biene.additionalBienen.length<=20}>
-                  <IonChip color="warning">+ {state.biene.additionalBienen.length-20}</IonChip>
+            <IonCol
+              size="auto"
+              hidden={state.biene.additionalBienen.length <= 20}>
+              <IonChip color="warning">
+                + {state.biene.additionalBienen.length - 20}
+              </IonChip>
             </IonCol>
           </IonRow>
           <IonRow className="ion-justify-content-center">
@@ -307,7 +317,7 @@ const Home: React.FC = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
-        
+
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton
             color={canBuy ? "success" : "primary"}
