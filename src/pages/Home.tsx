@@ -307,7 +307,7 @@ const Home: React.FC = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
-        <IonButton onClick={()=>dispatch(ActionBieneAddAdditional())}></IonButton>
+        
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton
             color={canBuy ? "success" : "primary"}
