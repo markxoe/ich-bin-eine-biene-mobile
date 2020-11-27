@@ -18,6 +18,7 @@ import {
   IonToggle,
   IonToolbar,
   isPlatform,
+  useIonViewWillEnter,
 } from "@ionic/react";
 import { RefresherEventDetail } from "@ionic/core";
 import React, { useContext, useEffect, useState } from "react";
@@ -38,6 +39,8 @@ import {
 import { Plugins } from "@capacitor/core";
 import { flashOutline } from "ionicons/icons";
 import { stateType } from "../store/types";
+import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
+const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 const { App, Share, Clipboard } = Plugins;
 const PageSettings: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -50,9 +53,13 @@ const PageSettings: React.FC = () => {
   const deleteAlertRef = React.createRef<HTMLIonAlertElement>();
   const history = useHistory();
 
+  useIonViewWillEnter(() => {
+    Firebase.setScreenName({ screenName: "Settings" });
+  });
+
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
     console.log("Begin async operation");
-
+    Firebase.logEvent({ name: "SettingsImportExportActivated", params: {} });
     setTimeout(() => {
       setImportexportactivated(true);
       event.detail.complete();
@@ -64,6 +71,7 @@ const PageSettings: React.FC = () => {
   }, [state]);
 
   const ImportData = () => {
+    Firebase.logEvent({ name: "SettingsImported", params: {} });
     try {
       const _in: stateType = JSON.parse(ImportInput);
       const _in2: stateType = { ...state, ..._in };
@@ -107,9 +115,13 @@ const PageSettings: React.FC = () => {
           <IonLabel>Separater Knopf</IonLabel>
           <IonToggle
             checked={state.settings.clickButtonForBee}
-            onIonChange={(c) =>
-              dispatch(ActionSettingsSetClickButtonForBee(c.detail.checked))
-            }
+            onIonChange={(c) => {
+              dispatch(ActionSettingsSetClickButtonForBee(c.detail.checked));
+              Firebase.logEvent({
+                name: "SettingsSeparaterClickButtonChange",
+                params: { activated: c.detail.checked },
+              });
+            }}
           />
         </IonItem>
         <IonItemDivider>Allgemein</IonItemDivider>
@@ -128,7 +140,12 @@ const PageSettings: React.FC = () => {
         </IonItem>
         <IonItem>
           <IonLabel>Alle Daten Löschen</IonLabel>
-          <IonButton onClick={() => showdeleteAllAlert(true)}>Alles</IonButton>
+          <IonButton
+            onClick={() => {
+              showdeleteAllAlert(true);
+            }}>
+            Alles
+          </IonButton>
         </IonItem>
         <IonItemDivider>Info</IonItemDivider>
         <IonItem>
@@ -218,9 +235,13 @@ const PageSettings: React.FC = () => {
           buttons={[
             {
               text: "Ja",
-              handler: () => {
+              handler: async () => {
                 dispatch(ActionResetState());
-                saveState(initialState);
+                await Firebase.logEvent({
+                  name: "SettingsDeleteAll",
+                  params: {},
+                });
+                await saveState(initialState);
                 App.exitApp();
                 showdeleteAllAlert(false);
               },
