@@ -128,7 +128,7 @@ const PageSettings: React.FC = () => {
               dispatch(ActionSettingsSetClickButtonForBee(c.detail.checked));
               Firebase.logEvent({
                 name: "SettingsSeparaterClickButtonChange",
-                params: { activated: c.detail.checked },
+                params: { activated: c.detail.checked ?? false },
               }).catch();
             }}
           />
@@ -143,7 +143,7 @@ const PageSettings: React.FC = () => {
               dispatch(ActionSettingsSetNewUI(c.detail.checked));
               Firebase.logEvent({
                 name: "SettingsNeueUIChange",
-                params: { activated: c.detail.checked },
+                params: { activated: c.detail.checked ?? false },
               });
             }}
           />
