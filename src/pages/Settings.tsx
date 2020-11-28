@@ -138,7 +138,7 @@ const PageSettings: React.FC = () => {
                 params: {
                   activated: c.detail.checked ? "true" : "false",
                 },
-              }).catch();
+              }).catch(() => {});
             }}
           />
         </IonItem>
@@ -155,7 +155,7 @@ const PageSettings: React.FC = () => {
                 params: {
                   activated: c.detail.checked ? "true" : "false",
                 },
-              });
+              }).catch(() => {});
             }}
           />
         </IonItem>
