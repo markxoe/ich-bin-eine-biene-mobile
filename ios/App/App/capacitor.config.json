@@ -7,6 +7,9 @@
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 5000
+    },
+    "PushNotifications": {
+      "presentationOptions": ["badge", "sound", "alert"]
     }
   },
   "cordova": {}
