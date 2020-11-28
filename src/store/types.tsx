@@ -12,6 +12,7 @@ export interface stateType {
     newUI: boolean;
   };
   statisticsRotations: number;
+  settingMaxNumberDisplayedBees: number;
 }
 
 export interface actionType {

@@ -98,3 +98,10 @@ export const ActionResetState = (): actionType => ({
 export const ActionStatisticAdd = (): actionType => ({
   type: "statisticsAdd",
 });
+
+export const ActionSettingSetMaxDisplayBiene = (
+  newNumber: number
+): actionType => ({
+  type: "settingSetMaxDisplayBiene",
+  payload: newNumber,
+});

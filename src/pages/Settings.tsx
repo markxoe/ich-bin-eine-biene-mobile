@@ -11,8 +11,10 @@ import {
   IonLabel,
   IonModal,
   IonPage,
+  IonRange,
   IonRefresher,
   IonRefresherContent,
+  IonText,
   IonTextarea,
   IonTitle,
   IonToggle,
@@ -31,6 +33,7 @@ import { AppContext, saveState, initialState } from "../store/State";
 import {
   ActionResetState,
   ActionSetState,
+  ActionSettingSetMaxDisplayBiene,
   ActionSettingsSetClickButtonForBee,
   ActionSettingsSetNewUI,
 } from "../store/Actions";
@@ -180,6 +183,28 @@ const PageSettings: React.FC = () => {
             Alles
           </IonButton>
         </IonItem>
+
+        <IonItemDivider>Anzahl der maximal angezeigten Bienen</IonItemDivider>
+        <IonItem>
+          <IonRange
+            onIonChange={(e) => {
+              dispatch(
+                ActionSettingSetMaxDisplayBiene(
+                  parseInt(e.detail.value as any) ?? 20
+                )
+              );
+            }}
+            value={state.settingMaxNumberDisplayedBees}
+            min={10}
+            snaps={true}
+            step={10}
+            // pin={true}
+            max={100}>
+            <IonText slot="start">10</IonText>
+            <IonText slot="end">100</IonText>
+          </IonRange>
+        </IonItem>
+
         <IonItemDivider>Info</IonItemDivider>
         <IonItem>
           <IonLabel>Entwickler</IonLabel>

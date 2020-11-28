@@ -19,6 +19,7 @@ const initialState: stateType = {
     newUI: true,
   },
   statisticsRotations: 0,
+  settingMaxNumberDisplayedBees: 20,
 };
 
 let reducer = (state: stateType, action: actionType): stateType => {
@@ -120,6 +121,12 @@ let reducer = (state: stateType, action: actionType): stateType => {
       return {
         ...state,
         statisticsRotations: state.statisticsRotations + 1,
+      };
+    }
+    case "settingSetMaxDisplayBiene": {
+      return {
+        ...state,
+        settingMaxNumberDisplayedBees: action.payload,
       };
     }
   }

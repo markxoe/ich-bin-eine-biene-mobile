@@ -21,6 +21,7 @@ import {
   IonToolbar,
   isPlatform,
   useIonViewWillEnter,
+  useIonViewWillLeave,
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
 import { refreshOutline, settingsOutline, storefront } from "ionicons/icons";
@@ -211,25 +212,28 @@ const Home: React.FC = () => {
                 />
               </div>
             </IonCol>
-            {state.biene.additionalBienen.slice(0, 20).map(() => (
-              <IonCol size="auto">
-                <div className="ion-text-center">
-                  <img
-                    onClick={() => {
-                      setRotation(true);
-                    }}
-                    className={
-                      rotation
-                        ? rotateSpeedLevel.levels[state.biene.rotateSpeedLevel]
-                            .class
-                        : "biene"
-                    }
-                    src={biene}
-                    alt="biene"
-                  />
-                </div>
-              </IonCol>
-            ))}
+            {state.biene.additionalBienen
+              .slice(0, state.settingMaxNumberDisplayedBees)
+              .map(() => (
+                <IonCol size="auto">
+                  <div className="ion-text-center">
+                    <img
+                      onClick={() => {
+                        setRotation(true);
+                      }}
+                      className={
+                        rotation
+                          ? rotateSpeedLevel.levels[
+                              state.biene.rotateSpeedLevel
+                            ].class
+                          : "biene"
+                      }
+                      src={biene}
+                      alt="biene"
+                    />
+                  </div>
+                </IonCol>
+              ))}
             {state.biene.autoRotatingBees.map((a) => (
               <IonCol size="auto">
                 <div className="ion-text-center">
@@ -255,9 +259,14 @@ const Home: React.FC = () => {
             ))}
             <IonCol
               size="auto"
-              hidden={state.biene.additionalBienen.length <= 20}>
+              hidden={
+                state.biene.additionalBienen.length <=
+                state.settingMaxNumberDisplayedBees
+              }>
               <IonChip color="warning">
-                + {state.biene.additionalBienen.length - 20}
+                +{" "}
+                {state.biene.additionalBienen.length -
+                  state.settingMaxNumberDisplayedBees}
               </IonChip>
             </IonCol>
           </IonRow>
