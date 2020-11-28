@@ -94,6 +94,7 @@ const PageSettings: React.FC = () => {
       document.body.appendChild(el);
       el.message = "Hat funktioniert!";
       el.duration = 1000;
+      el.translucent = true;
       el.present();
       setShowImport(false);
     } catch {
@@ -101,6 +102,7 @@ const PageSettings: React.FC = () => {
       document.body.appendChild(el);
       el.message = "Fehler!";
       el.duration = 1000;
+      el.translucent = true;
       el.present();
     }
   };

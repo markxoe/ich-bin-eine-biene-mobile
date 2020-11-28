@@ -75,6 +75,7 @@ const Home: React.FC = () => {
           el.message =
             "Bitte aktiviere Mitteilungen in den Systemeinstellungen";
           el.duration = 5000;
+          el.translucent = true;
           el.present();
         }
       })
