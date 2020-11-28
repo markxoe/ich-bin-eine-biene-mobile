@@ -58,7 +58,7 @@ const PageSettings: React.FC = () => {
   useIonViewDidEnter(async () => {
     Firebase.setScreenName({ screenName: "settings" })
       .then(() => console.log("Set Screen Name to Settings"))
-      .catch();
+      .catch(() => {});
 
     await Storage.get({ key: "toastbrot.userUUID" }).then((res) =>
       setUserUUID(res.value ?? "")

@@ -79,7 +79,10 @@ const StorePage: React.FC = () => {
     ];
 
     _values.forEach((obj) => {
-      Firebase.setUserProperty({ name: obj.name, value: obj.value });
+      Firebase.setUserProperty({
+        name: obj.name,
+        value: obj.value,
+      }).catch(() => {});
     });
   });
 

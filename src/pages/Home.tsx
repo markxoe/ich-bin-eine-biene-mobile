@@ -38,7 +38,7 @@ import {
   ActionStatisticAdd,
 } from "../store/Actions";
 
-import { Plugins, Storage, StatusBarStyle } from "@capacitor/core";
+import { Plugins, Storage, StatusBarStyle, Capacitor } from "@capacitor/core";
 import { StoreKeyPrefix } from "../const";
 import { useHistory } from "react-router";
 import {
@@ -65,24 +65,24 @@ const Home: React.FC = () => {
   const [openLevels, setOpenLevels] = useState<boolean>(false);
 
   useIonViewWillEnter(async () => {
-    const enablePushs = () => {
-      PushNotifications.requestPermission().then((result) => {
+    PushNotifications.requestPermission()
+      .then((result) => {
         if (result.granted) {
           PushNotifications.register();
         } else {
           const el = document.createElement("ion-toast");
           document.body.appendChild(el);
-          el.message = "Bist du dir sicher?";
-          el.buttons = [{ text: "Nein", handler: () => enablePushs() }];
+          el.message =
+            "Bitte aktiviere Mitteilungen in den Systemeinstellungen";
           el.duration = 5000;
           el.present();
         }
+      })
+      .catch(() => {});
+    if (Capacitor.isPluginAvailable("PushNotifications"))
+      PushNotifications.addListener("registration", (token) => {
+        console.log("Token", token.value);
       });
-    };
-    enablePushs();
-    PushNotifications.addListener("registration", (token) => {
-      console.log("Token", token.value);
-    });
 
     if (isPlatform("capacitor"))
       StatusBar.setStyle({ style: StatusBarStyle.Dark });
@@ -125,7 +125,7 @@ const Home: React.FC = () => {
     dispatch(ActionDataLoadedFromMemory());
     await Firebase.setScreenName({ screenName: "home" })
       .then(() => console.log("Set Screen Name to Home"))
-      .catch(console.info);
+      .catch(() => {});
 
     await Storage.get({ key: "toastbrot.userUUID" }).then((res) => {
       let _uuid: string;
@@ -135,7 +135,7 @@ const Home: React.FC = () => {
         _uuid = v4();
         Storage.set({ key: "toastbrot.userUUID", value: _uuid });
       }
-      Firebase.setUserId({ userId: _uuid }).catch();
+      Firebase.setUserId({ userId: _uuid }).catch(() => {});
     });
   });
   // useIonViewDidEnter(async () => {
