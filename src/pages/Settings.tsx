@@ -69,7 +69,7 @@ const PageSettings: React.FC = () => {
     console.log("Begin async operation");
     Firebase.logEvent({
       name: "SettingsImportExportActivated",
-      params: { done: true },
+      params: {},
     }).catch();
     setTimeout(() => {
       setImportexportactivated(true);
@@ -84,7 +84,7 @@ const PageSettings: React.FC = () => {
   const ImportData = () => {
     Firebase.logEvent({
       name: "SettingsImported",
-      params: { done: true },
+      params: {},
     }).catch();
     try {
       const _in: stateType = JSON.parse(ImportInput);
@@ -135,7 +135,9 @@ const PageSettings: React.FC = () => {
               dispatch(ActionSettingsSetClickButtonForBee(c.detail.checked));
               Firebase.logEvent({
                 name: "SettingsSeparaterClickButtonChange",
-                params: { activated: c.detail.checked ?? false },
+                params: {
+                  activated: c.detail.checked ? "true" : "false",
+                },
               }).catch();
             }}
           />
@@ -150,7 +152,9 @@ const PageSettings: React.FC = () => {
               dispatch(ActionSettingsSetNewUI(c.detail.checked));
               Firebase.logEvent({
                 name: "SettingsNeueUIChange",
-                params: { activated: c.detail.checked ?? false },
+                params: {
+                  activated: c.detail.checked ? "true" : "false",
+                },
               });
             }}
           />
@@ -206,7 +210,7 @@ const PageSettings: React.FC = () => {
                   : Clipboard.write({ string: JSON.stringify(state) });
                 Firebase.logEvent({
                   name: "SettingsExport",
-                  params: { done: true },
+                  params: {},
                 });
               }}>
               Backup
@@ -266,7 +270,7 @@ const PageSettings: React.FC = () => {
                 dispatch(ActionResetState());
                 await Firebase.logEvent({
                   name: "SettingsDeleteAll",
-                  params: { done: true },
+                  params: {},
                 }).catch();
                 await saveState(initialState);
                 App.exitApp();

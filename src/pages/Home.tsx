@@ -112,16 +112,6 @@ const Home: React.FC = () => {
     await SplashScreen.hide();
     console.log("Done hiding Splash screen");
 
-    if (state.biene.clickCounter > state.statisticsRotations) {
-      dispatch(
-        ActionSetState({
-          ...state,
-          statisticsRotations: state.biene.clickCounter,
-        })
-      );
-      console.log("Done Updating Statistics");
-    }
-
     // Save, that the State is loaded from Memory, so that it can be overwritten
     dispatch(ActionDataLoadedFromMemory());
     await Firebase.setScreenName({ screenName: "home" })

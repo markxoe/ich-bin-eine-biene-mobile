@@ -59,22 +59,26 @@ const StorePage: React.FC = () => {
 
   useIonViewDidEnter(() => {
     Firebase.setScreenName({ screenName: "store" }).catch();
-    const _values: { name: string; value: any }[] = [
+    const _values: { name: string; value: string }[] = [
       {
         name: "AdditionalBeeLength",
-        value: state.biene.additionalBienen.length,
+        value: state.biene.additionalBienen.length.toString(),
       },
       {
         name: "AutoRotatingLength",
-        value: state.biene.autoRotatingBees.length,
+        value: state.biene.autoRotatingBees.length.toString(),
       },
       {
         name: "MultiplierLevel",
-        value: state.biene.multiplierLevel,
+        value: state.biene.multiplierLevel.toString(),
       },
       {
         name: "RotateSpeedLevel",
-        value: state.biene.rotateSpeedLevel,
+        value: state.biene.rotateSpeedLevel.toString(),
+      },
+      {
+        name: "RotationStatistic",
+        value: state.statisticsRotations.toString(),
       },
     ];
 
@@ -82,13 +86,15 @@ const StorePage: React.FC = () => {
       Firebase.setUserProperty({
         name: obj.name,
         value: obj.value,
-      }).catch(() => {});
+      }).catch((err) => {
+        console.error(err);
+      });
     });
   });
 
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
     console.log("Begin async operation");
-    Firebase.logEvent({ name: "StoreGetGift", params: { done: true } }).catch();
+    Firebase.logEvent({ name: "StoreGetGift", params: {} }).catch();
     setTimeout(() => {
       dispatch(ActionMakeMeAPresent());
       event.detail.complete();
