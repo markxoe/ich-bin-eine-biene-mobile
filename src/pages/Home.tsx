@@ -234,6 +234,18 @@ const Home: React.FC = () => {
                   </div>
                 </IonCol>
               ))}
+            <IonCol
+              size="auto"
+              hidden={
+                state.biene.additionalBienen.length <=
+                state.settingMaxNumberDisplayedBees
+              }>
+              <IonChip color="warning">
+                +{" "}
+                {state.biene.additionalBienen.length -
+                  state.settingMaxNumberDisplayedBees}
+              </IonChip>
+            </IonCol>
             {state.biene.autoRotatingBees.map((a) => (
               <IonCol size="auto">
                 <div className="ion-text-center">
@@ -257,18 +269,6 @@ const Home: React.FC = () => {
                 </div>
               </IonCol>
             ))}
-            <IonCol
-              size="auto"
-              hidden={
-                state.biene.additionalBienen.length <=
-                state.settingMaxNumberDisplayedBees
-              }>
-              <IonChip color="warning">
-                +{" "}
-                {state.biene.additionalBienen.length -
-                  state.settingMaxNumberDisplayedBees}
-              </IonChip>
-            </IonCol>
           </IonRow>
           <IonRow className="ion-justify-content-center">
             <IonCol size="auto" class="ion-text-center">
