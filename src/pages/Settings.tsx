@@ -20,6 +20,7 @@ import {
   isPlatform,
   useIonViewDidEnter,
   useIonViewWillEnter,
+  useIonViewWillLeave,
 } from "@ionic/react";
 import { RefresherEventDetail } from "@ionic/core";
 import React, { useContext, useEffect, useState } from "react";
@@ -68,57 +69,60 @@ const PageSettings: React.FC = () => {
     Firebase.logEvent({
       name: "SettingsAdvancedActivated",
       params: {},
-    }).catch();
+    }).catch(() => {});
+
     setTimeout(() => {
       setAdvancedSettings(true);
       event.detail.complete();
-    }, 1000);
+    }, 2000);
   }
 
   useEffect(() => {
     saveState(state);
-    const _values: { name: string; value: string }[] = [
-      {
-        name: "AdditionalBeeLength",
-        value: state.biene.additionalBienen.length.toString(),
-      },
-      {
-        name: "AutoRotatingLength",
-        value: state.biene.autoRotatingBees.length.toString(),
-      },
-      {
-        name: "MultiplierLevel",
-        value: state.biene.multiplierLevel.toString(),
-      },
-      {
-        name: "RotateSpeedLevel",
-        value: state.biene.rotateSpeedLevel.toString(),
-      },
-      {
-        name: "RotationStatistic",
-        value: state.statisticsRotations.toString(),
-      },
-      {
-        name: "SettingsNewUI",
-        value: state.settings.newUI ? "true" : "false",
-      },
-      {
-        name: "SettingsClickingAid",
-        value: state.settings.clickButtonForBee ? "true" : "false",
-      },
-    ];
-
-    _values.forEach((obj) => {
-      Firebase.setUserProperty({
-        name: obj.name,
-        value: obj.value,
-      }).catch((err) => {
-        console.error(err);
-      });
-    });
-    console.log("Updated UserPrpoerties");
   }, [state]);
 
+  // useIonViewWillLeave(() => {
+  //   const _values: { name: string; value: string }[] = [
+  //     {
+  //       name: "AdditionalBeeLength",
+  //       value: state.biene.additionalBienen.length.toString(),
+  //     },
+  //     {
+  //       name: "AutoRotatingLength",
+  //       value: state.biene.autoRotatingBees.length.toString(),
+  //     },
+  //     {
+  //       name: "MultiplierLevel",
+  //       value: state.biene.multiplierLevel.toString(),
+  //     },
+  //     {
+  //       name: "RotateSpeedLevel",
+  //       value: state.biene.rotateSpeedLevel.toString(),
+  //     },
+  //     {
+  //       name: "RotationStatistic",
+  //       value: state.statisticsRotations.toString(),
+  //     },
+  //     {
+  //       name: "SettingsNewUI",
+  //       value: state.settings.newUI ? "true" : "false",
+  //     },
+  //     {
+  //       name: "SettingsClickingAid",
+  //       value: state.settings.clickButtonForBee ? "true" : "false",
+  //     },
+  //   ];
+
+  //   _values.forEach((obj) => {
+  //     Firebase.setUserProperty({
+  //       name: obj.name,
+  //       value: obj.value,
+  //     }).catch((err) => {
+  //       console.error(err);
+  //     });
+  //   });
+  //   console.log("Updated UserPrpoerties");
+  // });
   const ImportData = () => {
     Firebase.logEvent({
       name: "SettingsImported",
@@ -156,7 +160,7 @@ const PageSettings: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonRefresher slot="fixed" onIonRefresh={doRefresh}>
+        <IonRefresher slot="fixed" pullMin={30} onIonRefresh={doRefresh}>
           <IonRefresherContent
             pullingIcon={flashOutline}
             pullingText="Import / Export aktivieren"
@@ -176,6 +180,12 @@ const PageSettings: React.FC = () => {
                 params: {
                   activated: c.detail.checked ? "true" : "false",
                 },
+              }).catch((err) => {
+                console.error(err);
+              });
+              Firebase.setUserProperty({
+                name: "SettingsClickingAid",
+                value: c.detail.checked ? "true" : "false",
               }).catch(() => {});
             }}
           />
@@ -194,6 +204,10 @@ const PageSettings: React.FC = () => {
                   activated: c.detail.checked ? "true" : "false",
                 },
               }).catch(() => {});
+              Firebase.setUserProperty({
+                name: "SettingsNewUI",
+                value: c.detail.checked ? "true" : "false",
+              });
             }}
           />
         </IonItem>

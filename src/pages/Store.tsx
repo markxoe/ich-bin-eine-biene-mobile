@@ -160,6 +160,10 @@ const StorePage: React.FC = () => {
                 name: "StoreBuyDrehlevel",
                 params: { price: rotateSpeedLevelPrice },
               }).catch(() => {});
+              // Firebase.setUserProperty({
+              //   name: "RotateSpeedLevel",
+              //   value: (state.biene.rotateSpeedLevel + 1).toString(),
+              // }).catch(() => {});
             }}
             disabled={
               !(state.biene.rotateSpeedLevel < rotateSpeedLevel.max) ||
@@ -201,6 +205,10 @@ const StorePage: React.FC = () => {
                 name: "StoreBuyAdditionalBee",
                 params: { price: additionalBeePrice },
               }).catch(() => {});
+              // Firebase.setUserProperty({
+              //   name: "AdditionalBeeLength",
+              //   value: (state.biene.additionalBienen.length + 1).toString(),
+              // }).catch(() => {});
             }}
             disabled={state.biene.clickCounter < additionalBeePrice}>
             Neue Biene kaufen
@@ -235,6 +243,10 @@ const StorePage: React.FC = () => {
                 name: "StoreBuyMultiplier",
                 params: { price: multiplierLevelPrice },
               }).catch(() => {});
+              // Firebase.setUserProperty({
+              //   name: "MultiplierLevel",
+              //   value: (state.biene.multiplierLevel + 1).toString(),
+              // }).catch(() => {});
             }}
             disabled={state.biene.clickCounter < multiplierLevelPrice}>
             Multiplier kaufen
