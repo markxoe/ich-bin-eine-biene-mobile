@@ -63,6 +63,8 @@ const Home: React.FC = () => {
 
   const [openLevels, setOpenLevels] = useState<boolean>(false);
 
+  let timerId: number;
+
   useIonViewWillEnter(async () => {
     PushNotifications.requestPermission()
       .then((result) => {
@@ -140,13 +142,17 @@ const Home: React.FC = () => {
   // Here comes the saving Part:
   // useEfect 1: Refreshes the State "save" every 3 seconds
   useEffect(() => {
-    const timer = window.setInterval(() => {
+    timerId = window.setInterval(() => {
       refreshSave((i) => !i);
     }, 3000);
     return () => {
-      window.clearInterval(timer);
+      window.clearInterval(timerId);
     };
   }, []);
+
+  useIonViewWillLeave(() => {
+    window.clearInterval(timerId);
+  });
 
   // useEffect 2 refreshes everytime "save" gets refreshed, so that it gets saved only every 3 seconds -> Performance!!!
   useEffect(() => {
