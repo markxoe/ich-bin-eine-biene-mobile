@@ -46,9 +46,7 @@ const { App, Share, Clipboard } = Plugins;
 const PageSettings: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
   const [deleteAllAlert, showdeleteAllAlert] = useState<boolean>(false);
-  const [importexportactivated, setImportexportactivated] = useState<boolean>(
-    false
-  );
+  const [advancedSettings, setAdvancedSettings] = useState<boolean>(false);
   const [showImport, setShowImport] = useState<boolean>(false);
   const [ImportInput, setImportInput] = useState<string>("");
   const [userUUID, setUserUUID] = useState<string>("");
@@ -68,11 +66,11 @@ const PageSettings: React.FC = () => {
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
     console.log("Begin async operation");
     Firebase.logEvent({
-      name: "SettingsImportExportActivated",
+      name: "SettingsAdvancedActivated",
       params: {},
     }).catch();
     setTimeout(() => {
-      setImportexportactivated(true);
+      setAdvancedSettings(true);
       event.detail.complete();
     }, 1000);
   }
@@ -118,6 +116,7 @@ const PageSettings: React.FC = () => {
         console.error(err);
       });
     });
+    console.log("Updated UserPrpoerties");
   }, [state]);
 
   const ImportData = () => {
@@ -230,10 +229,9 @@ const PageSettings: React.FC = () => {
           <IonButton href="https://toastbrot.org/">Web</IonButton>
         </IonItem>
 
-        <IonItemDivider>Anderes</IonItemDivider>
-        <IonItem>{userUUID}</IonItem>
-
-        <IonItemGroup hidden={!importexportactivated}>
+        <IonItemGroup hidden={!advancedSettings}>
+          <IonItemDivider>FirebaseUserID</IonItemDivider>
+          <IonItem>{userUUID}</IonItem>
           <IonItemDivider>Import / Export</IonItemDivider>
           <IonItem>
             Backup
