@@ -16,7 +16,16 @@ Mark Oude Elberink
 
 ## Changelog
 
-## [0.6.2] Tennis :baseball:
+### [0.7.0] Frankreich :flags:
+
+- Performance verbesserungen
+- Firebase Analytics
+- Preisänderungen
+- Bug Fixes
+- UI Änderungen
+
+### [0.6.2] Tennis :baseball:
+
 - Feature für Zukünftige Versionen
 
 ### [0.6.1] Tennis :baseball:
