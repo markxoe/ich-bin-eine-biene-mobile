@@ -10,7 +10,6 @@ import {
   IonContent,
   IonFab,
   IonFabButton,
-  IonFooter,
   IonGrid,
   IonHeader,
   IonIcon,
@@ -21,7 +20,6 @@ import {
   IonTitle,
   IonToolbar,
   isPlatform,
-  useIonViewDidEnter,
   useIonViewWillEnter,
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
@@ -129,49 +127,6 @@ const Home: React.FC = () => {
       }
       Firebase.setUserId({ userId: _uuid }).catch(() => {});
     });
-
-    // if (state.dataLoadedFromMemory) {
-    //   const _values: { name: string; value: string }[] = [
-    //     {
-    //       name: "AdditionalBeeLength",
-    //       value: state.biene.additionalBienen.length.toString(),
-    //     },
-    //     {
-    //       name: "AutoRotatingLength",
-    //       value: state.biene.autoRotatingBees.length.toString(),
-    //     },
-    //     {
-    //       name: "MultiplierLevel",
-    //       value: state.biene.multiplierLevel.toString(),
-    //     },
-    //     {
-    //       name: "RotateSpeedLevel",
-    //       value: state.biene.rotateSpeedLevel.toString(),
-    //     },
-    //     {
-    //       name: "RotationStatistic",
-    //       value: state.statisticsRotations.toString(),
-    //     },
-    //     {
-    //       name: "SettingsNewUI",
-    //       value: state.settings.newUI ? "true" : "false",
-    //     },
-    //     {
-    //       name: "SettingsClickingAid",
-    //       value: state.settings.clickButtonForBee ? "true" : "false",
-    //     },
-    //   ];
-
-    //   _values.forEach((obj) => {
-    //     Firebase.setUserProperty({
-    //       name: obj.name,
-    //       value: obj.value,
-    //     }).catch((err) => {
-    //       console.error(err);
-    //     });
-    //   });
-    //   console.log("Updated UserPrpoerties");
-    // }
   });
 
   // Refresh the CanBuy alert everytime the state changes
@@ -368,19 +323,6 @@ const Home: React.FC = () => {
                 </IonCardContent>
               </IonCard>
             </IonCol>
-
-            {/* <IonCol
-              size="12"
-              sizeSm="auto"
-              hidden={!state.settings.clickButtonForBee}>
-              <IonCard>
-                <IonCardContent>
-                  <IonButton onClick={() => setRotation(true)}>
-                    Salto!
-                  </IonButton>
-                </IonCardContent>
-              </IonCard>
-            </IonCol> */}
           </IonRow>
         </IonGrid>
 

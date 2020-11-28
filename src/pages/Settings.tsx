@@ -19,10 +19,7 @@ import {
   IonToolbar,
   isPlatform,
   useIonViewDidEnter,
-  useIonViewWillEnter,
-  useIonViewWillLeave,
 } from "@ionic/react";
-import { RefresherEventDetail } from "@ionic/core";
 import React, { useContext, useEffect, useState } from "react";
 import "./Settings.css";
 
@@ -44,6 +41,7 @@ import { stateType } from "../store/types";
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 const { App, Share, Clipboard } = Plugins;
+
 const PageSettings: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
   const [deleteAllAlert, showdeleteAllAlert] = useState<boolean>(false);
@@ -64,70 +62,12 @@ const PageSettings: React.FC = () => {
     );
   });
 
-  function doRefresh(event: CustomEvent<RefresherEventDetail>) {
-    console.log("Begin async operation");
-    Firebase.logEvent({
-      name: "SettingsAdvancedActivated",
-      params: {},
-    }).catch(() => {});
-
-    setTimeout(() => {
-      setAdvancedSettings(true);
-      event.detail.complete();
-    }, 2000);
-  }
-
   useEffect(() => {
     saveState(state);
   }, [state]);
 
-  // useIonViewWillLeave(() => {
-  //   const _values: { name: string; value: string }[] = [
-  //     {
-  //       name: "AdditionalBeeLength",
-  //       value: state.biene.additionalBienen.length.toString(),
-  //     },
-  //     {
-  //       name: "AutoRotatingLength",
-  //       value: state.biene.autoRotatingBees.length.toString(),
-  //     },
-  //     {
-  //       name: "MultiplierLevel",
-  //       value: state.biene.multiplierLevel.toString(),
-  //     },
-  //     {
-  //       name: "RotateSpeedLevel",
-  //       value: state.biene.rotateSpeedLevel.toString(),
-  //     },
-  //     {
-  //       name: "RotationStatistic",
-  //       value: state.statisticsRotations.toString(),
-  //     },
-  //     {
-  //       name: "SettingsNewUI",
-  //       value: state.settings.newUI ? "true" : "false",
-  //     },
-  //     {
-  //       name: "SettingsClickingAid",
-  //       value: state.settings.clickButtonForBee ? "true" : "false",
-  //     },
-  //   ];
-
-  //   _values.forEach((obj) => {
-  //     Firebase.setUserProperty({
-  //       name: obj.name,
-  //       value: obj.value,
-  //     }).catch((err) => {
-  //       console.error(err);
-  //     });
-  //   });
-  //   console.log("Updated UserPrpoerties");
-  // });
   const ImportData = () => {
-    Firebase.logEvent({
-      name: "SettingsImported",
-      params: {},
-    }).catch();
+    let success: string = "false";
     try {
       const _in: stateType = JSON.parse(ImportInput);
       const _in2: stateType = { ...state, ..._in };
@@ -139,6 +79,7 @@ const PageSettings: React.FC = () => {
       el.translucent = true;
       el.present();
       setShowImport(false);
+      success = "true";
     } catch {
       const el = document.createElement("ion-toast");
       document.body.appendChild(el);
@@ -147,6 +88,10 @@ const PageSettings: React.FC = () => {
       el.translucent = true;
       el.present();
     }
+    Firebase.logEvent({
+      name: "SettingsImported",
+      params: { success },
+    }).catch(() => {});
   };
 
   return (
@@ -160,12 +105,24 @@ const PageSettings: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonRefresher slot="fixed" pullMin={30} onIonRefresh={doRefresh}>
+        <IonRefresher
+          slot="fixed"
+          pullMin={200}
+          onIonRefresh={(event) => {
+            Firebase.logEvent({
+              name: "SettingsAdvancedActivated",
+              params: {},
+            }).catch(() => {});
+            setTimeout(() => {
+              setAdvancedSettings(true);
+              event.detail.complete();
+            }, 5000);
+          }}>
           <IonRefresherContent
             pullingIcon={flashOutline}
-            pullingText="Import / Export aktivieren"
+            pullingText="Erweiterte Einstellungen"
             refreshingSpinner="crescent"
-            refreshingText="Import / Export aktivieren"
+            refreshingText="Erweiterte Einstellungen aktivieren"
           />
         </IonRefresher>
         <IonItemDivider>Bedienungshilfen</IonItemDivider>
@@ -262,7 +219,7 @@ const PageSettings: React.FC = () => {
                 Firebase.logEvent({
                   name: "SettingsExport",
                   params: {},
-                });
+                }).catch(() => {});
               }}>
               Backup
             </IonButton>

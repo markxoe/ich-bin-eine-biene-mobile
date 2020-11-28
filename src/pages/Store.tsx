@@ -22,7 +22,6 @@ import {
   IonToast,
   IonToolbar,
   useIonViewDidEnter,
-  useIonViewWillEnter,
 } from "@ionic/react";
 import { AppContext, saveState } from "../store/State";
 import {
@@ -160,10 +159,6 @@ const StorePage: React.FC = () => {
                 name: "StoreBuyDrehlevel",
                 params: { price: rotateSpeedLevelPrice },
               }).catch(() => {});
-              // Firebase.setUserProperty({
-              //   name: "RotateSpeedLevel",
-              //   value: (state.biene.rotateSpeedLevel + 1).toString(),
-              // }).catch(() => {});
             }}
             disabled={
               !(state.biene.rotateSpeedLevel < rotateSpeedLevel.max) ||
@@ -203,12 +198,8 @@ const StorePage: React.FC = () => {
               setShowThx(true);
               Firebase.logEvent({
                 name: "StoreBuyAdditionalBee",
-                params: { price: additionalBeePrice },
-              }).catch(() => {});
-              // Firebase.setUserProperty({
-              //   name: "AdditionalBeeLength",
-              //   value: (state.biene.additionalBienen.length + 1).toString(),
-              // }).catch(() => {});
+                params: {},
+              }).catch(console.error);
             }}
             disabled={state.biene.clickCounter < additionalBeePrice}>
             Neue Biene kaufen
@@ -241,12 +232,8 @@ const StorePage: React.FC = () => {
               setShowThx(true);
               Firebase.logEvent({
                 name: "StoreBuyMultiplier",
-                params: { price: multiplierLevelPrice },
-              }).catch(() => {});
-              // Firebase.setUserProperty({
-              //   name: "MultiplierLevel",
-              //   value: (state.biene.multiplierLevel + 1).toString(),
-              // }).catch(() => {});
+                params: {},
+              }).catch(console.error);
             }}
             disabled={state.biene.clickCounter < multiplierLevelPrice}>
             Multiplier kaufen
