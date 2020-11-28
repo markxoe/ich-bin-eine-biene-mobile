@@ -10,6 +10,7 @@ import {
   IonContent,
   IonFab,
   IonFabButton,
+  IonFooter,
   IonGrid,
   IonHeader,
   IonIcon,
@@ -24,7 +25,7 @@ import {
   useIonViewWillEnter,
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
-import { settingsOutline, storefront } from "ionicons/icons";
+import { refreshOutline, settingsOutline, storefront } from "ionicons/icons";
 import "./Home.css";
 
 import biene from "../res/biene.png";
@@ -325,7 +326,7 @@ const Home: React.FC = () => {
               </IonCard>
             </IonCol>
 
-            <IonCol
+            {/* <IonCol
               size="12"
               sizeSm="auto"
               hidden={!state.settings.clickButtonForBee}>
@@ -336,9 +337,19 @@ const Home: React.FC = () => {
                   </IonButton>
                 </IonCardContent>
               </IonCard>
-            </IonCol>
+            </IonCol> */}
           </IonRow>
         </IonGrid>
+
+        <IonFab
+          hidden={!state.settings.clickButtonForBee}
+          vertical="bottom"
+          horizontal="center"
+          slot="fixed">
+          <IonFabButton color="light" onClick={() => setRotation(true)}>
+            <IonIcon icon={refreshOutline} />
+          </IonFabButton>
+        </IonFab>
 
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton
