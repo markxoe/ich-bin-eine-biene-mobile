@@ -15,20 +15,20 @@ export const getRotateSpeedLevelPrice = (state: stateType): number => {
 };
 export const getAdditionalBeePrice = (state: stateType): number => {
   return Math.round(
-    (Math.pow(state.biene.additionalBienen.length, 1.5) * 50 +
+    (Math.pow(state.biene.additionalBienen.length, 1.6) * 50 +
       100 +
-      Math.pow(state.biene.multiplierLevel, 1.1) * 300 +
-      Math.pow(state.biene.autoRotatingBees.length, 1.1) * 2500) *
+      Math.pow(state.biene.multiplierLevel, 1.3) * 500 +
+      Math.pow(state.biene.autoRotatingBees.length, 1.3) * 2500) *
       1.2
   );
 };
 export const getMultiplierPrice = (state: stateType): number => {
   return (
     Math.round(
-      (Math.pow(state.biene.multiplierLevel, 1.1) * 500 +
+      (Math.pow(state.biene.multiplierLevel, 1.4) * 500 +
         500 +
-        state.biene.additionalBienen.length * 200 +
-        Math.pow(state.biene.autoRotatingBees.length, 1.1) * 2500) *
+        Math.pow(state.biene.additionalBienen.length, 1.2) * 400 +
+        Math.pow(state.biene.autoRotatingBees.length, 1.2) * 2500) *
         1.3
     ) + 500
   );
@@ -60,17 +60,17 @@ export const calculateLevel = (
     minlevel: number;
     maxlevel: number;
   }[] = [
-    { color: "primary", name: "Einsteiger", minlevel: 0, maxlevel: 10 },
-    { color: "secondary", name: "Biene", minlevel: 10, maxlevel: 20 },
-    { color: "success", name: "Brathahn", minlevel: 20, maxlevel: 50 },
-    { color: "warning", name: "Bienenmutter", minlevel: 50, maxlevel: 100 },
-    { color: "danger", name: "Krass", minlevel: 100, maxlevel: 500 },
-    { color: "darkpink", name: "Krank", minlevel: 500, maxlevel: 2000 },
+    { color: "primary", name: "Einsteiger", minlevel: 0, maxlevel: 20 },
+    { color: "secondary", name: "Biene", minlevel: 20, maxlevel: 40 },
+    { color: "success", name: "Brathahn", minlevel: 40, maxlevel: 80 },
+    { color: "warning", name: "Bienenmutter", minlevel: 80, maxlevel: 200 },
+    { color: "danger", name: "Krass", minlevel: 200, maxlevel: 700 },
+    { color: "darkpink", name: "Krank", minlevel: 700, maxlevel: 2500 },
     {
       color: "tertiary",
       name: "Different 🥶",
-      minlevel: 2000,
-      maxlevel: 1000000,
+      minlevel: 2500,
+      maxlevel: 1000000000000,
     },
   ];
   const got = levels.find((i) => i.minlevel <= points && i.maxlevel > points);
