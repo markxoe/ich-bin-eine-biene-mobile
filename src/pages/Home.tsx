@@ -138,30 +138,6 @@ const Home: React.FC = () => {
       Firebase.setUserId({ userId: _uuid }).catch(() => {});
     });
   });
-  // useIonViewDidEnter(async () => {
-  //   const _values: { name: string; value: any }[] = [
-  //     {
-  //       name: "AdditionalBeeLength",
-  //       value: state.biene.additionalBienen.length,
-  //     },
-  //     {
-  //       name: "AutoRotatingLength",
-  //       value: state.biene.autoRotatingBees.length,
-  //     },
-  //     {
-  //       name: "MultiplierLevel",
-  //       value: state.biene.multiplierLevel,
-  //     },
-  //     {
-  //       name: "RotateSpeedLevel",
-  //       value: state.biene.rotateSpeedLevel,
-  //     },
-  //   ];
-
-  //   _values.forEach((obj) => {
-  //     Firebase.setUserProperty({ name: obj.name, value: obj.value });
-  //   });
-  // });
 
   // Refresh the CanBuy alert everytime the state changes
   useEffect(() => {
