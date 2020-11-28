@@ -79,6 +79,45 @@ const PageSettings: React.FC = () => {
 
   useEffect(() => {
     saveState(state);
+    const _values: { name: string; value: string }[] = [
+      {
+        name: "AdditionalBeeLength",
+        value: state.biene.additionalBienen.length.toString(),
+      },
+      {
+        name: "AutoRotatingLength",
+        value: state.biene.autoRotatingBees.length.toString(),
+      },
+      {
+        name: "MultiplierLevel",
+        value: state.biene.multiplierLevel.toString(),
+      },
+      {
+        name: "RotateSpeedLevel",
+        value: state.biene.rotateSpeedLevel.toString(),
+      },
+      {
+        name: "RotationStatistic",
+        value: state.statisticsRotations.toString(),
+      },
+      {
+        name: "SettingsNewUI",
+        value: state.settings.newUI ? "true" : "false",
+      },
+      {
+        name: "SettingsClickingAid",
+        value: state.settings.clickButtonForBee ? "true" : "false",
+      },
+    ];
+
+    _values.forEach((obj) => {
+      Firebase.setUserProperty({
+        name: obj.name,
+        value: obj.value,
+      }).catch((err) => {
+        console.error(err);
+      });
+    });
   }, [state]);
 
   const ImportData = () => {
