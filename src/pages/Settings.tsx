@@ -18,6 +18,8 @@ import {
   IonToggle,
   IonToolbar,
   isPlatform,
+  useIonViewDidEnter,
+  useIonViewWillEnter,
 } from "@ionic/react";
 import { RefresherEventDetail } from "@ionic/core";
 import React, { useContext, useEffect, useState } from "react";
@@ -35,9 +37,11 @@ import {
   ActionSettingsSetNewUI,
 } from "../store/Actions";
 
-import { Plugins } from "@capacitor/core";
+import { Plugins, Storage } from "@capacitor/core";
 import { flashOutline } from "ionicons/icons";
 import { stateType } from "../store/types";
+import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
+const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 const { App, Share, Clipboard } = Plugins;
 const PageSettings: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -47,12 +51,26 @@ const PageSettings: React.FC = () => {
   );
   const [showImport, setShowImport] = useState<boolean>(false);
   const [ImportInput, setImportInput] = useState<string>("");
+  const [userUUID, setUserUUID] = useState<string>("");
   const deleteAlertRef = React.createRef<HTMLIonAlertElement>();
   const history = useHistory();
 
+  useIonViewDidEnter(async () => {
+    Firebase.setScreenName({ screenName: "settings" })
+      .then(() => console.log("Set Screen Name to Settings"))
+      .catch(() => {});
+
+    await Storage.get({ key: "toastbrot.userUUID" }).then((res) =>
+      setUserUUID(res.value ?? "")
+    );
+  });
+
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
     console.log("Begin async operation");
-
+    Firebase.logEvent({
+      name: "SettingsImportExportActivated",
+      params: {},
+    }).catch();
     setTimeout(() => {
       setImportexportactivated(true);
       event.detail.complete();
@@ -64,6 +82,10 @@ const PageSettings: React.FC = () => {
   }, [state]);
 
   const ImportData = () => {
+    Firebase.logEvent({
+      name: "SettingsImported",
+      params: {},
+    }).catch();
     try {
       const _in: stateType = JSON.parse(ImportInput);
       const _in2: stateType = { ...state, ..._in };
@@ -72,6 +94,7 @@ const PageSettings: React.FC = () => {
       document.body.appendChild(el);
       el.message = "Hat funktioniert!";
       el.duration = 1000;
+      el.translucent = true;
       el.present();
       setShowImport(false);
     } catch {
@@ -79,6 +102,7 @@ const PageSettings: React.FC = () => {
       document.body.appendChild(el);
       el.message = "Fehler!";
       el.duration = 1000;
+      el.translucent = true;
       el.present();
     }
   };
@@ -107,9 +131,15 @@ const PageSettings: React.FC = () => {
           <IonLabel>Separater Knopf</IonLabel>
           <IonToggle
             checked={state.settings.clickButtonForBee}
-            onIonChange={(c) =>
-              dispatch(ActionSettingsSetClickButtonForBee(c.detail.checked))
-            }
+            onIonChange={(c) => {
+              dispatch(ActionSettingsSetClickButtonForBee(c.detail.checked));
+              Firebase.logEvent({
+                name: "SettingsSeparaterClickButtonChange",
+                params: {
+                  activated: c.detail.checked ? "true" : "false",
+                },
+              }).catch();
+            }}
           />
         </IonItem>
         <IonItemDivider>Allgemein</IonItemDivider>
@@ -118,9 +148,15 @@ const PageSettings: React.FC = () => {
           <IonLabel>Neues User Interface</IonLabel>
           <IonToggle
             checked={state.settings.newUI}
-            onIonChange={(c) =>
-              dispatch(ActionSettingsSetNewUI(c.detail.checked))
-            }
+            onIonChange={(c) => {
+              dispatch(ActionSettingsSetNewUI(c.detail.checked));
+              Firebase.logEvent({
+                name: "SettingsNeueUIChange",
+                params: {
+                  activated: c.detail.checked ? "true" : "false",
+                },
+              });
+            }}
           />
         </IonItem>
         <IonItem detail onClick={() => history.push("/intro")}>
@@ -128,7 +164,12 @@ const PageSettings: React.FC = () => {
         </IonItem>
         <IonItem>
           <IonLabel>Alle Daten Löschen</IonLabel>
-          <IonButton onClick={() => showdeleteAllAlert(true)}>Alles</IonButton>
+          <IonButton
+            onClick={() => {
+              showdeleteAllAlert(true);
+            }}>
+            Alles
+          </IonButton>
         </IonItem>
         <IonItemDivider>Info</IonItemDivider>
         <IonItem>
@@ -150,21 +191,28 @@ const PageSettings: React.FC = () => {
           <IonButton href="https://toastbrot.org/">Web</IonButton>
         </IonItem>
 
+        <IonItemDivider>Anderes</IonItemDivider>
+        <IonItem>{userUUID}</IonItem>
+
         <IonItemGroup hidden={!importexportactivated}>
           <IonItemDivider>Import / Export</IonItemDivider>
           <IonItem>
             Backup
             <IonButton
               slot="end"
-              onClick={() =>
+              onClick={() => {
                 isPlatform("capacitor")
                   ? Share.share({
                       dialogTitle: "Daten Exportieren",
                       text: JSON.stringify(state),
                       title: "Nicht mit andern Teilen!",
                     })
-                  : Clipboard.write({ string: JSON.stringify(state) })
-              }>
+                  : Clipboard.write({ string: JSON.stringify(state) });
+                Firebase.logEvent({
+                  name: "SettingsExport",
+                  params: {},
+                });
+              }}>
               Backup
             </IonButton>
           </IonItem>
@@ -218,9 +266,13 @@ const PageSettings: React.FC = () => {
           buttons={[
             {
               text: "Ja",
-              handler: () => {
+              handler: async () => {
                 dispatch(ActionResetState());
-                saveState(initialState);
+                await Firebase.logEvent({
+                  name: "SettingsDeleteAll",
+                  params: {},
+                }).catch();
+                await saveState(initialState);
                 App.exitApp();
                 showdeleteAllAlert(false);
               },

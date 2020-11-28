@@ -20,6 +20,7 @@ import {
   IonTitle,
   IonToolbar,
   isPlatform,
+  useIonViewDidEnter,
   useIonViewWillEnter,
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
@@ -31,14 +32,13 @@ import biene from "../res/biene.png";
 import { AppContext, saveState } from "../store/State";
 
 import {
-  ActionBieneAddAdditional,
   ActionBieneClickIncrease,
   ActionDataLoadedFromMemory,
   ActionSetState,
   ActionStatisticAdd,
 } from "../store/Actions";
 
-import { Plugins, Storage, StatusBarStyle } from "@capacitor/core";
+import { Plugins, Storage, StatusBarStyle, Capacitor } from "@capacitor/core";
 import { StoreKeyPrefix } from "../const";
 import { useHistory } from "react-router";
 import {
@@ -49,7 +49,11 @@ import {
   rotateSpeedLevel,
 } from "../globals";
 
-const { SplashScreen, StatusBar, App } = Plugins;
+import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
+import { v4, validate } from "uuid";
+const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
+
+const { SplashScreen, StatusBar, App, PushNotifications } = Plugins;
 
 const Home: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -61,6 +65,26 @@ const Home: React.FC = () => {
   const [openLevels, setOpenLevels] = useState<boolean>(false);
 
   useIonViewWillEnter(async () => {
+    PushNotifications.requestPermission()
+      .then((result) => {
+        if (result.granted) {
+          PushNotifications.register();
+        } else {
+          const el = document.createElement("ion-toast");
+          document.body.appendChild(el);
+          el.message =
+            "Bitte aktiviere Mitteilungen in den Systemeinstellungen";
+          el.duration = 5000;
+          el.translucent = true;
+          el.present();
+        }
+      })
+      .catch(() => {});
+    if (Capacitor.isPluginAvailable("PushNotifications"))
+      PushNotifications.addListener("registration", (token) => {
+        console.log("Token", token.value);
+      });
+
     if (isPlatform("capacitor"))
       StatusBar.setStyle({ style: StatusBarStyle.Dark });
 
@@ -88,18 +112,22 @@ const Home: React.FC = () => {
     await SplashScreen.hide();
     console.log("Done hiding Splash screen");
 
-    if (state.biene.clickCounter > state.statisticsRotations) {
-      dispatch(
-        ActionSetState({
-          ...state,
-          statisticsRotations: state.biene.clickCounter,
-        })
-      );
-      console.log("Done Updating Statistics");
-    }
-
     // Save, that the State is loaded from Memory, so that it can be overwritten
     dispatch(ActionDataLoadedFromMemory());
+    await Firebase.setScreenName({ screenName: "home" })
+      .then(() => console.log("Set Screen Name to Home"))
+      .catch(() => {});
+
+    await Storage.get({ key: "toastbrot.userUUID" }).then((res) => {
+      let _uuid: string;
+      if (res.value && validate(res.value)) {
+        _uuid = res.value;
+      } else {
+        _uuid = v4();
+        Storage.set({ key: "toastbrot.userUUID", value: _uuid });
+      }
+      Firebase.setUserId({ userId: _uuid }).catch(() => {});
+    });
   });
 
   // Refresh the CanBuy alert everytime the state changes
@@ -178,7 +206,7 @@ const Home: React.FC = () => {
                 />
               </div>
             </IonCol>
-            {state.biene.additionalBienen.slice(0,20).map(() => (
+            {state.biene.additionalBienen.slice(0, 20).map(() => (
               <IonCol size="auto">
                 <div className="ion-text-center">
                   <img
@@ -220,8 +248,12 @@ const Home: React.FC = () => {
                 </div>
               </IonCol>
             ))}
-            <IonCol size="auto" hidden={state.biene.additionalBienen.length<=20}>
-                  <IonChip color="warning">+ {state.biene.additionalBienen.length-20}</IonChip>
+            <IonCol
+              size="auto"
+              hidden={state.biene.additionalBienen.length <= 20}>
+              <IonChip color="warning">
+                + {state.biene.additionalBienen.length - 20}
+              </IonChip>
             </IonCol>
           </IonRow>
           <IonRow className="ion-justify-content-center">
@@ -307,7 +339,7 @@ const Home: React.FC = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
-        
+
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton
             color={canBuy ? "success" : "primary"}

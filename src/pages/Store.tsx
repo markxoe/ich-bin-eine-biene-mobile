@@ -21,6 +21,8 @@ import {
   IonTitle,
   IonToast,
   IonToolbar,
+  useIonViewDidEnter,
+  useIonViewWillEnter,
 } from "@ionic/react";
 import { AppContext, saveState } from "../store/State";
 import {
@@ -41,6 +43,9 @@ import {
 } from "../store/Actions";
 import { RefresherEventDetail } from "@ionic/core";
 import { flashOutline } from "ionicons/icons";
+import { Plugins } from "@capacitor/core";
+import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
+const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 
 const StorePage: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -52,9 +57,44 @@ const StorePage: React.FC = () => {
 
   const autorotatingPrice = getAutorotatePrice(state);
 
+  useIonViewDidEnter(() => {
+    Firebase.setScreenName({ screenName: "store" }).catch();
+    const _values: { name: string; value: string }[] = [
+      {
+        name: "AdditionalBeeLength",
+        value: state.biene.additionalBienen.length.toString(),
+      },
+      {
+        name: "AutoRotatingLength",
+        value: state.biene.autoRotatingBees.length.toString(),
+      },
+      {
+        name: "MultiplierLevel",
+        value: state.biene.multiplierLevel.toString(),
+      },
+      {
+        name: "RotateSpeedLevel",
+        value: state.biene.rotateSpeedLevel.toString(),
+      },
+      {
+        name: "RotationStatistic",
+        value: state.statisticsRotations.toString(),
+      },
+    ];
+
+    _values.forEach((obj) => {
+      Firebase.setUserProperty({
+        name: obj.name,
+        value: obj.value,
+      }).catch((err) => {
+        console.error(err);
+      });
+    });
+  });
+
   function doRefresh(event: CustomEvent<RefresherEventDetail>) {
     console.log("Begin async operation");
-
+    Firebase.logEvent({ name: "StoreGetGift", params: {} }).catch();
     setTimeout(() => {
       dispatch(ActionMakeMeAPresent());
       event.detail.complete();
@@ -105,6 +145,10 @@ const StorePage: React.FC = () => {
               dispatch(ActionRotateSpeedLevelIncrease());
               dispatch(ActionBieneClickDecrease(rotateSpeedLevelPrice));
               setShowThx(true);
+              Firebase.logEvent({
+                name: "StoreBuyDrehlevel",
+                params: { price: rotateSpeedLevelPrice },
+              }).catch();
             }}
             disabled={
               !(state.biene.rotateSpeedLevel < rotateSpeedLevel.max) ||
@@ -142,6 +186,10 @@ const StorePage: React.FC = () => {
               dispatch(ActionBieneAddAdditional());
               dispatch(ActionBieneClickDecrease(additionalBeePrice));
               setShowThx(true);
+              Firebase.logEvent({
+                name: "StoreBuyAdditionalBee",
+                params: { price: additionalBeePrice },
+              }).catch();
             }}
             disabled={state.biene.clickCounter < additionalBeePrice}>
             Neue Biene kaufen
@@ -172,6 +220,10 @@ const StorePage: React.FC = () => {
               dispatch(ActionMultiplierIncrease());
               dispatch(ActionBieneClickDecrease(multiplierLevelPrice));
               setShowThx(true);
+              Firebase.logEvent({
+                name: "StoreBuyMultiplier",
+                params: { price: multiplierLevelPrice },
+              }).catch();
             }}
             disabled={state.biene.clickCounter < multiplierLevelPrice}>
             Multiplier kaufen
@@ -204,6 +256,10 @@ const StorePage: React.FC = () => {
               dispatch(ActionBieneAddAutoRotating(0));
               dispatch(ActionBieneClickDecrease(autorotatingPrice));
               setShowThx(true);
+              Firebase.logEvent({
+                name: "StoreBuyAutorotater",
+                params: { price: autorotatingPrice },
+              }).catch();
             }}
             disabled={state.biene.clickCounter < autorotatingPrice}>
             Autodreher kaufen

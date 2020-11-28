@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "606577931947",
+    "firebase_url": "https://ich-bin-eine-biene.firebaseio.com",
+    "project_id": "ich-bin-eine-biene",
+    "storage_bucket": "ich-bin-eine-biene.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:606577931947:android:f224e7822f75d35d0829ee",
+        "android_client_info": {
+          "package_name": "org.toastbrot.ichbineinebienemobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "606577931947-eb354rhjlvjq585o5e170hepgdiv7eb8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAii4EMf48RUKx54w4lWs-XpeB4yDi6FB8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "606577931947-eb354rhjlvjq585o5e170hepgdiv7eb8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:606577931947:android:a140cae783c63f840829ee",
+        "android_client_info": {
+          "package_name": "org.toastbrot.ichbineinebienemobile.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "606577931947-eb354rhjlvjq585o5e170hepgdiv7eb8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAii4EMf48RUKx54w4lWs-XpeB4yDi6FB8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "606577931947-eb354rhjlvjq585o5e170hepgdiv7eb8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
