@@ -18,7 +18,7 @@ export const getAdditionalBeePrice = (state: stateType): number => {
     state.biene.autoRotatingBees.length > 20 ||
     state.biene.additionalBienen.length > 150
   ) {
-    return 100000000;
+    return 10000000;
   } else {
     return Math.round(
       (Math.pow(state.biene.additionalBienen.length, 1.6) * 50 +
@@ -34,7 +34,7 @@ export const getMultiplierPrice = (state: stateType): number => {
     state.biene.autoRotatingBees.length > 20 ||
     state.biene.multiplierLevel > 25
   ) {
-    return 100000000;
+    return 10000000;
   } else {
     return (
       Math.round(
@@ -50,7 +50,7 @@ export const getMultiplierPrice = (state: stateType): number => {
 
 export const getAutorotatePrice = (state: stateType): number => {
   if (state.biene.autoRotatingBees.length > 3) {
-    return 100000000;
+    return 10000000;
   } else {
     return Math.max(
       (state.biene.autoRotatingBees.length + 1) * 20000 -
