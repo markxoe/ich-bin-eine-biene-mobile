@@ -46,6 +46,7 @@ import {
   getAdditionalBeePrice,
   getAutorotatePrice,
   getMultiplierPrice,
+  renderValue,
   rotateSpeedLevel,
 } from "../globals";
 
@@ -317,7 +318,7 @@ const Home: React.FC = () => {
                 Weitere Bienen: {state.biene.additionalBienen.length}
               </IonChip>
               <IonChip hidden={!state.settings.newUI} color="warning">
-                Saltos: {state.biene.clickCounter}
+                Saltos: {renderValue(state.biene.clickCounter)}
               </IonChip>
               <IonChip
                 onClick={() => setOpenLevels(true)}
@@ -334,8 +335,7 @@ const Home: React.FC = () => {
                 </IonCardHeader>
                 <IonCardContent>
                   <h3>
-                    Deine Biene hat schon {state.biene.clickCounter} Saltos
-                    gemacht
+                    Du hast {renderValue(state.biene.clickCounter)} Saltos
                   </h3>
                   {canBuy ? (
                     <IonChip>Du kannst dir was im Store kaufen</IonChip>
