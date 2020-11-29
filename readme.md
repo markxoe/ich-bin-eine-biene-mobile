@@ -16,6 +16,10 @@ Mark Oude Elberink
 
 ## Changelog
 
+### [0.7.1] Frankreich :flags:
+
+- Performance verbesserungen
+
 ### [0.7.0] Frankreich :flags:
 
 - Performance verbesserungen
