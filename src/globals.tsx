@@ -15,8 +15,8 @@ export const getRotateSpeedLevelPrice = (state: stateType): number => {
 };
 export const getAdditionalBeePrice = (state: stateType): number => {
   if (
-    state.biene.autoRotatingBees.length > 5 ||
-    state.biene.additionalBienen.length > 200
+    state.biene.autoRotatingBees.length > 20 ||
+    state.biene.additionalBienen.length > 150
   ) {
     return 100000000;
   } else {
@@ -31,8 +31,8 @@ export const getAdditionalBeePrice = (state: stateType): number => {
 };
 export const getMultiplierPrice = (state: stateType): number => {
   if (
-    state.biene.autoRotatingBees.length > 3 ||
-    state.biene.multiplierLevel > 30
+    state.biene.autoRotatingBees.length > 20 ||
+    state.biene.multiplierLevel > 25
   ) {
     return 100000000;
   } else {
