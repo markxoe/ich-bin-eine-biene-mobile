@@ -246,7 +246,7 @@ const Home: React.FC = () => {
                   state.settingMaxNumberDisplayedBees}
               </IonChip>
             </IonCol>
-            {state.biene.autoRotatingBees.map((a) => (
+            {state.biene.autoRotatingBees.slice(0, 1).map((a) => (
               <IonCol size="auto">
                 <div className="ion-text-center">
                   <img
@@ -260,7 +260,7 @@ const Home: React.FC = () => {
                             (1 + state.biene.additionalBienen.length) *
                               (state.biene.multiplierLevel + 1) *
                               0.5
-                          )
+                          ) * state.biene.autoRotatingBees.length
                         )
                       );
                       dispatch(ActionStatisticAdd());
@@ -269,6 +269,13 @@ const Home: React.FC = () => {
                 </div>
               </IonCol>
             ))}
+            <IonCol
+              size="auto"
+              hidden={state.biene.autoRotatingBees.length <= 1}>
+              <IonChip color="warning">
+                + {state.biene.autoRotatingBees.length - 1}
+              </IonChip>
+            </IonCol>
           </IonRow>
           <IonRow className="ion-justify-content-center">
             <IonCol size="auto" class="ion-text-center">
