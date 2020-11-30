@@ -64,12 +64,10 @@ export const getAutorotatePrice = (state: stateType): number => {
 };
 
 export const renderValue = (value: number): string => {
-  if (value > 10000000) {
-    return value.toExponential(2);
-  } else if (value > 1000000) {
-    return value.toString().slice(0, value.toString().length - 6) + "m";
-  } else if (value > 10000) {
-    return value.toString().slice(0, value.toString().length - 3) + "k";
+  if (value > 1000000) {
+    return value.toExponential(4);
+  } else if (value > 5000) {
+    return value.toString().slice(0, value.toString().length - 3) +"."+value.toString().slice(value.toString().length - 3,value.toString().length - 1) + "k";
   }
 
   return value.toString();

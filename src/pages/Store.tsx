@@ -30,6 +30,7 @@ import {
   getAutorotatePrice,
   getMultiplierPrice,
   getRotateSpeedLevelPrice,
+  renderValue,
   rotateSpeedLevel,
 } from "../globals";
 import {
@@ -141,7 +142,7 @@ const StorePage: React.FC = () => {
             <IonCardSubtitle>SALTOS</IonCardSubtitle>
           </IonCardHeader>
           <IonCardContent>
-            <h1>{state.biene.clickCounter}</h1>
+            <h1>{renderValue(state.biene.clickCounter)}</h1>
             <IonChip color={calculateLevel(state).levelColor}>
               Level: {calculateLevel(state).levelName}
             </IonChip>
@@ -166,7 +167,7 @@ const StorePage: React.FC = () => {
             }>
             Level {state.biene.rotateSpeedLevel + 1} Kaufen
           </IonButton>
-          <IonText slot="end">Preis: {rotateSpeedLevelPrice}</IonText>
+          <IonText slot="end">Preis: {renderValue(rotateSpeedLevelPrice)}</IonText>
         </IonItem>
         <IonItem>Erhöhen die Drehgeschwindigkeit der Biene</IonItem>
         <IonItem>
@@ -204,7 +205,7 @@ const StorePage: React.FC = () => {
             disabled={state.biene.clickCounter < additionalBeePrice}>
             Neue Biene kaufen
           </IonButton>
-          <IonText slot="end">Preis: {additionalBeePrice}</IonText>
+          <IonText slot="end">Preis: {renderValue(additionalBeePrice)}</IonText>
         </IonItem>
         <IonItem>Geben dir mehr Saltos pro klick</IonItem>
         <IonItem>
@@ -238,7 +239,7 @@ const StorePage: React.FC = () => {
             disabled={state.biene.clickCounter < multiplierLevelPrice}>
             Multiplier kaufen
           </IonButton>
-          <IonText slot="end">Preis: {multiplierLevelPrice}</IonText>
+          <IonText slot="end">Preis: {renderValue(multiplierLevelPrice)}</IonText>
         </IonItem>
         <IonItem>Geben dir mehr Saltos pro Klick</IonItem>
         <IonItem>
@@ -274,7 +275,7 @@ const StorePage: React.FC = () => {
             disabled={state.biene.clickCounter < autorotatingPrice}>
             Autodreher kaufen
           </IonButton>
-          <IonText slot="end">Preis: {autorotatingPrice}</IonText>
+          <IonText slot="end">Preis: {renderValue(autorotatingPrice)}</IonText>
         </IonItem>
         <IonItem>Drehen sich automatisch</IonItem>
         <IonItem>
