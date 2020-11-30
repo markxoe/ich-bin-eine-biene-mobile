@@ -81,10 +81,13 @@ export const calculateLevel = (
     { color: "warning", name: "Bienenmutter", minlevel: 80, maxlevel: 200 },
     { color: "danger", name: "Krass", minlevel: 200, maxlevel: 700 },
     { color: "darkpink", name: "Krank", minlevel: 700, maxlevel: 2500 },
+    { color: "success", name: "Figgo", minlevel: 2500, maxlevel: 5000 },
+    { color: "danger", name: "Toastbrot", minlevel: 5000, maxlevel: 10000 },
+    { color: "warning", name: "Truck", minlevel: 10000, maxlevel: 50000 },
     {
       color: "tertiary",
       name: "Different 🥶",
-      minlevel: 2500,
+      minlevel: 50000,
       maxlevel: 1000000000000,
     },
   ];
