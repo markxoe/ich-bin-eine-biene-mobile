@@ -20,8 +20,8 @@ import {
   IonTitle,
   IonToolbar,
   isPlatform,
+  useIonViewDidLeave,
   useIonViewWillEnter,
-  useIonViewWillLeave,
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
 import { refreshOutline, settingsOutline, storefront } from "ionicons/icons";
@@ -65,7 +65,7 @@ const Home: React.FC = () => {
 
   const [openLevels, setOpenLevels] = useState<boolean>(false);
 
-  let timerId: number;
+  let saveTimerId: number;
 
   useIonViewWillEnter(async () => {
     PushNotifications.requestPermission()
@@ -131,6 +131,9 @@ const Home: React.FC = () => {
       }
       Firebase.setUserId({ userId: _uuid }).catch(() => {});
     });
+
+    // Ändert "save" alle 3 Sekunden, das Triggert den Save
+    saveTimerId = window.setInterval(() => refreshSave((i) => !i), 3000);
   });
 
   // Refresh the CanBuy alert everytime the state changes
@@ -141,22 +144,12 @@ const Home: React.FC = () => {
     );
   }, [state]);
 
-  // Here comes the saving Part:
-  // useEfect 1: Refreshes the State "save" every 3 seconds
-  useEffect(() => {
-    timerId = window.setInterval(() => {
-      refreshSave((i) => !i);
-    }, 3000);
-    return () => {
-      window.clearInterval(timerId);
-    };
-  }, []);
-
-  useIonViewWillLeave(() => {
-    window.clearInterval(timerId);
+  // Resettet den Timer für save
+  useIonViewDidLeave(() => {
+    window.clearInterval(saveTimerId);
   });
 
-  // useEffect 2 refreshes everytime "save" gets refreshed, so that it gets saved only every 3 seconds -> Performance!!!
+  // setInterval von oben refreshed "save" nur alle 3 Sekunden -> Performance!!!
   useEffect(() => {
     if (state.dataLoadedFromMemory) saveState(state);
   }, [save]);
