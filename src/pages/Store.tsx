@@ -9,15 +9,15 @@ import {
   IonCardSubtitle,
   IonCardTitle,
   IonChip,
+  IonCol,
   IonContent,
+  IonGrid,
   IonHeader,
-  IonItem,
-  IonItemDivider,
   IonPage,
   IonProgressBar,
   IonRefresher,
   IonRefresherContent,
-  IonText,
+  IonRow,
   IonTitle,
   IonToast,
   IonToolbar,
@@ -149,149 +149,209 @@ const StorePage: React.FC = () => {
           </IonCardContent>
         </IonCard>
 
-        <IonItemDivider>Drehlevel</IonItemDivider>
-        <IonItem>
-          <IonButton
-            onClick={() => {
-              dispatch(ActionRotateSpeedLevelIncrease());
-              dispatch(ActionBieneClickDecrease(rotateSpeedLevelPrice));
-              setShowThx(true);
-              Firebase.logEvent({
-                name: "StoreBuyDrehlevel",
-                params: { price: rotateSpeedLevelPrice },
-              }).catch(() => {});
-            }}
-            disabled={
-              !(state.biene.rotateSpeedLevel < rotateSpeedLevel.max) ||
-              state.biene.clickCounter < rotateSpeedLevelPrice
-            }>
-            Level {state.biene.rotateSpeedLevel + 1} Kaufen
-          </IonButton>
-          <IonText slot="end">Preis: {renderValue(rotateSpeedLevelPrice)}</IonText>
-        </IonItem>
-        <IonItem>Erhöhen die Drehgeschwindigkeit der Biene</IonItem>
-        <IonItem>
-          Drehlevel
-          <IonText slot="end">
-            {state.biene.rotateSpeedLevel}/{rotateSpeedLevel.max}
-          </IonText>
-        </IonItem>
-        <IonItem>
-          <IonProgressBar
-            value={Math.min(
-              state.biene.clickCounter / rotateSpeedLevelPrice,
-              1.0
-            )}
-            color={
-              state.biene.clickCounter < rotateSpeedLevelPrice
-                ? "danger"
-                : "success"
-            }
-          />
-        </IonItem>
+        <h1 className="ion-padding">Upgrades</h1>
 
-        <IonItemDivider>Weitere Bienen</IonItemDivider>
-        <IonItem>
-          <IonButton
-            onClick={() => {
-              dispatch(ActionBieneAddAdditional());
-              dispatch(ActionBieneClickDecrease(additionalBeePrice));
-              setShowThx(true);
-              Firebase.logEvent({
-                name: "StoreBuyAdditionalBee",
-                params: {},
-              }).catch(console.error);
-            }}
-            disabled={state.biene.clickCounter < additionalBeePrice}>
-            Neue Biene kaufen
-          </IonButton>
-          <IonText slot="end">Preis: {renderValue(additionalBeePrice)}</IonText>
-        </IonItem>
-        <IonItem>Geben dir mehr Saltos pro klick</IonItem>
-        <IonItem>
-          Weitere Bienen
-          <IonText slot="end">{state.biene.additionalBienen.length}/∞</IonText>
-        </IonItem>
+        <IonCard>
+          <IonCardHeader>
+            <IonCardTitle>Drehlevel</IonCardTitle>
+            <IonCardSubtitle className="ion-text-uppercase">
+              Erhöhen die Drehgeschwindigkeit der Biene
+            </IonCardSubtitle>
+          </IonCardHeader>
+          <IonCardContent>
+            <IonGrid>
+              <IonRow>
+                <IonCol>
+                  <IonButton
+                    onClick={() => {
+                      dispatch(ActionRotateSpeedLevelIncrease());
+                      dispatch(ActionBieneClickDecrease(rotateSpeedLevelPrice));
+                      setShowThx(true);
+                      Firebase.logEvent({
+                        name: "StoreBuyDrehlevel",
+                        params: { price: rotateSpeedLevelPrice },
+                      }).catch(() => {});
+                    }}
+                    disabled={
+                      !(state.biene.rotateSpeedLevel < rotateSpeedLevel.max) ||
+                      state.biene.clickCounter < rotateSpeedLevelPrice
+                    }>
+                    Level {state.biene.rotateSpeedLevel + 1} Kaufen
+                  </IonButton>
+                </IonCol>
+                <IonCol>
+                  <h2>Preis: {renderValue(rotateSpeedLevelPrice)}</h2>
+                  <IonProgressBar
+                    value={Math.min(
+                      state.biene.clickCounter / rotateSpeedLevelPrice,
+                      1.0
+                    )}
+                    color={
+                      state.biene.clickCounter < rotateSpeedLevelPrice
+                        ? "danger"
+                        : "success"
+                    }
+                  />
+                </IonCol>
+              </IonRow>
+              <IonRow>
+                <IonCol>
+                  <h2>
+                    Drehlevel: {state.biene.rotateSpeedLevel}/
+                    {rotateSpeedLevel.max}
+                  </h2>
+                </IonCol>
+              </IonRow>
+            </IonGrid>
+          </IonCardContent>
+        </IonCard>
 
-        <IonItem>
-          <IonProgressBar
-            color={
-              state.biene.clickCounter < additionalBeePrice
-                ? "danger"
-                : "success"
-            }
-            value={Math.min(state.biene.clickCounter / additionalBeePrice, 1.0)}
-          />
-        </IonItem>
+        <IonCard>
+          <IonCardHeader>
+            <IonCardTitle>Weitere Bienen</IonCardTitle>
+            <IonCardSubtitle className="ion-text-uppercase">
+              GEBEN dir mehr Saltos
+            </IonCardSubtitle>
+          </IonCardHeader>
+          <IonCardContent>
+            <IonGrid>
+              <IonRow>
+                <IonCol>
+                  <IonButton
+                    onClick={() => {
+                      dispatch(ActionBieneAddAdditional());
+                      dispatch(ActionBieneClickDecrease(additionalBeePrice));
+                      setShowThx(true);
+                      Firebase.logEvent({
+                        name: "StoreBuyAdditionalBee",
+                        params: {},
+                      }).catch(console.error);
+                    }}
+                    disabled={state.biene.clickCounter < additionalBeePrice}>
+                    Neue Biene kaufen
+                  </IonButton>
+                </IonCol>
+                <IonCol>
+                  <h2>Preis: {renderValue(additionalBeePrice)}</h2>
+                  <IonProgressBar
+                    color={
+                      state.biene.clickCounter < additionalBeePrice
+                        ? "danger"
+                        : "success"
+                    }
+                    value={Math.min(
+                      state.biene.clickCounter / additionalBeePrice,
+                      1.0
+                    )}
+                  />
+                </IonCol>
+              </IonRow>
+              <IonRow>
+                <IonCol>
+                  <h2>Kontostand: {state.biene.additionalBienen.length}/∞</h2>
+                </IonCol>
+              </IonRow>
+            </IonGrid>
+          </IonCardContent>
+        </IonCard>
 
-        <IonItemDivider>Multiplier</IonItemDivider>
-        <IonItem>
-          <IonButton
-            onClick={() => {
-              dispatch(ActionMultiplierIncrease());
-              dispatch(ActionBieneClickDecrease(multiplierLevelPrice));
-              setShowThx(true);
-              Firebase.logEvent({
-                name: "StoreBuyMultiplier",
-                params: {},
-              }).catch(console.error);
-            }}
-            disabled={state.biene.clickCounter < multiplierLevelPrice}>
-            Multiplier kaufen
-          </IonButton>
-          <IonText slot="end">Preis: {renderValue(multiplierLevelPrice)}</IonText>
-        </IonItem>
-        <IonItem>Geben dir mehr Saltos pro Klick</IonItem>
-        <IonItem>
-          Dein Multiplier
-          <IonText slot="end">{state.biene.multiplierLevel}/∞</IonText>
-        </IonItem>
-        <IonItem>
-          <IonProgressBar
-            color={
-              state.biene.clickCounter < multiplierLevelPrice
-                ? "danger"
-                : "success"
-            }
-            value={Math.min(
-              state.biene.clickCounter / multiplierLevelPrice,
-              1.0
-            )}
-          />
-        </IonItem>
+        <IonCard>
+          <IonCardHeader>
+            <IonCardTitle>Multiplier </IonCardTitle>
+            <IonCardSubtitle className="ion-text-uppercase">
+              Geben dir mehr Saltos pro Klick
+            </IonCardSubtitle>
+          </IonCardHeader>
+          <IonCardContent>
+            <IonGrid>
+              <IonRow>
+                <IonCol>
+                  <IonButton
+                    onClick={() => {
+                      dispatch(ActionMultiplierIncrease());
+                      dispatch(ActionBieneClickDecrease(multiplierLevelPrice));
+                      setShowThx(true);
+                      Firebase.logEvent({
+                        name: "StoreBuyMultiplier",
+                        params: {},
+                      }).catch(console.error);
+                    }}
+                    disabled={state.biene.clickCounter < multiplierLevelPrice}>
+                    Multiplier kaufen
+                  </IonButton>
+                </IonCol>
+                <IonCol>
+                  <h2>Preis: {renderValue(multiplierLevelPrice)}</h2>
+                  <IonProgressBar
+                    color={
+                      state.biene.clickCounter < multiplierLevelPrice
+                        ? "danger"
+                        : "success"
+                    }
+                    value={Math.min(
+                      state.biene.clickCounter / multiplierLevelPrice,
+                      1.0
+                    )}
+                  />
+                </IonCol>
+              </IonRow>
+              <IonRow>
+                <IonCol>
+                  <h2>Deine Multiplier: {state.biene.multiplierLevel}/∞</h2>
+                </IonCol>
+              </IonRow>
+            </IonGrid>
+          </IonCardContent>
+        </IonCard>
 
-        <IonItemDivider>Autodreher</IonItemDivider>
-        <IonItem>
-          <IonButton
-            onClick={() => {
-              dispatch(ActionBieneAddAutoRotating(0));
-              dispatch(ActionBieneClickDecrease(autorotatingPrice));
-              setShowThx(true);
-              Firebase.logEvent({
-                name: "StoreBuyAutorotater",
-                params: { price: autorotatingPrice },
-              }).catch(() => {});
-            }}
-            disabled={state.biene.clickCounter < autorotatingPrice}>
-            Autodreher kaufen
-          </IonButton>
-          <IonText slot="end">Preis: {renderValue(autorotatingPrice)}</IonText>
-        </IonItem>
-        <IonItem>Drehen sich automatisch</IonItem>
-        <IonItem>
-          Deine Autodreher
-          <IonText slot="end">{state.biene.autoRotatingBees.length}/∞</IonText>
-        </IonItem>
-        <IonItem>
-          <IonProgressBar
-            color={
-              state.biene.clickCounter < autorotatingPrice
-                ? "danger"
-                : "success"
-            }
-            value={Math.min(state.biene.clickCounter / autorotatingPrice, 1.0)}
-          />
-        </IonItem>
+        <IonCard>
+          <IonCardHeader>
+            <IonCardTitle>Autodreher </IonCardTitle>
+            <IonCardSubtitle className="ion-text-uppercase">
+              Drehen sich automatisch
+            </IonCardSubtitle>
+          </IonCardHeader>
+          <IonCardContent>
+            <IonGrid>
+              <IonRow>
+                <IonCol>
+                  <IonButton
+                    onClick={() => {
+                      dispatch(ActionBieneAddAutoRotating(0));
+                      dispatch(ActionBieneClickDecrease(autorotatingPrice));
+                      setShowThx(true);
+                      Firebase.logEvent({
+                        name: "StoreBuyAutorotater",
+                        params: { price: autorotatingPrice },
+                      }).catch(() => {});
+                    }}
+                    disabled={state.biene.clickCounter < autorotatingPrice}>
+                    Autodreher kaufen
+                  </IonButton>
+                </IonCol>
+                <IonCol>
+                  <h2>Preis: {renderValue(autorotatingPrice)}</h2>
+                  <IonProgressBar
+                    color={
+                      state.biene.clickCounter < autorotatingPrice
+                        ? "danger"
+                        : "success"
+                    }
+                    value={Math.min(
+                      state.biene.clickCounter / autorotatingPrice,
+                      1.0
+                    )}
+                  />
+                </IonCol>
+              </IonRow>
+              <IonRow>
+                <IonCol>
+                  Deine Autodreher: {state.biene.autoRotatingBees.length}/∞
+                </IonCol>
+              </IonRow>
+            </IonGrid>
+          </IonCardContent>
+        </IonCard>
 
         <IonToast
           isOpen={showThx}
