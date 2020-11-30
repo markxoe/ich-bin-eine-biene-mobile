@@ -16,6 +16,12 @@ Mark Oude Elberink
 
 ## Changelog
 
+### [0.7.2] Frankreich :flags:
+
+- UI Änderungen
+- Intro sinnvoller
+- Preisänderungen
+
 ### [0.7.1] Frankreich :flags:
 
 - Performance verbesserungen
