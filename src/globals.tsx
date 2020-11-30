@@ -14,60 +14,46 @@ export const getRotateSpeedLevelPrice = (state: stateType): number => {
   return Math.round(state.biene.rotateSpeedLevel * 200 + 100);
 };
 export const getAdditionalBeePrice = (state: stateType): number => {
-  if (
-    state.biene.autoRotatingBees.length > 20 ||
-    state.biene.additionalBienen.length > 150
-  ) {
-    return 10000000;
-  } else {
-    return Math.round(
-      (Math.pow(state.biene.additionalBienen.length, 1.6) * 50 +
-        100 +
-        Math.pow(state.biene.multiplierLevel, 1.3) * 500 +
-        Math.pow(state.biene.autoRotatingBees.length, 1.3) * 2500) *
-        1.2
-    );
-  }
+  return Math.round(
+    (Math.pow(1.3, state.biene.additionalBienen.length) * 7 +
+      100 +
+      //Math.pow(state.biene.multiplierLevel,1.2) * 100 +
+      Math.pow(state.biene.autoRotatingBees.length, 1.1) * 2500) *
+      1.2 +
+      state.biene.multiplierLevel * 1000
+  );
 };
 export const getMultiplierPrice = (state: stateType): number => {
-  if (
-    state.biene.autoRotatingBees.length > 20 ||
-    state.biene.multiplierLevel > 25
-  ) {
-    return 10000000;
-  } else {
-    return (
-      Math.round(
-        (Math.pow(state.biene.multiplierLevel, 1.4) * 500 +
-          500 +
-          Math.pow(state.biene.additionalBienen.length, 1.2) * 400 +
-          Math.pow(state.biene.autoRotatingBees.length, 1.2) * 2500) *
-          1.3
-      ) + 500
-    );
-  }
+  return Math.round(
+    getAdditionalBeePrice(state) +
+      (state.biene.multiplierLevel + state.biene.additionalBienen.length + 1) *
+        10
+  );
 };
 
 export const getAutorotatePrice = (state: stateType): number => {
-  if (state.biene.autoRotatingBees.length > 3) {
-    return 10000000;
-  } else {
-    return Math.max(
-      (state.biene.autoRotatingBees.length + 1) * 20000 -
-        10000 +
-        (state.biene.additionalBienen.length + state.biene.multiplierLevel) *
-          500,
-      getMultiplierPrice(state) + 100,
-      getAdditionalBeePrice(state) + 100
-    );
-  }
+  return Math.max(
+    (state.biene.autoRotatingBees.length + 1) * 10000 -
+      5000 +
+      (state.biene.additionalBienen.length + state.biene.multiplierLevel) *
+        1000,
+    getMultiplierPrice(state) + 100,
+    getAdditionalBeePrice(state) + 100
+  );
 };
 
 export const renderValue = (value: number): string => {
   if (value > 1000000) {
     return value.toExponential(4);
   } else if (value > 5000) {
-    return value.toString().slice(0, value.toString().length - 3) +"."+value.toString().slice(value.toString().length - 3,value.toString().length - 1) + "k";
+    return (
+      value.toString().slice(0, value.toString().length - 3) +
+      "." +
+      value
+        .toString()
+        .slice(value.toString().length - 3, value.toString().length - 1) +
+      "k"
+    );
   }
 
   return value.toString();
