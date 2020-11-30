@@ -114,7 +114,7 @@ const StorePage: React.FC = () => {
 
   useEffect(() => {
     console.log("state saved");
-    saveState(state);
+    if (state.dataLoadedFromMemory) saveState(state);
   }, [state]);
 
   return (
