@@ -44,17 +44,26 @@ const PageIntro: React.FC = () => {
           <IonSlide className="ion-padding">
             <div>
               <h1>Willkommen</h1>
-              <h2>Bei der sinnlosesten App der Welt...</h2>
+              <h2>Bei der sinnlosesten App der Welt</h2>
             </div>
           </IonSlide>
           <IonSlide className="ion-padding">
-            <h1>Denn...</h1>
+            <div>
+              <h1>Klicke auf die <span role="img" aria-labelledby="Biene">🐝</span> um Saltos zu bekommen</h1>
+              <h1>Mit Saltos bekommst du Upgrades</h1>
+              <h1>Und mit Upgrades bekommst du Saltos</h1>
+            </div>
+          </IonSlide>
+          <IonSlide className="ion-padding">
+            <div>
+              <h1>Ganz einfach</h1>
+            </div>
           </IonSlide>
           <IonSlide className="ion-padding">
             <div>
               <h1>Ich bin eine Biene</h1>
               <IonButton color="tertiary" onClick={() => doneIntro()}>
-                Prost!
+                Ich auch!
               </IonButton>
             </div>
           </IonSlide>
