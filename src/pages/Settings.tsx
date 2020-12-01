@@ -306,7 +306,6 @@ const PageSettings: React.FC = () => {
                   params: {},
                 }).catch();
                 await saveState(initialState);
-                App.exitApp();
                 showdeleteAllAlert(false);
               },
             },
