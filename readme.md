@@ -21,6 +21,8 @@ Mark Oude Elberink
 - UI Änderungen
 - Intro sinnvoller
 - Preisänderungen
+- Bug fixes
+- Mehr levels
 
 ### [0.7.1] Frankreich :flags:
 
