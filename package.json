@@ -1,6 +1,6 @@
 {
   "name": "ichbineinebiene-mobile",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "private": true,
   "dependencies": {
     "@capacitor-community/firebase-analytics": "^0.2.0",
