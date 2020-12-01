@@ -177,6 +177,7 @@ const PageSettings: React.FC = () => {
         <IonItem>
           <IonLabel>Alle Daten Löschen</IonLabel>
           <IonButton
+            slot="end"
             onClick={() => {
               showdeleteAllAlert(true);
             }}>
@@ -222,7 +223,9 @@ const PageSettings: React.FC = () => {
         </IonItem>
         <IonItem>
           <IonLabel>Website</IonLabel>
-          <IonButton href="https://toastbrot.org/">Web</IonButton>
+          <IonButton slot="end" href="https://toastbrot.org/">
+            Web
+          </IonButton>
         </IonItem>
 
         <IonItemGroup hidden={!advancedSettings}>
