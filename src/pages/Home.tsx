@@ -378,8 +378,24 @@ const Home: React.FC = () => {
             <IonItem color="warning">Bienenmutter</IonItem>
             <IonItem color="danger">Krass</IonItem>
             <IonItem color="darkpink">Krank</IonItem>
+            <IonItem color="success">
+              Figgo{" "}
+              <span role="img" aria-labelledby="Hans">
+                🤚
+              </span>
+            </IonItem>
+            <IonItem color="danger">Toastbrot</IonItem>
+            <IonItem color="warning">
+              Truck{" "}
+              <span role="img" aria-labelledby="Truck">
+                🚘
+              </span>
+            </IonItem>
             <IonItem color="tertiary">
-              Different <span role="img">🥶</span>
+              Different{" "}
+              <span role="img" aria-labelledby="Breeze">
+                🥶
+              </span>
             </IonItem>
           </IonContent>
         </IonModal>
