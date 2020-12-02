@@ -10,6 +10,16 @@ Nein, definitiv nicht
 
 Weil ich's kann
 
+## Links
+
+### iOS Download
+
+[Apple Store](https://apps.apple.com/us/app/ich-bin-eine-biene/id1538842383)
+
+### Android Download
+
+[Google Play](https://play.google.com/store/apps/details?id=org.toastbrot.ichbineinebienemobile)
+
 ## Autor
 
 Mark Oude Elberink
