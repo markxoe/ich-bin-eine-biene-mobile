@@ -339,6 +339,11 @@ const Home: React.FC = () => {
               </IonCard>
             </IonCol>
           </IonRow>
+          <IonRow className="ion-justify-content-center">
+            <IonCol size="auto">
+              <IonButton routerLink="infos" color="light">Infos und FAQ</IonButton>
+            </IonCol>
+          </IonRow>
         </IonGrid>
 
         <IonFab

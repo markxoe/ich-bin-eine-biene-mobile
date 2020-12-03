@@ -6,6 +6,8 @@ import Home from "./pages/Home";
 import PageSettings from "./pages/Settings";
 import PageIntro from "./pages/Intro";
 import StorePage from "./pages/Store";
+import InfosPage from "./pages/Infos";
+import InfoPage from "./pages/Info";
 
 import { Plugins } from "@capacitor/core";
 
@@ -30,6 +32,7 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
+
 const App: React.FC = () => {
   Firebase.setCollectionEnabled({ enabled: true }).catch(() => {});
   return (
@@ -42,6 +45,9 @@ const App: React.FC = () => {
             <Route exact path="/settings" component={PageSettings} />
             <Route exact path="/intro" component={PageIntro} />
             <Route exact path="/store" component={StorePage} />
+
+            <Route exact path="/infos" component={InfosPage} />
+            <Route exact path="/info/:id" component={InfoPage} />
           </IonRouterOutlet>
         </IonReactRouter>
       </IonApp>
