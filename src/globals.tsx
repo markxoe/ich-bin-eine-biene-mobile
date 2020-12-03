@@ -91,3 +91,12 @@ export const calculateLevel = (
     ? { levelColor: got.color, levelName: got.name, levelNumber: points }
     : { levelColor: "primary", levelNumber: points, levelName: "" };
 };
+
+export const generateToast = (msg: string) => {
+  const el = document.createElement("ion-toast");
+  el.translucent = true;
+  el.message = msg;
+  el.duration = 5000;
+  document.body.appendChild(el);
+  el.present();
+};
