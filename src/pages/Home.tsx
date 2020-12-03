@@ -24,7 +24,12 @@ import {
   useIonViewWillEnter,
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
-import { refreshOutline, settingsOutline, storefront } from "ionicons/icons";
+import {
+  help,
+  refreshOutline,
+  settingsOutline,
+  storefront,
+} from "ionicons/icons";
 import "./Home.css";
 
 import biene from "../res/biene.png";
@@ -339,11 +344,6 @@ const Home: React.FC = () => {
               </IonCard>
             </IonCol>
           </IonRow>
-          <IonRow className="ion-justify-content-center">
-            <IonCol size="auto">
-              <IonButton routerLink="infos" color="light">Infos und FAQ</IonButton>
-            </IonCol>
-          </IonRow>
         </IonGrid>
 
         <IonFab
@@ -361,6 +361,12 @@ const Home: React.FC = () => {
             color={canBuy ? "success" : "primary"}
             routerLink="/store">
             <IonIcon icon={storefront} />
+          </IonFabButton>
+        </IonFab>
+
+        <IonFab vertical="bottom" horizontal="start" slot="fixed">
+          <IonFabButton routerLink="infos" color="medium">
+            <IonIcon icon={help} />
           </IonFabButton>
         </IonFab>
 
