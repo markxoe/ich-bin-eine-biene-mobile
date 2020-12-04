@@ -45,6 +45,7 @@ import { RefresherEventDetail } from "@ionic/core";
 import { flashOutline } from "ionicons/icons";
 import { Plugins } from "@capacitor/core";
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
+import Axios from "axios";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 
 const StorePage: React.FC = () => {
@@ -60,6 +61,30 @@ const StorePage: React.FC = () => {
   useIonViewDidEnter(() => {
     Firebase.setScreenName({ screenName: "store" }).catch(() => {});
   });
+
+  useEffect(() => {
+    if (state.userUUID && state.dataLoadedFromMemory) {
+      const data: {
+        userid: string;
+        autoRotatingBeeLength: Number;
+        additionalBeeLength: Number;
+        multiplierLevel: Number;
+      } = {
+        userid: state.userUUID,
+        autoRotatingBeeLength: state.biene.autoRotatingBees.length,
+        additionalBeeLength: state.biene.additionalBienen.length,
+        multiplierLevel: state.biene.multiplierLevel,
+      };
+
+      Axios.post(
+        (process.env.react_app_apiurl ??
+          "https://api.ichbineinebiene.toastbrot.org") +
+          "/api/v1/users/update2",
+        data,
+        {}
+      ).catch(console.error);
+    }
+  }, [state]);
 
   useEffect(() => {
     const _values: { name: string; value: string }[] = [
