@@ -20,6 +20,7 @@ const initialState: stateType = {
   },
   statisticsRotations: 0,
   settingMaxNumberDisplayedBees: 20,
+  userUUID:""
 };
 
 let reducer = (state: stateType, action: actionType): stateType => {
@@ -128,6 +129,13 @@ let reducer = (state: stateType, action: actionType): stateType => {
         ...state,
         settingMaxNumberDisplayedBees: action.payload,
       };
+    }
+
+    case "setUserUUID":{
+      return {
+        ...state,
+        userUUID:action.payload
+      }
     }
   }
   return state;
