@@ -135,6 +135,7 @@ const Home: React.FC = () => {
         Storage.set({ key: "toastbrot.userUUID", value: _uuid });
       }
       Firebase.setUserId({ userId: _uuid }).catch(() => {});
+      dispatch({ type: "setUserUUID", payload: _uuid });
     });
 
     // Ändert "save" alle 3 Sekunden, das Triggert den Save
