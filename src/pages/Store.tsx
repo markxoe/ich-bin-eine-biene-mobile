@@ -70,12 +70,16 @@ const StorePage: React.FC = () => {
         additionalBeeLength: Number;
         multiplierLevel: Number;
         userName: string;
+        settingNewUI: boolean;
+        settingClickingAid: boolean;
       } = {
         userid: state.userUUID,
         autoRotatingBeeLength: state.biene.autoRotatingBees.length,
         additionalBeeLength: state.biene.additionalBienen.length,
         multiplierLevel: state.biene.multiplierLevel,
         userName: state.userName,
+        settingClickingAid: state.settings.clickButtonForBee,
+        settingNewUI: state.settings.newUI,
       };
 
       Axios.post(
