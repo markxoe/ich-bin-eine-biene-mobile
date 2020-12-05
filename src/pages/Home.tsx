@@ -10,10 +10,13 @@ import {
   IonContent,
   IonFab,
   IonFabButton,
+  IonFabList,
   IonGrid,
   IonHeader,
   IonIcon,
+  IonInput,
   IonItem,
+  IonLabel,
   IonModal,
   IonPage,
   IonRow,
@@ -25,7 +28,9 @@ import {
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
 import {
+  cloud,
   help,
+  person,
   refreshOutline,
   settingsOutline,
   storefront,
@@ -69,6 +74,7 @@ const Home: React.FC = () => {
   const [save, refreshSave] = useState<boolean>(false);
 
   const [openLevels, setOpenLevels] = useState<boolean>(false);
+  const [openUserProperties, setOpenUserProperties] = useState<boolean>(false);
 
   let saveTimerId: number;
 
@@ -366,9 +372,21 @@ const Home: React.FC = () => {
         </IonFab>
 
         <IonFab vertical="bottom" horizontal="start" slot="fixed">
-          <IonFabButton routerLink="infos" color="medium">
-            <IonIcon icon={help} />
+          <IonFabButton color="medium">
+            <IonIcon icon={cloud} />
           </IonFabButton>
+          <IonFabList side="top">
+            <IonFabButton routerLink="infos" color="medium">
+              <IonIcon icon={help} />
+            </IonFabButton>
+          </IonFabList>
+          <IonFabList side="end">
+            <IonFabButton
+              color="warning"
+              onClick={() => setOpenUserProperties(true)}>
+              <IonIcon icon={person} />
+            </IonFabButton>
+          </IonFabList>
         </IonFab>
 
         <IonModal
@@ -408,6 +426,37 @@ const Home: React.FC = () => {
               <span role="img" aria-labelledby="Breeze">
                 🥶
               </span>
+            </IonItem>
+          </IonContent>
+        </IonModal>
+
+        <IonModal
+          onDidDismiss={() => setOpenUserProperties(false)}
+          swipeToClose
+          isOpen={openUserProperties}>
+          <IonHeader translucent>
+            <IonToolbar>
+              <IonTitle>Benutzer</IonTitle>
+              <IonButtons slot="end">
+                <IonButton onClick={() => setOpenUserProperties(false)}>
+                  OK
+                </IonButton>
+              </IonButtons>
+            </IonToolbar>
+          </IonHeader>
+          <IonContent fullscreen>
+            <IonItem>
+              <IonLabel position="stacked">Benutzername</IonLabel>
+              <IonInput
+                placeholder="Ich bin ein Name"
+                value={state.userName}
+                onIonChange={(e) => {
+                  dispatch({
+                    type: "setUserName",
+                    payload: e.detail.value ?? "",
+                  });
+                }}
+              />
             </IonItem>
           </IonContent>
         </IonModal>
