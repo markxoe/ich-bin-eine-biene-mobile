@@ -458,6 +458,7 @@ const Home: React.FC = () => {
                 }}
               />
             </IonItem>
+            <IonItem>Deine ID: {state.userUUID}</IonItem>
           </IonContent>
         </IonModal>
       </IonContent>
