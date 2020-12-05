@@ -13,7 +13,8 @@ export interface stateType {
   };
   statisticsRotations: number;
   settingMaxNumberDisplayedBees: number;
-  userUUID:string;
+  userUUID: string;
+  userName: string;
 }
 
 export interface actionType {
