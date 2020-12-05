@@ -307,7 +307,7 @@ const PageSettings: React.FC = () => {
                 await Firebase.logEvent({
                   name: "SettingsDeleteAll",
                   params: {},
-                }).catch();
+                }).catch(() => {});
                 await saveState(initialState);
                 showdeleteAllAlert(false);
               },
