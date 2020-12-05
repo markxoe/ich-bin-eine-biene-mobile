@@ -69,11 +69,13 @@ const StorePage: React.FC = () => {
         autoRotatingBeeLength: Number;
         additionalBeeLength: Number;
         multiplierLevel: Number;
+        userName: string;
       } = {
         userid: state.userUUID,
         autoRotatingBeeLength: state.biene.autoRotatingBees.length,
         additionalBeeLength: state.biene.additionalBienen.length,
         multiplierLevel: state.biene.multiplierLevel,
+        userName: state.userName,
       };
 
       Axios.post(
@@ -81,8 +83,13 @@ const StorePage: React.FC = () => {
           "https://api.ichbineinebiene.toastbrot.org") +
           "/api/v1/users/update2",
         data,
-        {}
-      ).catch(console.error);
+        { timeout: 500 }
+      )
+        .then(
+          (r) => {},
+          (r) => console.error("Error Posting Results")
+        )
+        .catch(() => {});
     }
   }, [state]);
 
