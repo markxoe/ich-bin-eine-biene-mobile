@@ -170,11 +170,17 @@ const StorePage: React.FC = () => {
     const newconfetti = (
       <Confetti
         recycle={false}
-        gravity={0.5}
-        initialVelocityY={{ min: -5, max: -3 }}
+        gravity={0.8}
+        initialVelocityX={{ min: -10, max: 10 }}
+        initialVelocityY={{ min: -15, max: 0 }}
+        confettiSource={{
+          h: 50,
+          w: 50,
+          x: window.innerWidth / 2 - 25,
+          y: window.innerHeight / 2 - 25,
+        }}
         friction={0.999}
-        tweenDuration={2000}
-        onConfettiComplete={console.log}
+        tweenDuration={500}
       />
     );
     setConfettiChilds((i) => i.concat(newconfetti));

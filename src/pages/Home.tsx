@@ -10,13 +10,11 @@ import {
   IonContent,
   IonFab,
   IonFabButton,
-  IonFabList,
   IonGrid,
   IonHeader,
   IonIcon,
-  IonInput,
   IonItem,
-  IonLabel,
+  IonMenuButton,
   IonModal,
   IonPage,
   IonRow,
@@ -27,14 +25,7 @@ import {
   useIonViewWillEnter,
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
-import {
-  cloud,
-  help,
-  person,
-  refreshOutline,
-  settingsOutline,
-  storefront,
-} from "ionicons/icons";
+import { refreshOutline, settingsOutline, storefront } from "ionicons/icons";
 import "./Home.css";
 
 import biene from "../res/biene.png";
@@ -74,7 +65,6 @@ const Home: React.FC = () => {
   const [save, refreshSave] = useState<boolean>(false);
 
   const [openLevels, setOpenLevels] = useState<boolean>(false);
-  const [openUserProperties, setOpenUserProperties] = useState<boolean>(false);
 
   let saveTimerId: number;
 
@@ -169,8 +159,11 @@ const Home: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader translucent>
+      <IonHeader>
         <IonToolbar>
+          <IonButtons collapse slot="start">
+            <IonMenuButton />
+          </IonButtons>
           <IonTitle>Ich bin eine Biene</IonTitle>
           <IonButtons collapse slot="end">
             <IonButton routerLink="/settings" color="primary">
@@ -182,6 +175,9 @@ const Home: React.FC = () => {
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
+            <IonButtons slot="start">
+              <IonMenuButton />
+            </IonButtons>
             <IonTitle size="large">Ich bin eine Biene</IonTitle>
             <IonButtons slot="end">
               <IonButton routerLink="/settings" color="primary">
@@ -378,24 +374,6 @@ const Home: React.FC = () => {
           </IonFabButton>
         </IonFab>
 
-        <IonFab vertical="bottom" horizontal="start" slot="fixed">
-          <IonFabButton color="medium">
-            <IonIcon icon={cloud} />
-          </IonFabButton>
-          <IonFabList side="top">
-            <IonFabButton routerLink="infos" color="medium">
-              <IonIcon icon={help} />
-            </IonFabButton>
-          </IonFabList>
-          <IonFabList side="end">
-            <IonFabButton
-              color="warning"
-              onClick={() => setOpenUserProperties(true)}>
-              <IonIcon icon={person} />
-            </IonFabButton>
-          </IonFabList>
-        </IonFab>
-
         <IonModal
           onDidDismiss={() => setOpenLevels(false)}
           swipeToClose
@@ -434,38 +412,6 @@ const Home: React.FC = () => {
                 🥶
               </span>
             </IonItem>
-          </IonContent>
-        </IonModal>
-
-        <IonModal
-          onDidDismiss={() => setOpenUserProperties(false)}
-          swipeToClose
-          isOpen={openUserProperties}>
-          <IonHeader translucent>
-            <IonToolbar>
-              <IonTitle>Benutzer</IonTitle>
-              <IonButtons slot="end">
-                <IonButton onClick={() => setOpenUserProperties(false)}>
-                  OK
-                </IonButton>
-              </IonButtons>
-            </IonToolbar>
-          </IonHeader>
-          <IonContent fullscreen>
-            <IonItem>
-              <IonLabel position="stacked">Benutzername</IonLabel>
-              <IonInput
-                placeholder="Ich bin ein Name"
-                value={state.userName}
-                onIonChange={(e) => {
-                  dispatch({
-                    type: "setUserName",
-                    payload: e.detail.value ?? "",
-                  });
-                }}
-              />
-            </IonItem>
-            <IonItem>Deine ID: {state.userUUID}</IonItem>
           </IonContent>
         </IonModal>
       </IonContent>

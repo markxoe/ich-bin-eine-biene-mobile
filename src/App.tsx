@@ -2,12 +2,16 @@ import React from "react";
 import { Redirect, Route } from "react-router-dom";
 import { IonApp, IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
+
 import Home from "./pages/Home";
 import PageSettings from "./pages/Settings";
 import PageIntro from "./pages/Intro";
 import StorePage from "./pages/Store";
 import InfosPage from "./pages/Infos";
 import InfoPage from "./pages/Info";
+import PageProfile from "./pages/Profile";
+
+import Menu from "./Menu";
 
 import { AppContextProvider } from "./store/State";
 /* Core CSS required for Ionic components to work properly */
@@ -34,7 +38,8 @@ const App: React.FC = () => (
   <AppContextProvider>
     <IonApp>
       <IonReactRouter>
-        <IonRouterOutlet>
+        <Menu />
+        <IonRouterOutlet id="main">
           <Route exact path="/" render={() => <Redirect to="/home" />} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/settings" component={PageSettings} />
@@ -44,6 +49,7 @@ const App: React.FC = () => (
           <Route exact path="/infos" component={InfosPage} />
           <Route exact path="/info/:id" component={InfoPage} />
           <Route exact path="/leader" component={PageLeaderboard} />
+          <Route exact path="/profile" component={PageProfile} />
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
