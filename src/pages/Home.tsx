@@ -25,7 +25,7 @@ import {
   useIonViewWillEnter,
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
-import { refreshOutline, settingsOutline, storefront } from "ionicons/icons";
+import { refreshOutline, storefront } from "ionicons/icons";
 import "./Home.css";
 
 import biene from "../res/biene.png";
@@ -165,11 +165,6 @@ const Home: React.FC = () => {
             <IonMenuButton />
           </IonButtons>
           <IonTitle>Ich bin eine Biene</IonTitle>
-          <IonButtons collapse slot="end">
-            <IonButton routerLink="/settings" color="primary">
-              <IonIcon icon={settingsOutline} />
-            </IonButton>
-          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
@@ -179,11 +174,6 @@ const Home: React.FC = () => {
               <IonMenuButton />
             </IonButtons>
             <IonTitle size="large">Ich bin eine Biene</IonTitle>
-            <IonButtons slot="end">
-              <IonButton routerLink="/settings" color="primary">
-                <IonIcon icon={settingsOutline} />
-              </IonButton>
-            </IonButtons>
           </IonToolbar>
         </IonHeader>
         <IonGrid className="ion-margin-top">
