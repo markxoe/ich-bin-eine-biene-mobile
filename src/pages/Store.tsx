@@ -44,6 +44,7 @@ import {
 import { RefresherEventDetail } from "@ionic/core";
 import { flashOutline } from "ionicons/icons";
 import { Plugins } from "@capacitor/core";
+import Confetti from "react-confetti";
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
 import Axios from "axios";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
@@ -57,6 +58,8 @@ const StorePage: React.FC = () => {
   const multiplierLevelPrice = getMultiplierPrice(state);
 
   const autorotatingPrice = getAutorotatePrice(state);
+
+  const [confettiChilds, setConfettiChilds] = useState<JSX.Element[]>([]);
 
   useIonViewDidEnter(() => {
     Firebase.setScreenName({ screenName: "store" }).catch(() => {});
@@ -153,6 +156,20 @@ const StorePage: React.FC = () => {
     if (state.dataLoadedFromMemory) saveState(state);
   }, [state]);
 
+  const onBuy = () => {
+    const newconfetti = (
+      <Confetti
+        recycle={false}
+        gravity={0.5}
+        initialVelocityY={{ min: -5, max: -3 }}
+        friction={0.999}
+        tweenDuration={2000}
+        onConfettiComplete={console.log}
+      />
+    );
+    setConfettiChilds((i) => i.concat(newconfetti));
+  };
+
   return (
     <IonPage>
       <IonHeader translucent>
@@ -163,7 +180,9 @@ const StorePage: React.FC = () => {
           <IonTitle>Store</IonTitle>
         </IonToolbar>
       </IonHeader>
+      {confettiChilds}
       <IonContent fullscreen>
+        {/* {confettiChilds} */}
         <IonRefresher slot="fixed" pullMin={400} onIonRefresh={doRefresh}>
           <IonRefresherContent
             pullingIcon={flashOutline}
@@ -203,6 +222,7 @@ const StorePage: React.FC = () => {
                       dispatch(ActionRotateSpeedLevelIncrease());
                       dispatch(ActionBieneClickDecrease(rotateSpeedLevelPrice));
                       setShowThx(true);
+                      onBuy();
                       Firebase.logEvent({
                         name: "StoreBuyDrehlevel",
                         params: { price: rotateSpeedLevelPrice },
@@ -258,6 +278,7 @@ const StorePage: React.FC = () => {
                       dispatch(ActionBieneAddAdditional());
                       dispatch(ActionBieneClickDecrease(additionalBeePrice));
                       setShowThx(true);
+                      onBuy();
                       Firebase.logEvent({
                         name: "StoreBuyAdditionalBee",
                         params: {},
@@ -307,6 +328,7 @@ const StorePage: React.FC = () => {
                       dispatch(ActionMultiplierIncrease());
                       dispatch(ActionBieneClickDecrease(multiplierLevelPrice));
                       setShowThx(true);
+                      onBuy();
                       Firebase.logEvent({
                         name: "StoreBuyMultiplier",
                         params: {},
@@ -356,6 +378,7 @@ const StorePage: React.FC = () => {
                       dispatch(ActionBieneAddAutoRotating(0));
                       dispatch(ActionBieneClickDecrease(autorotatingPrice));
                       setShowThx(true);
+                      onBuy();
                       Firebase.logEvent({
                         name: "StoreBuyAutorotater",
                         params: { price: autorotatingPrice },
