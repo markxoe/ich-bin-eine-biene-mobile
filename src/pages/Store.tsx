@@ -96,7 +96,8 @@ const StorePage: React.FC = () => {
           headers: {
             auth: calculateHeader(
               state.userUUID,
-              process.env.react_app_usersapisecret ?? "verysecretalternative"
+              process.env.react_app_usersapisecret ?? "verysecretalternative",
+              data.additionalBeeLength
             ),
           },
         }

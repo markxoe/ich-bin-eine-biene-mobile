@@ -1,10 +1,13 @@
 import crypto from "crypto";
 
-const calculateHeader = (uuid: string, secret: string) => {
-  console.log("TheSecret:", secret);
+const calculateHeader = (
+  uuid: string,
+  secret: string,
+  additionalBeeLength: Number
+) => {
   return crypto
     .createHash("md5")
-    .update(secret.trim() + uuid)
+    .update(secret.trim() + uuid + additionalBeeLength.toString())
     .digest("base64");
 };
 
