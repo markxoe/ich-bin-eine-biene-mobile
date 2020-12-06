@@ -191,6 +191,7 @@ const Home: React.FC = () => {
         </IonHeader>
         <IonGrid className="ion-margin-top">
           <IonRow className="ion-justify-content-center">
+            {/* The following displays the First Beiene */}
             <IonCol size="auto">
               <div className="ion-text-center">
                 <img
@@ -218,6 +219,7 @@ const Home: React.FC = () => {
                 />
               </div>
             </IonCol>
+            {/* The follwing part Displays some additionalBienen */}
             {state.biene.additionalBienen
               .slice(0, state.settingMaxNumberDisplayedBees)
               .map(() => (
@@ -240,6 +242,7 @@ const Home: React.FC = () => {
                   </div>
                 </IonCol>
               ))}
+            {/* This part displays the number of the additionalBienen that is not shown */}
             <IonCol
               size="auto"
               hidden={
@@ -252,6 +255,7 @@ const Home: React.FC = () => {
                   state.settingMaxNumberDisplayedBees}
               </IonChip>
             </IonCol>
+            {/* This part dispalys the first autorotater */}
             {state.biene.autoRotatingBees.slice(0, 1).map((a) => (
               <IonCol size="auto">
                 <div className="ion-text-center">
@@ -275,6 +279,7 @@ const Home: React.FC = () => {
                 </div>
               </IonCol>
             ))}
+            {/* This part then displays the rest of the autorotaters as a number */}
             <IonCol
               size="auto"
               hidden={state.biene.autoRotatingBees.length <= 1}>
@@ -284,6 +289,7 @@ const Home: React.FC = () => {
             </IonCol>
           </IonRow>
           <IonRow className="ion-justify-content-center">
+            {/* This part shows the informations */}
             <IonCol size="auto" class="ion-text-center">
               <IonChip
                 hidden={
