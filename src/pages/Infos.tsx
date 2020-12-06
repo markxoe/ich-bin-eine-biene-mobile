@@ -1,22 +1,29 @@
 import {
   IonBackButton,
+  IonButton,
   IonButtons,
   IonContent,
   IonHeader,
+  IonIcon,
   IonItem,
   IonList,
   IonPage,
+  IonSearchbar,
   IonSkeletonText,
   IonTitle,
   IonToolbar,
   useIonViewWillEnter,
 } from "@ionic/react";
+import { search } from "ionicons/icons";
 import React, { useState } from "react";
 import { generateToast } from "../globals";
 
 const InfosPage: React.FC = () => {
   const [data, setData] = useState<{ title: string; id: string }[]>();
-  
+
+  const [searchbar, setSearchbar] = useState<boolean>(false);
+  const [searchquery, setSearchquery] = useState<string>("");
+
   useIonViewWillEnter(() => {
     fetch(
       (process.env.react_app_apiurl ??
@@ -47,6 +54,19 @@ const InfosPage: React.FC = () => {
             <IonBackButton defaultHref="/home" />
           </IonButtons>
           <IonTitle>Infos</IonTitle>
+          <IonButtons slot="end">
+            <IonButton onClick={() => setSearchbar((i) => !i)}>
+              <IonIcon icon={search} />
+            </IonButton>
+          </IonButtons>
+        </IonToolbar>
+        <IonToolbar hidden={!searchbar}>
+          <IonSearchbar
+            showCancelButton={"focus"}
+            onIonCancel={() => setSearchbar(false)}
+            onIonChange={(e) => setSearchquery(e.detail.value ?? "")}
+            cancelButtonText="Abbrechen"
+          />
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -54,6 +74,11 @@ const InfosPage: React.FC = () => {
           {data ? (
             data
               .sort()
+              .filter(
+                (e) =>
+                  e.title.toLowerCase().includes(searchquery.toLowerCase()) ||
+                  !searchbar
+              )
               .map((e) => <ListItem id={e.id} key={e.id} title={e.title} />)
           ) : (
             <>
