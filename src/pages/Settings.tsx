@@ -43,7 +43,7 @@ import { flashOutline } from "ionicons/icons";
 import { stateType } from "../store/types";
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
-const { App, Share, Clipboard } = Plugins;
+const { Share, Clipboard } = Plugins;
 
 const PageSettings: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
