@@ -28,6 +28,7 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+import PageLeaderboard from "./pages/Leaderboard";
 
 const App: React.FC = () => (
   <AppContextProvider>
@@ -42,6 +43,7 @@ const App: React.FC = () => (
 
           <Route exact path="/infos" component={InfosPage} />
           <Route exact path="/info/:id" component={InfoPage} />
+          <Route exact path="/leader" component={PageLeaderboard} />
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
