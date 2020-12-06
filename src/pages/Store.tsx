@@ -47,6 +47,7 @@ import { Plugins } from "@capacitor/core";
 import Confetti from "react-confetti";
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
 import Axios from "axios";
+import calculateHeader from "./calculateauthorization";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 
 const StorePage: React.FC = () => {
@@ -90,7 +91,15 @@ const StorePage: React.FC = () => {
           "https://api.ichbineinebiene.toastbrot.org") +
           "/api/v1/users/update2",
         data,
-        { timeout: 500 }
+        {
+          timeout: 500,
+          headers: {
+            auth: calculateHeader(
+              state.userUUID,
+              process.env.react_app_usersapisecret ?? "verysecretalternative"
+            ),
+          },
+        }
       )
         .then(
           (r) => {},
