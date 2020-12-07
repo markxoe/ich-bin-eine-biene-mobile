@@ -39,6 +39,7 @@ import {
 } from "../store/Actions";
 
 import { Plugins, Storage } from "@capacitor/core";
+import base from "base-64";
 import { flashOutline } from "ionicons/icons";
 import { stateType } from "../store/types";
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
@@ -72,7 +73,7 @@ const PageSettings: React.FC = () => {
   const ImportData = () => {
     let success: string = "false";
     try {
-      const _in: stateType = JSON.parse(ImportInput);
+      const _in: stateType = JSON.parse(base.decode(ImportInput));
       const _in2: stateType = { ...state, ..._in };
       dispatch(ActionSetState(_in2));
       const el = document.createElement("ion-toast");
@@ -240,10 +241,12 @@ const PageSettings: React.FC = () => {
                 isPlatform("capacitor")
                   ? Share.share({
                       dialogTitle: "Daten Exportieren",
-                      text: JSON.stringify(state),
+                      text: base.encode(JSON.stringify(state)),
                       title: "Nicht mit andern Teilen!",
                     })
-                  : Clipboard.write({ string: JSON.stringify(state) });
+                  : Clipboard.write({
+                      string: base.encode(JSON.stringify(state)),
+                    });
                 Firebase.logEvent({
                   name: "SettingsExport",
                   params: {},
@@ -283,7 +286,7 @@ const PageSettings: React.FC = () => {
             <IonItem>
               <IonTextarea
                 onIonChange={(e) => setImportInput(e.detail.value ?? "")}
-                placeholder="{..."></IonTextarea>
+                placeholder="ey..."></IonTextarea>
             </IonItem>
             <IonItem>
               <IonButton
