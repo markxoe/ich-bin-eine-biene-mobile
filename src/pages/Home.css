@@ -45,3 +45,7 @@
     transform: rotate(360deg);
   }
 }
+.ios ion-title#no-right-padding {
+  padding-right: 10px !important;
+  padding-inline-end: 10px !important;
+}

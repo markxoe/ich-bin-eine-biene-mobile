@@ -176,7 +176,9 @@ const Home: React.FC = () => {
             <IonButtons slot="start">
               <IonMenuButton />
             </IonButtons>
-            <IonTitle size="large">Ich bin eine Biene</IonTitle>
+            <IonTitle id="no-right-padding" size="large">
+              Ich bin eine Biene
+            </IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonGrid className="ion-margin-top">
