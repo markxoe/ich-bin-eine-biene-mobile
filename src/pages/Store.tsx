@@ -47,8 +47,6 @@ import { flashOutline } from "ionicons/icons";
 import { Plugins } from "@capacitor/core";
 import Confetti from "react-confetti";
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
-import Axios from "axios";
-import calculateHeader from "./calculateauthorization";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 
 const StorePage: React.FC = () => {
