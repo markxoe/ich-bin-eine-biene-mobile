@@ -24,25 +24,29 @@ import { AppContext } from "../store/State";
 const PageLeaderboard: React.FC = () => {
   const [data, setData] = useState<
     {
-      _id: string;
-      autoRotatingBeeLength: number;
-      additionalBeeLength: number;
-      multiplierLevel: number;
-      userName: string;
-      settingNewUI: boolean;
-      settingClickingAid: boolean;
+      level: number;
+      user: {
+        _id: string;
+        autoRotatingBeeLength: number;
+        additionalBeeLength: number;
+        multiplierLevel: number;
+        userName: string;
+        settingNewUI: boolean;
+        settingClickingAid: boolean;
+      };
     }[]
   >([]);
 
-  const { state, dispatch } = useContext(AppContext);
+  const { state } = useContext(AppContext);
 
   useIonViewWillEnter(() => {
     Axios.get(
       (process.env.react_app_apiurl ??
-        "https://api.ichbineinebiene.toastbrot.org") + "/api/v1/users/get"
+        "https://api.ichbineinebiene.toastbrot.org") + "/api/v1/users/leader"
     ).then((e) => {
       //setData(JSON.parse(e.data.result));
-      setData(e.data.result);
+      setData(e.data);
+      console.log(e.data);
     });
   });
   useEffect(() => {
@@ -110,17 +114,19 @@ const PageLeaderboard: React.FC = () => {
         </IonItem> */}
 
         {data
-          .sort((a, b) => b.additionalBeeLength - a.additionalBeeLength)
+          .sort((a, b) => b.level - a.level)
           .map((i) => (
-            <IonItem color={i._id === state.userUUID ? "light" : ""}>
+            <IonItem color={i.user._id === state.userUUID ? "light" : ""}>
               <IonAvatar slot="start">
                 <img src={avatar} alt="avatar" />
               </IonAvatar>
               <IonLabel>
-                <h2>{i.userName}</h2>
-                <p>{i.additionalBeeLength + 1} Bienen</p>
-                <p>{i.autoRotatingBeeLength} Autodreher</p>
-                <p>{i.multiplierLevel + 1}x Multiplier</p>
+                <h2>
+                  {i.user.userName} ({i.level})
+                </h2>
+                <p>{i.user.additionalBeeLength + 1} Bienen</p>
+                <p>{i.user.autoRotatingBeeLength} Autodreher</p>
+                <p>{i.user.multiplierLevel + 1}x Multiplier</p>
               </IonLabel>
             </IonItem>
           ))}
