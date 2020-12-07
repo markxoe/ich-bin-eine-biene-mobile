@@ -52,10 +52,11 @@ import {
 } from "../globals";
 
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
+import "@capacitor-community/keep-awake";
 import { v4, validate } from "uuid";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 
-const { SplashScreen, StatusBar, App, PushNotifications } = Plugins;
+const { SplashScreen, StatusBar, App, PushNotifications, KeepAwake } = Plugins;
 
 const Home: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -91,6 +92,8 @@ const Home: React.FC = () => {
 
     if (isPlatform("capacitor"))
       StatusBar.setStyle({ style: StatusBarStyle.Dark });
+
+    KeepAwake.keepAwake();
 
     const url = await App.getLaunchUrl().then((url) => url.url);
 
