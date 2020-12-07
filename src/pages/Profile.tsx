@@ -12,12 +12,14 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import React, { useContext, useEffect } from "react";
+import { uploadData } from "../globals";
 import { AppContext, saveState } from "../store/State";
 
 const PageProfile: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
   useEffect(() => {
     if (state.dataLoadedFromMemory) saveState(state);
+    uploadData(state);
   }, [state]);
   return (
     <IonPage>

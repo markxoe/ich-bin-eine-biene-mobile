@@ -32,6 +32,7 @@ import {
   getRotateSpeedLevelPrice,
   renderValue,
   rotateSpeedLevel,
+  uploadData,
 } from "../globals";
 import {
   ActionBieneAddAdditional,
@@ -67,47 +68,7 @@ const StorePage: React.FC = () => {
   });
 
   useEffect(() => {
-    if (state.userUUID && state.dataLoadedFromMemory) {
-      const data: {
-        userid: string;
-        autoRotatingBeeLength: Number;
-        additionalBeeLength: Number;
-        multiplierLevel: Number;
-        userName: string;
-        settingNewUI: boolean;
-        settingClickingAid: boolean;
-      } = {
-        userid: state.userUUID,
-        autoRotatingBeeLength: state.biene.autoRotatingBees.length,
-        additionalBeeLength: state.biene.additionalBienen.length,
-        multiplierLevel: state.biene.multiplierLevel,
-        userName: state.userName,
-        settingClickingAid: state.settings.clickButtonForBee,
-        settingNewUI: state.settings.newUI,
-      };
-
-      Axios.post(
-        (process.env.react_app_apiurl ??
-          "https://api.ichbineinebiene.toastbrot.org") +
-          "/api/v1/users/update2",
-        data,
-        {
-          timeout: 500,
-          headers: {
-            auth: calculateHeader(
-              state.userUUID,
-              process.env.react_app_usersapisecret ?? "verysecretalternative",
-              data.additionalBeeLength
-            ),
-          },
-        }
-      )
-        .then(
-          (r) => {},
-          (r) => console.error("Error Posting Results")
-        )
-        .catch(() => {});
-    }
+    uploadData(state);
   }, [state]);
 
   useEffect(() => {
