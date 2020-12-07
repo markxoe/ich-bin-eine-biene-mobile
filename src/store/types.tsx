@@ -15,6 +15,7 @@ export interface stateType {
   settingMaxNumberDisplayedBees: number;
   userUUID: string;
   userName: string;
+  userImage: string;
 }
 
 export interface actionType {

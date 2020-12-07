@@ -22,6 +22,7 @@ const initialState: stateType = {
   settingMaxNumberDisplayedBees: 20,
   userUUID: "",
   userName: "",
+  userImage: "",
 };
 
 let reducer = (state: stateType, action: actionType): stateType => {
@@ -143,6 +144,13 @@ let reducer = (state: stateType, action: actionType): stateType => {
       return {
         ...state,
         userName: action.payload,
+      };
+    }
+
+    case "setUserImage": {
+      return {
+        ...state,
+        userImage: action.payload,
       };
     }
   }
