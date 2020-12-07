@@ -119,7 +119,7 @@ const StorePage: React.FC = () => {
     setTimeout(() => {
       dispatch(ActionMakeMeAPresent());
       event.detail.complete();
-    }, 100);
+    }, 10000);
   }
 
   useEffect(() => {
