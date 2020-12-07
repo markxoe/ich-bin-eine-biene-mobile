@@ -26,6 +26,13 @@ Mark Oude Elberink
 
 ## Changelog
 
+### [0.8.0] Hühnerland :chicken:
+
+- High Score
+- Informationen & FAQ
+- UI verhübscherungen
+- Ein Menü
+
 ### [0.7.2] Frankreich :flags:
 
 - UI Änderungen
