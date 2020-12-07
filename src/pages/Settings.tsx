@@ -43,6 +43,7 @@ import base from "base-64";
 import { flashOutline } from "ionicons/icons";
 import { stateType } from "../store/types";
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
+import { generateToast } from "../globals";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 const { Share, Clipboard } = Plugins;
 
@@ -76,21 +77,11 @@ const PageSettings: React.FC = () => {
       const _in: stateType = JSON.parse(base.decode(ImportInput));
       const _in2: stateType = { ...state, ..._in };
       dispatch(ActionSetState(_in2));
-      const el = document.createElement("ion-toast");
-      document.body.appendChild(el);
-      el.message = "Hat funktioniert!";
-      el.duration = 1000;
-      el.translucent = true;
-      el.present();
+      generateToast("Hat funktioniert");
       setShowImport(false);
       success = "true";
     } catch {
-      const el = document.createElement("ion-toast");
-      document.body.appendChild(el);
-      el.message = "Fehler!";
-      el.duration = 1000;
-      el.translucent = true;
-      el.present();
+      generateToast("Fehler!");
     }
     Firebase.logEvent({
       name: "SettingsImported",
