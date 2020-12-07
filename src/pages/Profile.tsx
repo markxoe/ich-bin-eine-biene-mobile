@@ -1,5 +1,4 @@
 import {
-  IonBackButton,
   IonButtons,
   IonContent,
   IonHeader,
@@ -7,6 +6,7 @@ import {
   IonItem,
   IonItemDivider,
   IonLabel,
+  IonMenuButton,
   IonPage,
   IonTitle,
   IonToolbar,
@@ -24,7 +24,7 @@ const PageProfile: React.FC = () => {
       <IonHeader translucent>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/" />
+            <IonMenuButton />
           </IonButtons>
           <IonTitle>Dein Profil</IonTitle>
         </IonToolbar>

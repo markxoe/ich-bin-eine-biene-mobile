@@ -1,6 +1,5 @@
 import {
   IonAvatar,
-  IonBackButton,
   IonButtons,
   IonCard,
   IonCardContent,
@@ -10,6 +9,7 @@ import {
   IonHeader,
   IonItem,
   IonLabel,
+  IonMenuButton,
   IonPage,
   IonTitle,
   IonToolbar,
@@ -53,7 +53,7 @@ const PageLeaderboard: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/" />
+            <IonMenuButton />
           </IonButtons>
           <IonTitle>High Score</IonTitle>
         </IonToolbar>

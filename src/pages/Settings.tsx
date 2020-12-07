@@ -1,6 +1,5 @@
 import {
   IonAlert,
-  IonBackButton,
   IonButton,
   IonButtons,
   IonContent,
@@ -9,6 +8,7 @@ import {
   IonItemDivider,
   IonItemGroup,
   IonLabel,
+  IonMenuButton,
   IonModal,
   IonPage,
   IonRange,
@@ -102,7 +102,7 @@ const PageSettings: React.FC = () => {
       <IonHeader translucent>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/" />
+            <IonMenuButton />
           </IonButtons>
           <IonTitle>Einstellungen</IonTitle>
         </IonToolbar>
