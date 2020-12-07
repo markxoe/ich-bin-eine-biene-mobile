@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.getcapacitor.BridgeActivity;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.community.firebaseanalytics.FirebaseAnalytics;
+import com.getcapacitor.community.keepawake.KeepAwake;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ public class MainActivity extends BridgeActivity {
       // Additional plugins you've installed go here
       // Ex: add(TotallyAwesomePlugin.class);
       add(FirebaseAnalytics.class);
+      add(KeepAwake.class);
     }});
   }
 }
