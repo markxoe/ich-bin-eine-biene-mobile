@@ -25,7 +25,7 @@ import {
 import React, { useContext } from "react";
 import { AppContext } from "./store/State";
 const Menu: React.FC = () => {
-  const { state, dispatch } = useContext(AppContext);
+  const { state } = useContext(AppContext);
   return (
     <IonMenu contentId="main" type="overlay">
       <IonHeader>
