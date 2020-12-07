@@ -52,7 +52,7 @@ const PageLeaderboard: React.FC = () => {
   }, [data]);
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader translucent>
         <IonToolbar>
           <IonButtons slot="start">
             <IonMenuButton />

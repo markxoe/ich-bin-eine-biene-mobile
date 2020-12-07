@@ -66,7 +66,7 @@ const InfoPage: React.FC<InfoProps> = ({ match }) => {
 
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader translucent>
         <IonToolbar>
           <IonButtons slot="start">
             <IonBackButton defaultHref="/home" />
