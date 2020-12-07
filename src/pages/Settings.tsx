@@ -75,7 +75,7 @@ const PageSettings: React.FC = () => {
     let success: string = "false";
     try {
       const _in: stateType = JSON.parse(base.decode(ImportInput));
-      const _in2: stateType = { ...state, ..._in };
+      const _in2: stateType = { ...state, ..._in, userUUID: state.userUUID };
       dispatch(ActionSetState(_in2));
       generateToast("Hat funktioniert");
       setShowImport(false);
