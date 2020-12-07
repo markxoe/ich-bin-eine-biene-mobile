@@ -1,4 +1,6 @@
 import {
+  IonAvatar,
+  IonButton,
   IonButtons,
   IonContent,
   IonHeader,
@@ -14,6 +16,8 @@ import {
 import React, { useContext, useEffect } from "react";
 import { uploadData } from "../globals";
 import { AppContext, saveState } from "../store/State";
+import { CameraResultType, Plugins } from "@capacitor/core";
+import avatar from "../res/avatar.svg";
 
 const PageProfile: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -33,6 +37,9 @@ const PageProfile: React.FC = () => {
       </IonHeader>
       <IonContent>
         <IonItem>
+          <IonAvatar slot="start">
+            <img src={state.userImage !== "" ? state.userImage : avatar} />
+          </IonAvatar>
           <IonLabel position="stacked">Benutzername</IonLabel>
           <IonInput
             placeholder="Ich bin ein Name"
@@ -47,6 +54,25 @@ const PageProfile: React.FC = () => {
         </IonItem>
         <IonItemDivider>Erweitere Infos</IonItemDivider>
         <IonItem>Deine ID: {state.userUUID}</IonItem>
+        <IonButton
+          onClick={() =>
+            Plugins.Camera.getPhoto({
+              resultType: CameraResultType.DataUrl,
+              quality: 10,
+            }).then((r) => {
+              console.log(r);
+              dispatch({ type: "setUserImage", payload: r.dataUrl });
+            })
+          }>
+          Take
+        </IonButton>
+        <IonButton
+          onClick={() => dispatch({ type: "setUserImage", payload: "" })}>
+          Foto Löschen
+        </IonButton>
+        <IonAvatar>
+          <img src={state.userImage !== "" ? state.userImage : avatar} />
+        </IonAvatar>
       </IonContent>
     </IonPage>
   );
