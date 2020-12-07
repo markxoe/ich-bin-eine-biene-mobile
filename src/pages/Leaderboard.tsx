@@ -44,7 +44,7 @@ const PageLeaderboard: React.FC = () => {
       (process.env.react_app_apiurl ??
         "https://api.ichbineinebiene.toastbrot.org") + "/api/v1/users/leader"
     ).then((e) => {
-      console.log(e.data);
+      setData(e.data);
     });
   });
   useEffect(() => {
