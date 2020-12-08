@@ -33,6 +33,7 @@ const PageLeaderboard: React.FC = () => {
         userName: string;
         settingNewUI: boolean;
         settingClickingAid: boolean;
+        userImage: string;
       };
     }[]
   >([]);
@@ -116,7 +117,12 @@ const PageLeaderboard: React.FC = () => {
           .map((i) => (
             <IonItem color={i.user._id === state.userUUID ? "light" : ""}>
               <IonAvatar slot="start">
-                <img src={avatar} alt="avatar" />
+                <img
+                  src={
+                    (i.user.userImage ?? "") !== "" ? i.user.userImage : avatar
+                  }
+                  alt="avatar"
+                />
               </IonAvatar>
               <IonLabel>
                 <h2>
