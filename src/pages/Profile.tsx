@@ -59,7 +59,10 @@ const PageProfile: React.FC = () => {
   const takePicture = () => {
     Plugins.Camera.getPhoto({
       resultType: CameraResultType.DataUrl,
-      quality: 10,
+      quality: 40,
+      width: 125,
+      height: 125,
+      preserveAspectRatio: true,
     }).then((r) => {
       console.log(r);
       dispatch({ type: "setUserImage", payload: r.dataUrl });
