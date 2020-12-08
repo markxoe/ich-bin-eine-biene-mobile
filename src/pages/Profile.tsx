@@ -4,6 +4,7 @@ import {
   IonButtons,
   IonContent,
   IonHeader,
+  IonIcon,
   IonInput,
   IonItem,
   IonItemDivider,
@@ -18,6 +19,7 @@ import { uploadData } from "../globals";
 import { AppContext, saveState } from "../store/State";
 import { CameraResultType, Plugins } from "@capacitor/core";
 import avatar from "../res/avatar.svg";
+import { camera, cameraOutline, close, trashBin } from "ionicons/icons";
 
 const PageProfile: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -25,6 +27,45 @@ const PageProfile: React.FC = () => {
     if (state.dataLoadedFromMemory) saveState(state);
     uploadData(state);
   }, [state]);
+
+  const actionSheesh = () => {
+    const el = document.createElement("ion-action-sheet");
+    el.buttons = [
+      {
+        text: "Abbruch",
+        role: "cancel",
+        icon: close,
+      },
+      {
+        text: "Neues Bild aufnehmen",
+        icon: camera,
+        handler: () => {
+          takePicture();
+        },
+      },
+      {
+        text: "Bild löschen",
+        role: "destructive",
+        icon: trashBin,
+        handler: () => {
+          dispatch({ type: "setUserImage", payload: "" });
+        },
+      },
+    ];
+    document.body.appendChild(el);
+    el.present();
+  };
+
+  const takePicture = () => {
+    Plugins.Camera.getPhoto({
+      resultType: CameraResultType.DataUrl,
+      quality: 10,
+    }).then((r) => {
+      console.log(r);
+      dispatch({ type: "setUserImage", payload: r.dataUrl });
+    });
+  };
+
   return (
     <IonPage>
       <IonHeader translucent>
@@ -37,9 +78,6 @@ const PageProfile: React.FC = () => {
       </IonHeader>
       <IonContent>
         <IonItem>
-          <IonAvatar slot="start">
-            <img src={state.userImage !== "" ? state.userImage : avatar} />
-          </IonAvatar>
           <IonLabel position="stacked">Benutzername</IonLabel>
           <IonInput
             placeholder="Ich bin ein Name"
@@ -52,27 +90,14 @@ const PageProfile: React.FC = () => {
             }}
           />
         </IonItem>
+        <IonItem>
+          Dein Profilbild
+          <IonAvatar onClick={actionSheesh} slot="end">
+            <img src={state.userImage !== "" ? state.userImage : avatar} />
+          </IonAvatar>
+        </IonItem>
         <IonItemDivider>Erweitere Infos</IonItemDivider>
         <IonItem>Deine ID: {state.userUUID}</IonItem>
-        <IonButton
-          onClick={() =>
-            Plugins.Camera.getPhoto({
-              resultType: CameraResultType.DataUrl,
-              quality: 10,
-            }).then((r) => {
-              console.log(r);
-              dispatch({ type: "setUserImage", payload: r.dataUrl });
-            })
-          }>
-          Take
-        </IonButton>
-        <IonButton
-          onClick={() => dispatch({ type: "setUserImage", payload: "" })}>
-          Foto Löschen
-        </IonButton>
-        <IonAvatar>
-          <img src={state.userImage !== "" ? state.userImage : avatar} />
-        </IonAvatar>
       </IonContent>
     </IonPage>
   );
