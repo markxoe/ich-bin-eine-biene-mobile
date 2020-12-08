@@ -32,6 +32,8 @@ Mark Oude Elberink
 - Informationen & FAQ
 - UI verhübscherungen
 - Ein Menü
+- Profil-bilder
+- Bildschirm bleibt forever an
 
 ### [0.7.2] Frankreich :flags:
 
