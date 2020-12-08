@@ -47,6 +47,7 @@ import {
   getAdditionalBeePrice,
   getAutorotatePrice,
   getMultiplierPrice,
+  getRotateSpeedLevelPrice,
   renderValue,
   rotateSpeedLevel,
 } from "../globals";
@@ -145,7 +146,9 @@ const Home: React.FC = () => {
   useEffect(() => {
     setCanBuy(
       state.biene.clickCounter > getAdditionalBeePrice(state) ||
-        state.biene.clickCounter > getMultiplierPrice(state)
+        state.biene.clickCounter > getMultiplierPrice(state) ||
+        (state.biene.rotateSpeedLevel < rotateSpeedLevel.max &&
+          state.biene.clickCounter > getRotateSpeedLevelPrice(state))
     );
   }, [state]);
 
