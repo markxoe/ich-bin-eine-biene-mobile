@@ -94,10 +94,16 @@ const PageProfile: React.FC = () => {
           />
         </IonItem>
         <IonItem>
-          Dein Profilbild
+          Dein Profilbild:
           <IonAvatar onClick={actionSheesh} slot="end">
             <img src={state.userImage !== "" ? state.userImage : avatar} />
           </IonAvatar>
+        </IonItem>
+        <IonItem>
+          Profilbild ändern
+          <IonButton slot="end" onClick={() => actionSheesh()}>
+            Ändern
+          </IonButton>
         </IonItem>
         <IonItemDivider>Erweitere Infos</IonItemDivider>
         <IonItem>Deine ID: {state.userUUID}</IonItem>
