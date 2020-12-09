@@ -16,7 +16,7 @@ import {
   useIonViewWillEnter,
 } from "@ionic/react";
 import Axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 
 import avatar from "../res/avatar.svg";
 import { AppContext } from "../store/State";

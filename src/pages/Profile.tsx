@@ -4,7 +4,6 @@ import {
   IonButtons,
   IonContent,
   IonHeader,
-  IonIcon,
   IonInput,
   IonItem,
   IonItemDivider,
@@ -19,7 +18,7 @@ import { uploadData } from "../globals";
 import { AppContext, saveState } from "../store/State";
 import { CameraResultType, Plugins } from "@capacitor/core";
 import avatar from "../res/avatar.svg";
-import { camera, cameraOutline, close, trashBin } from "ionicons/icons";
+import { camera, close, trashBin } from "ionicons/icons";
 
 const PageProfile: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -96,7 +95,10 @@ const PageProfile: React.FC = () => {
         <IonItem>
           Dein Profilbild:
           <IonAvatar onClick={actionSheesh} slot="end">
-            <img src={state.userImage !== "" ? state.userImage : avatar} />
+            <img
+              src={state.userImage !== "" ? state.userImage : avatar}
+              alt="Profile"
+            />
           </IonAvatar>
         </IonItem>
         <IonItem>
