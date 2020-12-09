@@ -23,7 +23,7 @@ export const getAdditionalBeePrice = (state: stateType): number => {
     ) *
       80 +
       100 +
-      Math.pow(state.biene.autoRotatingBees.length, 1.7) * 2000) *
+      Math.pow(state.biene.autoRotatingBees.length, 1.5) * 2200) *
       (state.biene.multiplierLevel + 1)
   );
 };
