@@ -48,9 +48,7 @@ const PageLeaderboard: React.FC = () => {
       setData(e.data);
     });
   });
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+
   return (
     <IonPage>
       <IonHeader translucent>
