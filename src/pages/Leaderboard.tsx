@@ -126,7 +126,10 @@ const PageLeaderboard: React.FC = () => {
               </IonAvatar>
               <IonLabel>
                 <h2>
-                  {i.user.userName} ({i.level})
+                  {i.user.userName !== ""
+                    ? i.user.userName
+                    : i.user._id.slice(0, 6) + "..."}{" "}
+                  ({i.level})
                 </h2>
                 <p>{i.user.additionalBeeLength + 1} Bienen</p>
                 <p>{i.user.autoRotatingBeeLength} Autodreher</p>
