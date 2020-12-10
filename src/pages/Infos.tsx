@@ -73,7 +73,7 @@ const InfosPage: React.FC = () => {
         <IonList>
           {data ? (
             data
-              .sort()
+              .sort((a, b) => a.title.localeCompare(b.title))
               .filter(
                 (e) =>
                   e.title.toLowerCase().includes(searchquery.toLowerCase()) ||
