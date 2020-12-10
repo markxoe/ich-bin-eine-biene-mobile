@@ -1,6 +1,7 @@
 import { stateType } from "./store/types";
 import Axios from "axios";
 import calculateHeader from "./pages/calculateauthorization";
+import { isPlatform } from "@ionic/react";
 
 export const rotateSpeedLevel = {
   max: 3,
@@ -146,4 +147,27 @@ export const uploadData = (state: stateType) => {
       )
       .catch(() => {});
   }
+};
+
+interface adIDs {
+  rewardAdditionalBeeAdID: string;
+}
+
+export const getAdIDs = (): adIDs => {
+  const testingIDs: adIDs = {
+    rewardAdditionalBeeAdID: "ca-app-pub-3940256099942544/5224354917",
+  };
+
+  const productionAndroidIDs: adIDs = {
+    rewardAdditionalBeeAdID: "ca-app-pub-1094286770314621/5957196234",
+  };
+  const productioniOSIDs: adIDs = {
+    rewardAdditionalBeeAdID: "ca-app-pub-1094286770314621/8119151681",
+  };
+
+  return process.env.react_app_testingid === "JO"
+    ? testingIDs
+    : isPlatform("android")
+    ? productionAndroidIDs
+    : productioniOSIDs;
 };
