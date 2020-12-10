@@ -53,9 +53,13 @@ import {
 } from "../globals";
 
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
+import { AdMobPlugin } from "@capacitor-community/admob";
 import "@capacitor-community/keep-awake";
 import { v4, validate } from "uuid";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
+
+const Admob = Plugins.AdMob as AdMobPlugin;
+
 
 const { SplashScreen, StatusBar, App, PushNotifications, KeepAwake } = Plugins;
 
@@ -140,6 +144,8 @@ const Home: React.FC = () => {
 
     // Ändert "save" alle 3 Sekunden, das Triggert den Save
     saveTimerId = window.setInterval(() => refreshSave((i) => !i), 3000);
+    Admob.initialize({testingDevices:["E2E7B76F0F713C922403C30F17DD5490"]});
+    Admob.addListener("onInterstitialAdLoaded",()=>{Admob.showInterstitial()})
   });
 
   // Refresh the CanBuy alert everytime the state changes
@@ -411,6 +417,7 @@ const Home: React.FC = () => {
             </IonItem>
           </IonContent>
         </IonModal>
+        <IonButton onClick={()=>Admob.prepareInterstitial({adId:"ca-app-pub-1094286770314621/9619097899"})}></IonButton>
       </IonContent>
     </IonPage>
   );
