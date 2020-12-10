@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.getcapacitor.BridgeActivity;
 import com.getcapacitor.Plugin;
+import com.getcapacitor.community.admob.AdMob;
 import com.getcapacitor.community.firebaseanalytics.FirebaseAnalytics;
 import com.getcapacitor.community.keepawake.KeepAwake;
 
@@ -20,6 +21,7 @@ public class MainActivity extends BridgeActivity {
       // Ex: add(TotallyAwesomePlugin.class);
       add(FirebaseAnalytics.class);
       add(KeepAwake.class);
+      add(AdMob.class);
     }});
   }
 }

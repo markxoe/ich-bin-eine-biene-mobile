@@ -4,4 +4,5 @@
     <string name="title_activity_main">Ich bin eine Biene</string>
     <string name="package_name">org.toastbrot.ichbineinebienemobile</string>
     <string name="custom_url_scheme">org.toastbrot.ichbineinebienemobile</string>
+    <string name="admob_app_id">ca-app-pub-1094286770314621~9395559006</string>
 </resources>
