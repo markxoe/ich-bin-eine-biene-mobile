@@ -26,7 +26,9 @@ import {
 import { AppContext, saveState } from "../store/State";
 import {
   calculateLevel,
+  generateToast,
   getAdditionalBeePrice,
+  getAdIDs,
   getAutorotatePrice,
   getMultiplierPrice,
   getRotateSpeedLevelPrice,
@@ -47,7 +49,10 @@ import { flashOutline } from "ionicons/icons";
 import { Plugins } from "@capacitor/core";
 import Confetti from "react-confetti";
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
+import { AdMobPlugin } from "@capacitor-community/admob";
+import { render } from "@testing-library/react";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
+const AdMob = Plugins.AdMob as AdMobPlugin;
 
 const StorePage: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -63,6 +68,17 @@ const StorePage: React.FC = () => {
 
   useIonViewDidEnter(() => {
     Firebase.setScreenName({ screenName: "store" }).catch(() => {});
+
+    AdMob.addListener("onRewarded", (i) => {
+      switch (i.type) {
+        case "biene": {
+          dispatch(ActionBieneAddAdditional(i.amount));
+        }
+      }
+    });
+    AdMob.addListener("onRewardedVideoAdFailedToLoad", () =>
+      generateToast("Fehler beim Laden der Werbung")
+    );
   });
 
   useEffect(() => {
@@ -176,6 +192,33 @@ const StorePage: React.FC = () => {
             <IonChip color={calculateLevel(state).levelColor}>
               Level: {calculateLevel(state).levelName}
             </IonChip>
+          </IonCardContent>
+        </IonCard>
+
+        <IonCard>
+          <IonCardHeader>
+            <IonCardTitle>Kostenloses</IonCardTitle>
+            <IonCardSubtitle>
+              Bekomme kostenlos Upgrades mit Werbung
+            </IonCardSubtitle>
+          </IonCardHeader>
+          <IonCardContent>
+            <IonButton>
+              {renderValue(Math.max(state.biene.clickCounter * 0.4, 5000))}{" "}
+              Saltos
+            </IonButton>
+            <IonButton
+              onClick={() =>
+                AdMob.prepareRewardVideoAd({
+                  adId: getAdIDs().rewardAdditionalBeeAdID,
+                }).then(() =>
+                  AdMob.showRewardVideoAd().then(() => {
+                    console.log("Completed Video");
+                  })
+                )
+              }>
+              Normale Biene
+            </IonButton>
           </IonCardContent>
         </IonCard>
 
