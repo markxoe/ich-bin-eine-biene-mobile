@@ -80,7 +80,7 @@ const Home: React.FC = () => {
           document.body.appendChild(el);
           el.message =
             "Bitte aktiviere Mitteilungen in den Systemeinstellungen";
-          el.duration = 5000;
+          el.duration = 2000;
           el.translucent = true;
           el.present();
         }
