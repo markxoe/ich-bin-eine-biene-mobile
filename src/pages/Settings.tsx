@@ -47,6 +47,10 @@ import { generateToast } from "../globals";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 const { Share, Clipboard } = Plugins;
 
+interface importType extends stateType {
+  isNew: boolean | undefined;
+}
+
 const PageSettings: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
   const [deleteAllAlert, showdeleteAllAlert] = useState<boolean>(false);
@@ -74,14 +78,19 @@ const PageSettings: React.FC = () => {
   const ImportData = () => {
     let success: string = "false";
     try {
-      const _in: stateType = JSON.parse(base.decode(ImportInput));
+      const _in: importType = JSON.parse(base.decode(ImportInput));
+      if (_in.isNew !== true) {
+        throw Error("Cheating");
+      }
       const _in2: stateType = { ...state, ..._in, userUUID: state.userUUID };
       dispatch(ActionSetState(_in2));
       generateToast("Hat funktioniert");
       setShowImport(false);
       success = "true";
-    } catch {
-      generateToast("Fehler!");
+    } catch (err) {
+      if (err.message !== "Cheating") {
+        generateToast("Fehler!");
+      } else generateToast("Illegal");
     }
     Firebase.logEvent({
       name: "SettingsImported",
@@ -232,11 +241,15 @@ const PageSettings: React.FC = () => {
                 isPlatform("capacitor")
                   ? Share.share({
                       dialogTitle: "Daten Exportieren",
-                      text: base.encode(JSON.stringify(state)),
+                      text: base.encode(
+                        JSON.stringify({ ...state, isNew: true })
+                      ),
                       title: "Nicht mit andern Teilen!",
                     })
                   : Clipboard.write({
-                      string: base.encode(JSON.stringify(state)),
+                      string: base.encode(
+                        JSON.stringify({ ...state, isNew: true })
+                      ),
                     });
                 Firebase.logEvent({
                   name: "SettingsExport",
