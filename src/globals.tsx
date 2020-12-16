@@ -13,7 +13,7 @@ export const rotateSpeedLevel = {
 };
 
 export const getRotateSpeedLevelPrice = (state: stateType): number => {
-  return Math.round(state.biene.rotateSpeedLevel * 200 + 100);
+  return Math.round(state.biene.rotateSpeedLevel * 50 + 20);
 };
 export const getAdditionalBeePrice = (state: stateType): number => {
   return Math.round(
