@@ -43,7 +43,7 @@ const PageLeaderboard: React.FC = () => {
   useIonViewWillEnter(() => {
     Axios.get(
       (process.env.react_app_apiurl ??
-        "https://api.ichbineinebiene.toastbrot.org") + "/api/v1/users/leader"
+        "https://api.ichbineinebiene.toastbrot.org") + "/api/v1/users2/leader"
     ).then((e) => {
       setData(e.data);
     });

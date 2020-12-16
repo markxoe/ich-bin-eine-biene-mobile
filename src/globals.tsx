@@ -120,7 +120,7 @@ export const uploadData = (state: stateType) => {
 
     Axios.post(
       (process.env.react_app_apiurl ??
-        "https://api.ichbineinebiene.toastbrot.org") + "/api/v1/users/update2",
+        "https://api.ichbineinebiene.toastbrot.org") + "/api/v1/users2/update2",
       data,
       {
         timeout: 500,
