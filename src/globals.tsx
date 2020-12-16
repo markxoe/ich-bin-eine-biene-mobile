@@ -17,22 +17,15 @@ export const getRotateSpeedLevelPrice = (state: stateType): number => {
 };
 export const getAdditionalBeePrice = (state: stateType): number => {
   return Math.round(
-    (Math.pow(
-      state.biene.additionalBienen.length,
-      Math.min(1.0 + (state.biene.additionalBienen.length - 10) / 10, 1.01)
-    ) *
-      80 +
-      100 +
-      Math.pow(state.biene.autoRotatingBees.length, 1.5) * 2200) *
-      (state.biene.multiplierLevel + 1)
+    (state.biene.additionalBienen.length + 1) *
+      80 *
+      (state.biene.multiplierLevel +
+        1 +
+        state.biene.autoRotatingBees.length * 0.5)
   );
 };
 export const getMultiplierPrice = (state: stateType): number => {
-  return Math.round(
-    getAdditionalBeePrice(state) +
-      (state.biene.multiplierLevel + state.biene.additionalBienen.length + 1) *
-        30
-  );
+  return Math.round(getAdditionalBeePrice(state) * 1.2);
 };
 
 export const getAutorotatePrice = (state: stateType): number => {
