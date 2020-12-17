@@ -139,6 +139,7 @@ const StorePage: React.FC = () => {
           y: window.innerHeight / 2 - 25,
         }}
         friction={0.999}
+        numberOfPieces={50}
         tweenDuration={500}
       />
     );
