@@ -93,11 +93,16 @@ export const calculateLevel = (
     : { levelColor: "primary", levelNumber: points, levelName: "" };
 };
 
-export const generateToast = (msg: string) => {
+export const generateToast = (
+  msg: string,
+  duration: number = 5000,
+  addOKButton: boolean = false
+) => {
   const el = document.createElement("ion-toast");
   el.translucent = true;
   el.message = msg;
-  el.duration = 5000;
+  el.duration = duration;
+  if (addOKButton) el.buttons = [{ role: "cancel", text: "OK" }];
   document.body.appendChild(el);
   el.present();
 };
