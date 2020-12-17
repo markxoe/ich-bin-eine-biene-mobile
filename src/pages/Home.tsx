@@ -56,6 +56,7 @@ import {
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
 import "@capacitor-community/keep-awake";
 import { v4, validate } from "uuid";
+import { stateType } from "../store/types";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 
 const { SplashScreen, StatusBar, App, PushNotifications, KeepAwake } = Plugins;
@@ -120,8 +121,22 @@ const Home: React.FC = () => {
           });
           if (resultOld.value !== null && resultOld.value !== "") {
             dispatch(ActionBieneClickIncrease(500));
+            Firebase.logEvent({ name: "GaveBonus", params: { success: true } });
+            try {
+              const oldUser: stateType = JSON.parse(resultOld.value);
+              dispatch({
+                type: "setUserName",
+                payload: oldUser.userName,
+              });
+              dispatch({
+                type: "setUserImage",
+                payload: oldUser.userImage,
+              });
+            } catch {
+              console.log("Error Loading From Old");
+            }
             generateToast("Ein paar Bienen als Bonus für dich!", 20000, true);
-            console.log("Got Old, gave Bouns");
+            console.log("Got Old, gave Bonus");
           }
         }
       }
