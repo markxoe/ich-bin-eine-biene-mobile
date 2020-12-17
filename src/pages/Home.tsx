@@ -179,7 +179,7 @@ const Home: React.FC = () => {
               <IonMenuButton />
             </IonButtons>
             <IonTitle id="no-right-padding" size="large">
-              Ich bin eine Biene
+              Ich bin eine {window.innerWidth < 340 ? "🐝" : "Biene"}
             </IonTitle>
           </IonToolbar>
         </IonHeader>
