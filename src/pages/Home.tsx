@@ -40,10 +40,11 @@ import {
 } from "../store/Actions";
 
 import { Plugins, Storage, StatusBarStyle, Capacitor } from "@capacitor/core";
-import { StoreKeyPrefix } from "../const";
+import { StoreKeyPrefix, oldStoreKeyPrefix } from "../const";
 import { useHistory } from "react-router";
 import {
   calculateLevel,
+  generateToast,
   getAdditionalBeePrice,
   getAutorotatePrice,
   getMultiplierPrice,
@@ -106,15 +107,25 @@ const Home: React.FC = () => {
     });
     console.log("Done loading Intro");
 
-    await Storage.get({ key: StoreKeyPrefix + "state" }).then((result) => {
-      if (result && result.value) {
-        const res = JSON.parse(result.value);
-        dispatch(ActionSetState(res));
-        console.log(res);
-      } else {
-        console.log("No State in Memory");
+    await Storage.get({ key: StoreKeyPrefix + "state" }).then(
+      async (result) => {
+        if (result && result.value) {
+          const res = JSON.parse(result.value);
+          dispatch(ActionSetState(res));
+          console.log(res);
+        } else {
+          console.log("No State in Memory, check for Old State");
+          const resultOld = await Storage.get({
+            key: oldStoreKeyPrefix + "state",
+          });
+          if (resultOld.value !== null && resultOld.value !== "") {
+            dispatch(ActionBieneClickIncrease(500));
+            generateToast("Ein paar Bienen als Bonus für dich!", 20000, true);
+            console.log("Got Old, gave Bouns");
+          }
+        }
       }
-    });
+    );
     console.log("Done loading State");
 
     await SplashScreen.hide();
