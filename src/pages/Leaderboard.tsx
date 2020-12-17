@@ -17,6 +17,7 @@ import {
 } from "@ionic/react";
 import Axios from "axios";
 import React, { useContext, useState } from "react";
+import { generateToast } from "../globals";
 
 import avatar from "../res/avatar.svg";
 import { AppContext } from "../store/State";
@@ -44,9 +45,13 @@ const PageLeaderboard: React.FC = () => {
     Axios.get(
       (process.env.react_app_apiurl ??
         "https://api.ichbineinebiene.toastbrot.org") + "/api/v1/users2/leader"
-    ).then((e) => {
-      setData(e.data);
-    });
+    )
+      .then((e) => {
+        setData(e.data);
+      })
+      .catch(() => {
+        generateToast("Es ist ein Fehler aufgetreten");
+      });
   });
 
   return (
