@@ -105,7 +105,7 @@ const PageSettings: React.FC = () => {
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
-          <IonTitle>Einstellungen</IonTitle>
+          <IonTitle>Ich bin eine Einstellung</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

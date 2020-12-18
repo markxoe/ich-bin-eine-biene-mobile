@@ -53,7 +53,7 @@ const InfosPage: React.FC = () => {
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
-          <IonTitle>Infos</IonTitle>
+          <IonTitle>Wir sind die Infos</IonTitle>
           <IonButtons slot="end">
             <IonButton onClick={() => setSearchbar((i) => !i)}>
               <IonIcon icon={search} />

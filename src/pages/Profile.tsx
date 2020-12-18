@@ -75,7 +75,7 @@ const PageProfile: React.FC = () => {
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
-          <IonTitle>Dein Profil</IonTitle>
+          <IonTitle>Ich bin ein Profil</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>

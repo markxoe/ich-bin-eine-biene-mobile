@@ -153,7 +153,7 @@ const StorePage: React.FC = () => {
           <IonButtons slot="start">
             <IonBackButton defaultHref="/" />
           </IonButtons>
-          <IonTitle>Store</IonTitle>
+          <IonTitle>Ich bin ein Store</IonTitle>
         </IonToolbar>
       </IonHeader>
       {confettiChilds}
