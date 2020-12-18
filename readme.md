@@ -26,6 +26,12 @@ Mark Oude Elberink
 
 ## Changelog
 
+### [0.9.0] Bratwurst :banana:
+
+- Geile Preise
+- Alte Daten werden gelöscht -> Fairness
+- Ein paar Performance verbesserungen
+
 ### [0.8.0] Hühnerland :chicken:
 
 - High Score
