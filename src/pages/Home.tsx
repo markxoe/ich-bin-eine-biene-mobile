@@ -378,7 +378,7 @@ const Home: React.FC = () => {
             </IonCol>
           </IonRow>
           <IonRow className="ion-justify-content-center">
-            <IonCol hidden={state.userName !== ""}>
+            <IonCol size="auto" hidden={state.userName !== ""}>
               <IonChip>Bitte gib deinen Namen unter Menü/Profil an</IonChip>
             </IonCol>
           </IonRow>
