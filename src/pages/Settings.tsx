@@ -310,12 +310,8 @@ const PageSettings: React.FC = () => {
             {
               text: "Ja",
               handler: async () => {
-                dispatch(ActionResetState());
-                await Firebase.logEvent({
-                  name: "SettingsDeleteAll",
-                  params: {},
-                }).catch(() => {});
-                await saveState(initialState);
+                Storage.clear();
+                Plugins.App.exitApp();
                 showdeleteAllAlert(false);
               },
             },
