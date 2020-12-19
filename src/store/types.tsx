@@ -10,6 +10,7 @@ export interface stateType {
   settings: {
     clickButtonForBee: boolean;
     newUI: boolean;
+    deactivateStoreConfetti: boolean;
   };
   statisticsRotations: number;
   settingMaxNumberDisplayedBees: number;

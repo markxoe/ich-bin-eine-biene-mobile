@@ -105,3 +105,14 @@ export const ActionSettingSetMaxDisplayBiene = (
   type: "settingSetMaxDisplayBiene",
   payload: newNumber,
 });
+
+/**
+ * Setzt die Einstellung für die Deaktivierung des Konfettis
+ * @param newBool
+ */
+export const ActionSettingSetStoreConfettiDeactivated = (
+  newBool: boolean
+): actionType => ({
+  type: "setStoreConfetti",
+  payload: newBool,
+});

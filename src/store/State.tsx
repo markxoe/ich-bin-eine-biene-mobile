@@ -17,6 +17,7 @@ const initialState: stateType = {
   settings: {
     clickButtonForBee: false,
     newUI: true,
+    deactivateStoreConfetti: false,
   },
   statisticsRotations: 0,
   settingMaxNumberDisplayedBees: 20,
@@ -151,6 +152,16 @@ let reducer = (state: stateType, action: actionType): stateType => {
       return {
         ...state,
         userImage: action.payload,
+      };
+    }
+
+    case "setStoreConfetti": {
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          deactivateStoreConfetti: action.payload,
+        },
       };
     }
   }
