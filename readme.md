@@ -26,6 +26,11 @@ Mark Oude Elberink
 
 ## Changelog
 
+### [0.9.1] Bratwurst :banana:
+
+- Bug Fixes
+- Möglichkeit zum deaktivieren des Konfetties
+
 ### [0.9.0] Bratwurst :banana:
 
 - Geile Preise
