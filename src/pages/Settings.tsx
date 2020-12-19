@@ -34,6 +34,7 @@ import {
   ActionResetState,
   ActionSetState,
   ActionSettingSetMaxDisplayBiene,
+  ActionSettingSetStoreConfettiDeactivated,
   ActionSettingsSetClickButtonForBee,
   ActionSettingsSetNewUI,
 } from "../store/Actions";
@@ -44,6 +45,7 @@ import { flashOutline } from "ionicons/icons";
 import { stateType } from "../store/types";
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
 import { generateToast } from "../globals";
+import { stat } from "fs";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 const { Share, Clipboard } = Plugins;
 
@@ -184,6 +186,17 @@ const PageSettings: React.FC = () => {
             }}>
             Alles
           </IonButton>
+        </IonItem>
+        <IonItem>
+          <IonLabel>Store Konfetti</IonLabel>
+          <IonToggle
+            checked={!state.settings.deactivateStoreConfetti}
+            onIonChange={(e) =>
+              dispatch(
+                ActionSettingSetStoreConfettiDeactivated(!e.detail.checked)
+              )
+            }
+          />
         </IonItem>
 
         <IonItemDivider>Anzahl der maximal angezeigten Bienen</IonItemDivider>
