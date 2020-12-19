@@ -126,24 +126,26 @@ const StorePage: React.FC = () => {
   }, [state]);
 
   const onBuy = () => {
-    const newconfetti = (
-      <Confetti
-        recycle={false}
-        gravity={0.8}
-        initialVelocityX={{ min: -10, max: 10 }}
-        initialVelocityY={{ min: -15, max: 0 }}
-        confettiSource={{
-          h: 50,
-          w: 50,
-          x: window.innerWidth / 2 - 25,
-          y: window.innerHeight / 2 - 25,
-        }}
-        friction={0.999}
-        numberOfPieces={50}
-        tweenDuration={500}
-      />
-    );
-    setConfettiChilds((i) => i.concat(newconfetti));
+    if (!state.settings.deactivateStoreConfetti) {
+      const newconfetti = (
+        <Confetti
+          recycle={false}
+          gravity={0.8}
+          initialVelocityX={{ min: -10, max: 10 }}
+          initialVelocityY={{ min: -15, max: 0 }}
+          confettiSource={{
+            h: 50,
+            w: 50,
+            x: window.innerWidth / 2 - 25,
+            y: window.innerHeight / 2 - 25,
+          }}
+          friction={0.999}
+          numberOfPieces={50}
+          tweenDuration={500}
+        />
+      );
+      setConfettiChilds((i) => i.concat(newconfetti));
+    }
   };
 
   return (
