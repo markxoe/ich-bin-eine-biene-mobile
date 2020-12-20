@@ -26,6 +26,13 @@ Mark Oude Elberink
 
 ## Changelog
 
+### [0.10.0] Krasse Bratwurst :banana:
+
+- Nurnoch 10 Autodreher
+- Kranke Preise
+- Tipp beim Highscore
+- Bug Fix
+
 ### [0.9.1] Bratwurst :banana:
 
 - Bug Fixes
