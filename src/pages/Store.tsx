@@ -41,6 +41,7 @@ import {
   ActionMakeMeAPresent,
   ActionMultiplierIncrease,
   ActionRotateSpeedLevelIncrease,
+  ActionSetState,
 } from "../store/Actions";
 import { RefresherEventDetail } from "@ionic/core";
 import { flashOutline } from "ionicons/icons";
@@ -123,6 +124,14 @@ const StorePage: React.FC = () => {
   useEffect(() => {
     console.log("state saved");
     if (state.dataLoadedFromMemory) saveState(state);
+    if (state.biene.autoRotatingBees.length > 10) {
+      dispatch(
+        ActionSetState({
+          ...state,
+          biene: { ...state.biene, autoRotatingBees: Array(10).fill(0) },
+        })
+      );
+    }
   }, [state]);
 
   const onBuy = () => {
@@ -362,7 +371,10 @@ const StorePage: React.FC = () => {
                         params: { price: autorotatingPrice },
                       }).catch(() => {});
                     }}
-                    disabled={state.biene.clickCounter < autorotatingPrice}>
+                    disabled={
+                      state.biene.clickCounter < autorotatingPrice ||
+                      state.biene.autoRotatingBees.length + 1 >= 10
+                    }>
                     Autodreher kaufen
                   </IonButton>
                 </IonCol>
@@ -383,7 +395,7 @@ const StorePage: React.FC = () => {
               </IonRow>
               <IonRow>
                 <IonCol>
-                  Deine Autodreher: {state.biene.autoRotatingBees.length}/∞
+                  Deine Autodreher: {state.biene.autoRotatingBees.length}/10
                 </IonCol>
               </IonRow>
             </IonGrid>

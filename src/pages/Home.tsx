@@ -290,7 +290,7 @@ const Home: React.FC = () => {
                             (1 + state.biene.additionalBienen.length) *
                               (state.biene.multiplierLevel + 1) *
                               0.5
-                          ) * state.biene.autoRotatingBees.length
+                          ) * Math.min(state.biene.autoRotatingBees.length,10)
                         )
                       );
                       dispatch(ActionStatisticAdd());
@@ -304,7 +304,7 @@ const Home: React.FC = () => {
               size="auto"
               hidden={state.biene.autoRotatingBees.length <= 1}>
               <IonChip color="warning">
-                + {state.biene.autoRotatingBees.length - 1}
+                + {Math.min(state.biene.autoRotatingBees.length - 1,9)}
               </IonChip>
             </IonCol>
           </IonRow>
