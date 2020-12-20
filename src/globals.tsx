@@ -21,7 +21,7 @@ export const getAdditionalBeePrice = (state: stateType): number => {
       80 *
       (state.biene.multiplierLevel +
         1 +
-        state.biene.autoRotatingBees.length * 0.8) *
+        state.biene.autoRotatingBees.length * 0.5) *
       Math.pow(
         1.01,
         state.biene.additionalBienen.length +
@@ -31,11 +31,11 @@ export const getAdditionalBeePrice = (state: stateType): number => {
   );
 };
 export const getMultiplierPrice = (state: stateType): number => {
-  return Math.round(getAdditionalBeePrice(state) * 1.2);
+  return Math.round(getAdditionalBeePrice(state) * 2);
 };
 
 export const getAutorotatePrice = (state: stateType): number => {
-  return Math.round(getAdditionalBeePrice(state) * 1.5);
+  return Math.round(getAdditionalBeePrice(state) * 3);
 };
 
 export const renderValue = (value: number): string => {
