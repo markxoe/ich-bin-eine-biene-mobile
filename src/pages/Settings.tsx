@@ -255,13 +255,13 @@ const PageSettings: React.FC = () => {
                   ? Share.share({
                       dialogTitle: "Daten Exportieren",
                       text: base.encode(
-                        JSON.stringify({ ...state, isNew: true })
+                        JSON.stringify({ ...state, isNew: true, userImage: "" })
                       ),
                       title: "Nicht mit andern Teilen!",
                     })
                   : Clipboard.write({
                       string: base.encode(
-                        JSON.stringify({ ...state, isNew: true })
+                        JSON.stringify({ ...state, isNew: true, userImage: "" })
                       ),
                     });
                 Firebase.logEvent({
