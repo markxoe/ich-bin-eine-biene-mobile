@@ -373,7 +373,7 @@ const StorePage: React.FC = () => {
                     }}
                     disabled={
                       state.biene.clickCounter < autorotatingPrice ||
-                      state.biene.autoRotatingBees.length + 1 >= 10
+                      state.biene.autoRotatingBees.length >= 10
                     }>
                     Autodreher kaufen
                   </IonButton>
