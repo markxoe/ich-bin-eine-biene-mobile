@@ -29,9 +29,8 @@ import packagejs from "../../package.json";
 
 import biene from "../res/biene.png";
 import { useHistory } from "react-router";
-import { AppContext, saveState, initialState } from "../store/State";
+import { AppContext, saveState } from "../store/State";
 import {
-  ActionResetState,
   ActionSetState,
   ActionSettingSetMaxDisplayBiene,
   ActionSettingSetStoreConfettiDeactivated,
@@ -45,7 +44,7 @@ import { flashOutline } from "ionicons/icons";
 import { stateType } from "../store/types";
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
 import { generateToast } from "../globals";
-import { stat } from "fs";
+
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 const { Share, Clipboard } = Plugins;
 
