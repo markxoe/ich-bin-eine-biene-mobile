@@ -19,6 +19,7 @@ import { AppContext, saveState } from "../store/State";
 import { CameraResultType, Plugins } from "@capacitor/core";
 import avatar from "../res/avatar.svg";
 import { camera, close, trashBin } from "ionicons/icons";
+import { generateName } from "../functions/namegenerator";
 
 const PageProfile: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -91,6 +92,19 @@ const PageProfile: React.FC = () => {
               });
             }}
           />
+        </IonItem>
+        <IonItem>
+          <IonLabel>Automatischer Benutzername</IonLabel>
+          <IonButton
+            onClick={() =>
+              dispatch({
+                type: "setUserName",
+                payload: generateName(),
+              })
+            }
+            slot="end">
+            Generieren
+          </IonButton>
         </IonItem>
         <IonItem>
           Dein Profilbild:
