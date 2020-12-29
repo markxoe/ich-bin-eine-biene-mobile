@@ -13,6 +13,7 @@ const nomen: Nomen[] = [
   { name: "Brötchen", adjektivPrefix: "s" },
   { name: "Söckchen", adjektivPrefix: "s" },
   { name: "Meerschweinchen", adjektivPrefix: "s" },
+  { name: "Floh", adjektivPrefix: "r" },
 ];
 
 const adjektive = [
@@ -28,6 +29,19 @@ const adjektive = [
   "Gebleichte",
   "Gedehnte",
   "Gebratene",
+  "Intelligente",
+  "Stolze",
+  "Irre",
+  "Selbstsichere",
+  "Fröhliche",
+  "Mutige",
+  "Böse",
+  "Elektrische",
+  "Dumme",
+  "Hilfreiche",
+  "Erfahrene",
+  "Hübsche",
+  "Außergewöhnliche",
 ];
 
 export const generateName = () => {
