@@ -48,6 +48,7 @@ import { flashOutline } from "ionicons/icons";
 import { Plugins } from "@capacitor/core";
 import Confetti from "react-confetti";
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
+import { generateName } from "../functions/namegenerator";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 
 const StorePage: React.FC = () => {
@@ -68,6 +69,12 @@ const StorePage: React.FC = () => {
 
   useEffect(() => {
     uploadData(state);
+    // Generate Random Name, if User has no Name
+    if (!state.userName)
+      dispatch({
+        type: "setUserName",
+        payload: generateName(),
+      });
   }, [state]);
 
   useEffect(() => {
