@@ -27,6 +27,8 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import { refreshOutline, storefront } from "ionicons/icons";
 import "./Home.css";
+import packagejs from "../../package.json";
+import releaseNotes from "../release-notes.json";
 
 import biene from "../res/biene.png";
 
@@ -164,6 +166,23 @@ const Home: React.FC = () => {
       Firebase.setUserId({ userId: _uuid }).catch(() => {});
       dispatch({ type: "setUserUUID", payload: _uuid });
     });
+
+    await Storage.get({ key: StoreKeyPrefix + "lastKnownVersion" }).then(
+      (res) => {
+        if (res.value !== packagejs.version) {
+          Storage.set({
+            key: StoreKeyPrefix + "lastKnownVersion",
+            value: packagejs.version,
+          });
+          const el = document.createElement("ion-alert");
+          document.body.appendChild(el);
+          el.header = releaseNotes.header;
+          el.message = releaseNotes.message;
+          el.buttons = [{ text: "OK", role: "cancel" }];
+          el.present();
+        }
+      }
+    );
 
     // Ändert "save" alle 3 Sekunden, das Triggert den Save
     saveTimerId = window.setInterval(() => refreshSave((i) => !i), 3000);
