@@ -51,6 +51,7 @@ import {
   getRotateSpeedLevelPrice,
   renderValue,
   rotateSpeedLevel,
+  nameAtHomePositions,
 } from "../globals";
 
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
@@ -209,7 +210,16 @@ const Home: React.FC = () => {
             </IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonGrid className="ion-margin-top">
+        <IonGrid>
+          <IonRow
+            hidden={
+              state.settings.nameathomeposition !== nameAtHomePositions.top
+            }
+            className="ion-justify-content-center">
+            <IonCol size="auto">
+              <h2 className="ion-text-center">Willkommen {state.userName}</h2>
+            </IonCol>
+          </IonRow>
           <IonRow className="ion-justify-content-center">
             {/* The following displays the First Beiene */}
             <IonCol size="auto">
@@ -380,6 +390,15 @@ const Home: React.FC = () => {
           <IonRow className="ion-justify-content-center">
             <IonCol size="auto" hidden={state.userName !== ""}>
               <IonChip>Bitte gib deinen Namen unter Menü/Profil an</IonChip>
+            </IonCol>
+          </IonRow>
+          <IonRow
+            hidden={
+              state.settings.nameathomeposition !== nameAtHomePositions.bottom
+            }
+            className="ion-justify-content-center">
+            <IonCol size="auto">
+              <h2 className="ion-text-center">Willkommen {state.userName}</h2>
             </IonCol>
           </IonRow>
         </IonGrid>

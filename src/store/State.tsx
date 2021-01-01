@@ -2,6 +2,7 @@ import { Storage } from "@capacitor/core";
 import React, { useReducer } from "react";
 import { StoreKeyPrefix } from "../const";
 import { actionType, stateType, ContextType } from "./types";
+import { nameAtHomePositions } from "../globals";
 
 let AppContext = React.createContext<ContextType>({} as ContextType);
 
@@ -18,6 +19,7 @@ const initialState: stateType = {
     clickButtonForBee: false,
     newUI: true,
     deactivateStoreConfetti: false,
+    nameathomeposition: nameAtHomePositions.top,
   },
   statisticsRotations: 0,
   settingMaxNumberDisplayedBees: 20,
@@ -161,6 +163,16 @@ let reducer = (state: stateType, action: actionType): stateType => {
         settings: {
           ...state.settings,
           deactivateStoreConfetti: action.payload,
+        },
+      };
+    }
+
+    case "setNameAtHomePosition": {
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          nameathomeposition: action.payload,
         },
       };
     }

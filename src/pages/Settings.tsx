@@ -21,6 +21,8 @@ import {
   IonToolbar,
   isPlatform,
   useIonViewDidEnter,
+  IonSelect,
+  IonSelectOption,
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
 import "./Settings.css";
@@ -36,6 +38,7 @@ import {
   ActionSettingSetStoreConfettiDeactivated,
   ActionSettingsSetClickButtonForBee,
   ActionSettingsSetNewUI,
+  ActionSettingSetNameAtHomePosition,
 } from "../store/Actions";
 
 import { Plugins, Storage } from "@capacitor/core";
@@ -43,7 +46,7 @@ import base from "base-64";
 import { flashOutline } from "ionicons/icons";
 import { stateType } from "../store/types";
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
-import { generateToast } from "../globals";
+import { generateToast, nameAtHomePositions } from "../globals";
 
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 const { Share, Clipboard } = Plugins;
@@ -196,6 +199,30 @@ const PageSettings: React.FC = () => {
               )
             }
           />
+        </IonItem>
+        <IonItem>
+          <IonLabel>Namensposition</IonLabel>
+          <IonSelect
+            value={state.settings.nameathomeposition}
+            onIonChange={(e) =>
+              dispatch(
+                ActionSettingSetNameAtHomePosition(
+                  e.detail.value ?? nameAtHomePositions.top
+                )
+              )
+            }
+            okText="OK"
+            cancelText="Ne, lass">
+            <IonSelectOption value={nameAtHomePositions.top}>
+              Oben
+            </IonSelectOption>
+            <IonSelectOption value={nameAtHomePositions.bottom}>
+              Unten
+            </IonSelectOption>
+            <IonSelectOption value={nameAtHomePositions.deactivated}>
+              Deaktiviert
+            </IonSelectOption>
+          </IonSelect>
         </IonItem>
 
         <IonItemDivider>Anzahl der maximal angezeigten Bienen</IonItemDivider>
