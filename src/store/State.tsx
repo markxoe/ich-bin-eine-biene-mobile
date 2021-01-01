@@ -26,6 +26,7 @@ const initialState: stateType = {
   userUUID: "",
   userName: "",
   userImage: "",
+  lastSaveAt: Date.now(),
 };
 
 let reducer = (state: stateType, action: actionType): stateType => {
@@ -176,7 +177,14 @@ let reducer = (state: stateType, action: actionType): stateType => {
         },
       };
     }
+    case "setLastSavedAt": {
+      return {
+        ...state,
+        lastSaveAt: action.payload,
+      };
+    }
   }
+
   return state;
 };
 
@@ -193,11 +201,17 @@ function AppContextProvider(props: any) {
  * Speichert den state in den Speicher
  * @param state der aktuelle State
  */
-export const saveState = async (state: stateType) => {
-  await Storage.set({
-    key: StoreKeyPrefix + "state",
-    value: JSON.stringify(state),
-  }).then(() => console.log("State Saved"));
+export const saveState = async (
+  state: stateType,
+  dispatch: React.Dispatch<actionType>
+) => {
+  if (Date.now() > state.lastSaveAt + 3000) {
+    await Storage.set({
+      key: StoreKeyPrefix + "state",
+      value: JSON.stringify(state),
+    }).then(() => console.log("State Saved"));
+    dispatch({ type: "setLastSavedAt", payload: Date.now() });
+  }
 };
 
 let AppContextConsumer = AppContext.Consumer;
