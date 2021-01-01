@@ -32,7 +32,7 @@ const PageProfile: React.FC = () => {
         type: "setUserName",
         payload: generateName(),
       });
-  }, [state]);
+  }, [state, dispatch]);
 
   const actionSheesh = () => {
     const el = document.createElement("ion-action-sheet");

@@ -207,7 +207,7 @@ const Home: React.FC = () => {
   // setInterval von oben refreshed "save" nur alle 3 Sekunden -> Performance!!!
   useEffect(() => {
     if (state.dataLoadedFromMemory) saveState(state);
-  }, [save]);
+  }, [save]); // eslint-disable-line
 
   return (
     <IonPage>

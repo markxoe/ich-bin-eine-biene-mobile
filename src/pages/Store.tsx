@@ -75,7 +75,7 @@ const StorePage: React.FC = () => {
         type: "setUserName",
         payload: generateName(),
       });
-  }, [state]);
+  }, [state, dispatch]);
 
   useEffect(() => {
     const _values: { name: string; value: string }[] = [
@@ -139,7 +139,7 @@ const StorePage: React.FC = () => {
         })
       );
     }
-  }, [state]);
+  }, [state, dispatch]);
 
   const onBuy = () => {
     if (!state.settings.deactivateStoreConfetti) {
