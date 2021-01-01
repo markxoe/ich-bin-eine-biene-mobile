@@ -151,3 +151,9 @@ export const uploadData = (state: stateType) => {
       .catch(() => {});
   }
 };
+
+export enum nameAtHomePositions {
+  top = "top",
+  bottom = "bottom",
+  deactivated = "NO",
+}

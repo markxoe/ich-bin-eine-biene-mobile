@@ -1,4 +1,5 @@
 import { actionType, bieneTypes, stateType } from "./types";
+import { nameAtHomePositions } from "../globals";
 
 /**
  * Überschreibt den derzeitigen State
@@ -115,4 +116,11 @@ export const ActionSettingSetStoreConfettiDeactivated = (
 ): actionType => ({
   type: "setStoreConfetti",
   payload: newBool,
+});
+
+export const ActionSettingSetNameAtHomePosition = (
+  position: nameAtHomePositions
+): actionType => ({
+  type: "setNameAtHomePosition",
+  payload: position,
 });

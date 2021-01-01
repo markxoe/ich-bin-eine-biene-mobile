@@ -1,3 +1,5 @@
+import { nameAtHomePositions } from "../globals";
+
 export interface stateType {
   dataLoadedFromMemory: boolean;
   biene: {
@@ -11,6 +13,7 @@ export interface stateType {
     clickButtonForBee: boolean;
     newUI: boolean;
     deactivateStoreConfetti: boolean;
+    nameathomeposition: nameAtHomePositions;
   };
   statisticsRotations: number;
   settingMaxNumberDisplayedBees: number;
