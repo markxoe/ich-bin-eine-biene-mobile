@@ -14,5 +14,7 @@ jobs:
         run: npm ci
       - name: Building
         run: npm run build
+        env:
+          CI: ""
       - name: Testing
         run: npm test
