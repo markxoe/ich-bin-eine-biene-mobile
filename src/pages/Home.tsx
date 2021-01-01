@@ -21,7 +21,6 @@ import {
   IonTitle,
   IonToolbar,
   isPlatform,
-  useIonViewDidLeave,
   useIonViewWillEnter,
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
@@ -32,7 +31,7 @@ import releaseNotes from "../release-notes.json";
 
 import biene from "../res/biene.png";
 
-import { AppContext, saveState } from "../store/State";
+import { AppContext } from "../store/State";
 
 import {
   ActionBieneClickIncrease,
@@ -70,11 +69,8 @@ const Home: React.FC = () => {
   const history = useHistory();
   const [rotation, setRotation] = useState<boolean>(false);
   const [canBuy, setCanBuy] = useState<boolean>(false);
-  const [save, refreshSave] = useState<boolean>(false);
 
   const [openLevels, setOpenLevels] = useState<boolean>(false);
-
-  let saveTimerId: number;
 
   useIonViewWillEnter(async () => {
     PushNotifications.requestPermission()
@@ -184,9 +180,6 @@ const Home: React.FC = () => {
         }
       }
     );
-
-    // Ändert "save" alle 3 Sekunden, das Triggert den Save
-    saveTimerId = window.setInterval(() => refreshSave((i) => !i), 3000);
   });
 
   // Refresh the CanBuy alert everytime the state changes
@@ -198,17 +191,6 @@ const Home: React.FC = () => {
           state.biene.clickCounter > getRotateSpeedLevelPrice(state))
     );
   }, [state]);
-
-  // Resettet den Timer für save
-  useIonViewDidLeave(() => {
-    window.clearInterval(saveTimerId);
-  });
-
-  // setInterval von oben refreshed "save" nur alle 3 Sekunden -> Performance!!!
-  useEffect(() => {
-    if (state.dataLoadedFromMemory) saveState(state);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [save]);
 
   return (
     <IonPage>

@@ -20,6 +20,7 @@ export interface stateType {
   userUUID: string;
   userName: string;
   userImage: string;
+  lastSaveAt: number;
 }
 
 export interface actionType {

@@ -23,7 +23,7 @@ import {
   IonToolbar,
   useIonViewDidEnter,
 } from "@ionic/react";
-import { AppContext, saveState } from "../store/State";
+import { AppContext } from "../store/State";
 import {
   calculateLevel,
   getAdditionalBeePrice,
@@ -129,8 +129,6 @@ const StorePage: React.FC = () => {
   }
 
   useEffect(() => {
-    console.log("state saved");
-    if (state.dataLoadedFromMemory) saveState(state);
     if (state.biene.autoRotatingBees.length > 10) {
       dispatch(
         ActionSetState({
