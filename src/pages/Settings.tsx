@@ -236,12 +236,12 @@ const PageSettings: React.FC = () => {
               );
             }}
             value={state.settingMaxNumberDisplayedBees}
-            min={10}
+            min={5}
             snaps={true}
-            step={10}
-            // pin={true}
+            step={5}
+            pin={true}
             max={100}>
-            <IonText slot="start">10</IonText>
+            <IonText slot="start">5</IonText>
             <IonText slot="end">100</IonText>
           </IonRange>
         </IonItem>
