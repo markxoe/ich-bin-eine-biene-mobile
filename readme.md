@@ -31,6 +31,7 @@ Mark Oude Elberink
 - Namensgenerator
 - Name im Homescreen
 - Versionshinweise bei neuen Versionen
+- bisschen bessere Performance
 
 ### [0.10.1] Krasse Bratwurst :banana:
 
