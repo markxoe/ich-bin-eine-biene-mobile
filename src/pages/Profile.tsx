@@ -15,7 +15,7 @@ import {
 } from "@ionic/react";
 import React, { useContext, useEffect } from "react";
 import { uploadData } from "../globals";
-import { AppContext, saveState } from "../store/State";
+import { AppContext } from "../store/State";
 import { CameraResultType, Plugins } from "@capacitor/core";
 import avatar from "../res/avatar.svg";
 import { camera, close, trashBin } from "ionicons/icons";

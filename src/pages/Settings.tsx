@@ -24,14 +24,14 @@ import {
   IonSelect,
   IonSelectOption,
 } from "@ionic/react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import "./Settings.css";
 
 import packagejs from "../../package.json";
 
 import biene from "../res/biene.png";
 import { useHistory } from "react-router";
-import { AppContext, saveState } from "../store/State";
+import { AppContext } from "../store/State";
 import {
   ActionSetState,
   ActionSettingSetMaxDisplayBiene,

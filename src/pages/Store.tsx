@@ -23,7 +23,7 @@ import {
   IonToolbar,
   useIonViewDidEnter,
 } from "@ionic/react";
-import { AppContext, saveState } from "../store/State";
+import { AppContext } from "../store/State";
 import {
   calculateLevel,
   getAdditionalBeePrice,

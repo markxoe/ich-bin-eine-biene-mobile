@@ -21,7 +21,6 @@ import {
   IonTitle,
   IonToolbar,
   isPlatform,
-  useIonViewDidLeave,
   useIonViewWillEnter,
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
@@ -32,7 +31,7 @@ import releaseNotes from "../release-notes.json";
 
 import biene from "../res/biene.png";
 
-import { AppContext, saveState } from "../store/State";
+import { AppContext } from "../store/State";
 
 import {
   ActionBieneClickIncrease,
@@ -70,11 +69,8 @@ const Home: React.FC = () => {
   const history = useHistory();
   const [rotation, setRotation] = useState<boolean>(false);
   const [canBuy, setCanBuy] = useState<boolean>(false);
-  const [save, refreshSave] = useState<boolean>(false);
 
   const [openLevels, setOpenLevels] = useState<boolean>(false);
-
-  let saveTimerId: number;
 
   useIonViewWillEnter(async () => {
     PushNotifications.requestPermission()
