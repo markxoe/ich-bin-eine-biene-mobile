@@ -140,16 +140,17 @@ const PageLeaderboard: React.FC = () => {
               </IonLabel>
             </IonItem>
           ))}
-          <IonCard>
-            <IonCardHeader>
-              <IonCardTitle>So wirst du Erster</IonCardTitle>
-            </IonCardHeader>
-            <IonCardContent>
-              Kaufe dir so viele Bienen wie möglich<br/>
-              Autodreher werden nicht gezählt
-              Multiplier zählen weniger als eine Biene
-            </IonCardContent>
-          </IonCard>
+        <IonCard>
+          <IonCardHeader>
+            <IonCardTitle>So wirst du Erster</IonCardTitle>
+          </IonCardHeader>
+          <IonCardContent>
+            Kaufe dir so viele Bienen wie möglich
+            <br />
+            Autodreher werden nicht gezählt Multiplier zählen weniger als eine
+            Biene
+          </IonCardContent>
+        </IonCard>
       </IonContent>
     </IonPage>
   );

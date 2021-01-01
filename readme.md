@@ -26,6 +26,11 @@ Mark Oude Elberink
 
 ## Changelog
 
+### [0.11.0] Übermenschliche Biene :bee:
+
+- Namensgenerator
+- Name im Homescreen
+
 ### [0.10.1] Krasse Bratwurst :banana:
 
 - Fixed [#1](https://github.com/markxoe/ich-bin-eine-biene-mobile/issues/1)
