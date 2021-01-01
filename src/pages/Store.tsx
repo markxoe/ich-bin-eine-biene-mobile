@@ -70,7 +70,7 @@ const StorePage: React.FC = () => {
   useEffect(() => {
     uploadData(state);
     // Generate Random Name, if User has no Name
-    if (!state.userName)
+    if (!state.userName && state.dataLoadedFromMemory)
       dispatch({
         type: "setUserName",
         payload: generateName(),
