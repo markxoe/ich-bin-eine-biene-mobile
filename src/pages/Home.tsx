@@ -100,7 +100,7 @@ const Home: React.FC = () => {
     if (isPlatform("capacitor"))
       StatusBar.setStyle({ style: StatusBarStyle.Dark });
 
-    KeepAwake.keepAwake();
+    KeepAwake.keepAwake().catch(() => {});
 
     const url = await App.getLaunchUrl().then((url) => url.url);
 
