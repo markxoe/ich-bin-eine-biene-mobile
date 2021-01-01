@@ -25,6 +25,7 @@ import {
 } from "ionicons/icons";
 import React, { useContext } from "react";
 import { AppContext } from "./store/State";
+
 const Menu: React.FC = () => {
   const { state } = useContext(AppContext);
   return (
@@ -53,26 +54,26 @@ const Menu: React.FC = () => {
 
         <IonList lines={"none"}>
           <IonListHeader>Allgemein</IonListHeader>
-          <IonMenuToggle>
+          <IonMenuToggle autoHide={false}>
             <IonItem routerLink="/home">
               <IonIcon icon={home} slot="start" />
               Home
             </IonItem>
           </IonMenuToggle>
-          <IonMenuToggle>
+          <IonMenuToggle autoHide={false}>
             <IonItem routerLink="/store">
               <IonIcon icon={storefront} slot="start" />
               Store
             </IonItem>
           </IonMenuToggle>
           <IonListHeader>Benutzer</IonListHeader>
-          <IonMenuToggle>
+          <IonMenuToggle autoHide={false}>
             <IonItem routerLink="/leader">
               <IonIcon slot="start" icon={trophy} />
               Highscore
             </IonItem>
           </IonMenuToggle>
-          <IonMenuToggle>
+          <IonMenuToggle autoHide={false}>
             <IonItem routerLink="/profile">
               <IonIcon slot="start" icon={person} />
               Profil
@@ -84,13 +85,13 @@ const Menu: React.FC = () => {
             </IonItem>
           </IonMenuToggle>
           <IonListHeader>Weiteres</IonListHeader>
-          <IonMenuToggle>
+          <IonMenuToggle autoHide={false}>
             <IonItem routerLink="/settings">
               <IonIcon slot="start" icon={settings} />
               Einstellungen
             </IonItem>
           </IonMenuToggle>
-          <IonMenuToggle>
+          <IonMenuToggle autoHide={false}>
             <IonItem routerLink="/infos">
               <IonIcon slot="start" icon={help} /> Informationen
             </IonItem>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
-import { IonApp, IonRouterOutlet } from "@ionic/react";
+import { IonApp, IonRouterOutlet, IonSplitPane } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 
 import Home from "./pages/Home";
@@ -40,19 +40,21 @@ const App: React.FC = () => (
     <Saver>
       <IonApp>
         <IonReactRouter>
-          <Menu />
-          <IonRouterOutlet id="main">
-            <Route exact path="/" render={() => <Redirect to="/home" />} />
-            <Route exact path="/home" component={Home} />
-            <Route exact path="/settings" component={PageSettings} />
-            <Route exact path="/intro" component={PageIntro} />
-            <Route exact path="/store" component={StorePage} />
+          <IonSplitPane when="sm" contentId="main">
+            <Menu />
+            <IonRouterOutlet id="main">
+              <Route exact path="/" render={() => <Redirect to="/home" />} />
+              <Route exact path="/home" component={Home} />
+              <Route exact path="/settings" component={PageSettings} />
+              <Route exact path="/intro" component={PageIntro} />
+              <Route exact path="/store" component={StorePage} />
 
-            <Route exact path="/infos" component={InfosPage} />
-            <Route exact path="/info/:id" component={InfoPage} />
-            <Route exact path="/leader" component={PageLeaderboard} />
-            <Route exact path="/profile" component={PageProfile} />
-          </IonRouterOutlet>
+              <Route exact path="/infos" component={InfosPage} />
+              <Route exact path="/info/:id" component={InfoPage} />
+              <Route exact path="/leader" component={PageLeaderboard} />
+              <Route exact path="/profile" component={PageProfile} />
+            </IonRouterOutlet>
+          </IonSplitPane>
         </IonReactRouter>
       </IonApp>
     </Saver>
