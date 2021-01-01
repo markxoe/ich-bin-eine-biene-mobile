@@ -4,12 +4,12 @@ import { Plugins, Storage } from "@capacitor/core";
 import { StoreKeyPrefix, oldStoreKeyPrefix } from "../const";
 
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
-import { stateType } from "../store/types";
+import { stateType } from "./types";
 import { ActionSetState, ActionBieneClickIncrease } from "./Actions";
 import { generateToast } from "../globals";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 
-export const Saver: React.FC = ({ children }) => {
+export const LoaderAndSaver: React.FC = ({ children }) => {
   useEffect(() => {
     if (!state.dataLoadedFromMemory)
       Storage.get({ key: StoreKeyPrefix + "state" }).then(async (result) => {
@@ -53,4 +53,4 @@ export const Saver: React.FC = ({ children }) => {
   }, [state, dispatch]);
   return <>{children}</>;
 };
-export default Saver;
+export default LoaderAndSaver;

@@ -12,7 +12,7 @@ import InfoPage from "./pages/Info";
 import PageProfile from "./pages/Profile";
 import PageLeaderboard from "./pages/Leaderboard";
 
-import Saver from "./store/Saver";
+import LoaderAndSaver from "./store/Loader-Saver";
 import Menu from "./Menu";
 
 import { AppContextProvider } from "./store/State";
@@ -37,7 +37,7 @@ import "./theme/variables.css";
 
 const App: React.FC = () => (
   <AppContextProvider>
-    <Saver>
+    <LoaderAndSaver>
       <IonApp>
         <IonReactRouter>
           <IonSplitPane when="sm" contentId="main">
@@ -57,7 +57,7 @@ const App: React.FC = () => (
           </IonSplitPane>
         </IonReactRouter>
       </IonApp>
-    </Saver>
+    </LoaderAndSaver>
   </AppContextProvider>
 );
 
