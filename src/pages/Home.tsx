@@ -174,6 +174,7 @@ const Home: React.FC = () => {
           const el = document.createElement("ion-alert");
           document.body.appendChild(el);
           el.header = releaseNotes.header;
+          el.subHeader = "Versionshinweise";
           el.message = releaseNotes.message;
           el.buttons = [{ text: "OK", role: "cancel" }];
           el.present();
