@@ -57,12 +57,13 @@ import {
 } from "../globals";
 
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
-import "@capacitor-community/keep-awake";
+import { KeepAwakePlugin } from "@capacitor-community/keep-awake";
 import { v4, validate } from "uuid";
 import { stateType } from "../store/types";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
+const KeepAwake = Plugins.KeepAwake as KeepAwakePlugin;
 
-const { SplashScreen, StatusBar, App, PushNotifications, KeepAwake } = Plugins;
+const { SplashScreen, StatusBar, App, PushNotifications } = Plugins;
 
 const Home: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
