@@ -10,7 +10,9 @@ import StorePage from "./pages/Store";
 import InfosPage from "./pages/Infos";
 import InfoPage from "./pages/Info";
 import PageProfile from "./pages/Profile";
+import PageLeaderboard from "./pages/Leaderboard";
 
+import Saver from "./store/Saver";
 import Menu from "./Menu";
 
 import { AppContextProvider } from "./store/State";
@@ -32,8 +34,6 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import PageLeaderboard from "./pages/Leaderboard";
-import Saver from "./store/Saver";
 
 const App: React.FC = () => (
   <AppContextProvider>
