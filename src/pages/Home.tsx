@@ -184,9 +184,6 @@ const Home: React.FC = () => {
         }
       }
     );
-
-    // Ändert "save" alle 3 Sekunden, das Triggert den Save
-    saveTimerId = window.setInterval(() => refreshSave((i) => !i), 3000);
   });
 
   // Refresh the CanBuy alert everytime the state changes
@@ -198,17 +195,6 @@ const Home: React.FC = () => {
           state.biene.clickCounter > getRotateSpeedLevelPrice(state))
     );
   }, [state]);
-
-  // Resettet den Timer für save
-  useIonViewDidLeave(() => {
-    window.clearInterval(saveTimerId);
-  });
-
-  // setInterval von oben refreshed "save" nur alle 3 Sekunden -> Performance!!!
-  useEffect(() => {
-    if (state.dataLoadedFromMemory) saveState(state);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [save]);
 
   return (
     <IonPage>

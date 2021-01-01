@@ -129,8 +129,6 @@ const StorePage: React.FC = () => {
   }
 
   useEffect(() => {
-    console.log("state saved");
-    if (state.dataLoadedFromMemory) saveState(state);
     if (state.biene.autoRotatingBees.length > 10) {
       dispatch(
         ActionSetState({

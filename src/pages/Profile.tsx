@@ -24,7 +24,6 @@ import { generateName } from "../functions/namegenerator";
 const PageProfile: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
   useEffect(() => {
-    if (state.dataLoadedFromMemory) saveState(state);
     uploadData(state);
     // Generate Random Name, if no name given
     if (!state.userName && state.dataLoadedFromMemory)

@@ -75,10 +75,6 @@ const PageSettings: React.FC = () => {
     );
   });
 
-  useEffect(() => {
-    if (state.dataLoadedFromMemory) saveState(state);
-  }, [state]);
-
   const ImportData = () => {
     let success: string = "false";
     try {
