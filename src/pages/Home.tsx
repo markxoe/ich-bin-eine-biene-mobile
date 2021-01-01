@@ -36,16 +36,14 @@ import { AppContext } from "../store/State";
 import {
   ActionBieneClickIncrease,
   ActionDataLoadedFromMemory,
-  ActionSetState,
   ActionStatisticAdd,
 } from "../store/Actions";
 
 import { Plugins, Storage, StatusBarStyle, Capacitor } from "@capacitor/core";
-import { StoreKeyPrefix, oldStoreKeyPrefix } from "../const";
+import { StoreKeyPrefix } from "../const";
 import { useHistory } from "react-router";
 import {
   calculateLevel,
-  generateToast,
   getAdditionalBeePrice,
   getAutorotatePrice,
   getMultiplierPrice,
@@ -58,7 +56,6 @@ import {
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
 import { KeepAwakePlugin } from "@capacitor-community/keep-awake";
 import { v4, validate } from "uuid";
-import { stateType } from "../store/types";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 const KeepAwake = Plugins.KeepAwake as KeepAwakePlugin;
 
@@ -107,41 +104,6 @@ const Home: React.FC = () => {
       }
     });
     console.log("Done loading Intro");
-
-    await Storage.get({ key: StoreKeyPrefix + "state" }).then(
-      async (result) => {
-        if (result && result.value) {
-          const res = JSON.parse(result.value);
-          dispatch(ActionSetState(res));
-          console.log(res);
-        } else {
-          console.log("No State in Memory, check for Old State");
-          const resultOld = await Storage.get({
-            key: oldStoreKeyPrefix + "state",
-          });
-          if (resultOld.value !== null && resultOld.value !== "") {
-            dispatch(ActionBieneClickIncrease(500));
-            Firebase.logEvent({ name: "GaveBonus", params: { success: true } });
-            try {
-              const oldUser: stateType = JSON.parse(resultOld.value);
-              dispatch({
-                type: "setUserName",
-                payload: oldUser.userName,
-              });
-              dispatch({
-                type: "setUserImage",
-                payload: oldUser.userImage,
-              });
-            } catch {
-              console.log("Error Loading From Old");
-            }
-            generateToast("Ein paar Bienen als Bonus für dich!", 20000, true);
-            console.log("Got Old, gave Bonus");
-          }
-        }
-      }
-    );
-    console.log("Done loading State");
 
     await SplashScreen.hide();
     console.log("Done hiding Splash screen");
