@@ -25,9 +25,11 @@ import {
 } from "ionicons/icons";
 import React, { useContext } from "react";
 import { AppContext } from "./store/State";
+import { useLocation } from "react-router";
 
 const Menu: React.FC = () => {
   const { state } = useContext(AppContext);
+  const location = useLocation();
   return (
     <IonMenu contentId="main">
       <IonHeader>
@@ -55,26 +57,26 @@ const Menu: React.FC = () => {
         <IonList lines={"none"}>
           <IonListHeader>Allgemein</IonListHeader>
           <IonMenuToggle autoHide={false}>
-            <IonItem routerLink="/home">
+            <IonItem color={location.pathname.includes("home")?"light":""} routerLink="/home">
               <IonIcon icon={home} slot="start" />
               Home
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle autoHide={false}>
-            <IonItem routerLink="/store">
+            <IonItem color={location.pathname.includes("store")?"light":""} routerLink="/store">
               <IonIcon icon={storefront} slot="start" />
               Store
             </IonItem>
           </IonMenuToggle>
           <IonListHeader>Benutzer</IonListHeader>
           <IonMenuToggle autoHide={false}>
-            <IonItem routerLink="/leader">
+            <IonItem color={location.pathname.includes("leader")?"light":""} routerLink="/leader">
               <IonIcon slot="start" icon={trophy} />
               Highscore
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle autoHide={false}>
-            <IonItem routerLink="/profile">
+            <IonItem  color={location.pathname.includes("profile")?"light":""}routerLink="/profile">
               <IonIcon slot="start" icon={person} />
               Profil
               <IonLabel slot="end">
@@ -86,13 +88,13 @@ const Menu: React.FC = () => {
           </IonMenuToggle>
           <IonListHeader>Weiteres</IonListHeader>
           <IonMenuToggle autoHide={false}>
-            <IonItem routerLink="/settings">
+            <IonItem color={location.pathname.includes("settings")?"light":""} routerLink="/settings">
               <IonIcon slot="start" icon={settings} />
               Einstellungen
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle autoHide={false}>
-            <IonItem routerLink="/infos">
+            <IonItem color={location.pathname.includes("infos")?"light":""} routerLink="/infos">
               <IonIcon slot="start" icon={help} /> Informationen
             </IonItem>
           </IonMenuToggle>
