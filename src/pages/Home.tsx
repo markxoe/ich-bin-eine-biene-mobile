@@ -27,7 +27,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { refreshOutline, storefront } from "ionicons/icons";
 import "./Home.css";
 import packagejs from "../../package.json";
-import releaseNotes from "../release-notes.json";
+import releaseNotes from "../other/release-notes.json";
 
 import biene from "../res/biene.png";
 
@@ -40,7 +40,7 @@ import {
 } from "../store/Actions";
 
 import { Plugins, Storage, StatusBarStyle, Capacitor } from "@capacitor/core";
-import { StoreKeyPrefix } from "../const";
+import { StoreKeyPrefix } from "../other/const";
 import { useHistory } from "react-router";
 import {
   calculateLevel,

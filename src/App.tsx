@@ -13,7 +13,7 @@ import PageProfile from "./pages/Profile";
 import PageLeaderboard from "./pages/Leaderboard";
 
 import LoaderAndSaver from "./store/Loader-Saver";
-import Menu from "./Menu";
+import Menu from "./components/Menu";
 
 import { AppContextProvider } from "./store/State";
 /* Core CSS required for Ionic components to work properly */

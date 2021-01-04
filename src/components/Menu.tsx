@@ -24,7 +24,7 @@ import {
   trophy,
 } from "ionicons/icons";
 import React, { useContext } from "react";
-import { AppContext } from "./store/State";
+import { AppContext } from "../store/State";
 import { useLocation } from "react-router";
 
 const Menu: React.FC = () => {

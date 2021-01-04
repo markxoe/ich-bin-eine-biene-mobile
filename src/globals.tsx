@@ -1,6 +1,6 @@
 import { stateType } from "./store/types";
 import Axios from "axios";
-import calculateHeader from "./pages/calculateauthorization";
+import calculateHeader from "./functions/calculateauthorization";
 
 export const rotateSpeedLevel = {
   max: 3,

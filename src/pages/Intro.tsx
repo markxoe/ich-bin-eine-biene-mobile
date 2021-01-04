@@ -12,7 +12,7 @@ import Biene from "../res/biene.png";
 import "./Intro.css";
 import { useHistory } from "react-router";
 import { Storage } from "@capacitor/core";
-import { StoreKeyPrefix } from "../const";
+import { StoreKeyPrefix } from "../other/const";
 import { arrowForward } from "ionicons/icons";
 
 const PageIntro: React.FC = () => {

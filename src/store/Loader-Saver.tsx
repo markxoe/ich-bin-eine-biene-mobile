@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { AppContext, saveState } from "./State";
 import { Plugins, Storage } from "@capacitor/core";
-import { StoreKeyPrefix, oldStoreKeyPrefix } from "../const";
+import { StoreKeyPrefix, oldStoreKeyPrefix } from "../other/const";
 
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
 import { stateType } from "./types";

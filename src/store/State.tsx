@@ -1,6 +1,6 @@
 import { Storage } from "@capacitor/core";
 import React, { useReducer } from "react";
-import { StoreKeyPrefix } from "../const";
+import { StoreKeyPrefix } from "../other/const";
 import { actionType, stateType, ContextType } from "./types";
 import { nameAtHomePositions } from "../globals";
 
