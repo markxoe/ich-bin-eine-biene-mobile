@@ -26,6 +26,10 @@ Mark Oude Elberink
 
 ## Changelog
 
+### [0.12.0] Infinity :recycle:
+
+- Adding Infinity
+
 ### [0.11.0] Übermenschliche Biene :bee:
 
 - Namensgenerator
