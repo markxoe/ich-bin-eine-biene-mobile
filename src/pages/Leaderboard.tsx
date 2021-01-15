@@ -140,7 +140,7 @@ const PageLeaderboard: React.FC = () => {
                 <p>{i.user.autoRotatingBeeLength} Autodreher</p>
                 <p>{i.user.multiplierLevel + 1}x Multiplier</p>
                 <p hidden={!i.user.goldenBienens}>
-                  {i.user.goldenBienens} Blaue Biene(n)
+                  {i.user.goldenBienens} Goldene Biene(n)
                 </p>
               </IonLabel>
               {i.user.goldenBienens > 0 ? (
