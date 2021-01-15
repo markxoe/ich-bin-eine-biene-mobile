@@ -67,56 +67,6 @@ const PageLeaderboard: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonCard hidden>
-          <IonCardHeader>
-            <IonAvatar>
-              <img src={avatar} alt="avatar" />
-            </IonAvatar>
-            <IonCardTitle>Ha</IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent>
-            <IonAvatar>
-              <img src={avatar} alt="avatar" />
-            </IonAvatar>
-          </IonCardContent>
-        </IonCard>
-        {/* 
-        <IonItem>
-          <IonAvatar slot="start">
-            <img src={avatar} alt="avatar" />
-          </IonAvatar>
-          <IonLabel>
-            <h2>Torsten Schröder</h2>
-            <p>25 Bienen</p>
-            <p>12 Autodreher</p>
-            <p>34 Multiplier</p>
-          </IonLabel>
-        </IonItem>
-
-        <IonItem>
-          <IonAvatar slot="start">
-            <img src={avatar} alt="avatar" />
-          </IonAvatar>
-          <IonLabel>
-            <h2>Torsten Schröder</h2>
-            <p>25 Bienen</p>
-            <p>12 Autodreher</p>
-            <p>34 Multiplier</p>
-          </IonLabel>
-        </IonItem>
-
-        <IonItem>
-          <IonAvatar slot="start">
-            <img src={avatar} alt="avatar" />
-          </IonAvatar>
-          <IonLabel>
-            <h2>Torsten Schröder</h2>
-            <p>25 Bienen</p>
-            <p>12 Autodreher</p>
-            <p>34 Multiplier</p>
-          </IonLabel>
-        </IonItem> */}
-
         {data
           .sort((a, b) => b.level - a.level)
           .map((i) => (
@@ -163,8 +113,9 @@ const PageLeaderboard: React.FC = () => {
           <IonCardContent>
             Kaufe dir so viele Bienen wie möglich
             <br />
-            Autodreher werden nicht gezählt Multiplier zählen weniger als eine
-            Biene
+            Autodreher werden nicht gezählt
+            <br />
+            Multiplier zählen weniger als eine Biene
           </IonCardContent>
         </IonCard>
       </IonContent>
