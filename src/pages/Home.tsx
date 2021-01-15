@@ -30,7 +30,7 @@ import packagejs from "../../package.json";
 import releaseNotes from "../other/release-notes.json";
 
 import biene from "../res/biene.png";
-import bluebee from "../res/bluebee.png";
+import { getGoldenBienenArray } from "../res/advancementBees/getbee";
 
 import { AppContext } from "../store/State";
 
@@ -169,16 +169,17 @@ const Home: React.FC = () => {
 
   const reactivatePopup = () => {
     const el = document.createElement("ion-alert");
-    el.header = "Blaue Biene";
-    el.subHeader = "Verliere alles und bekomme eine Blaue Bienen";
+    el.header = "Goldene Biene";
+    el.subHeader = "Verliere alles und bekomme eine Goldene Bienen";
     el.message =
       "Du hast offiziell die Biene durchgespielt.<br/>" +
       "Denn du hast mehr als " +
       MAX_VALUE +
-      " Saltos!<br/>" +
-      " So geht's weiter: Du verlierst jetzt ALLE Bienen, alle multiplier und alle Saltos.<br/>" +
-      " <b>ABER du bekommst eine blaue Biene!</b><br/>" +
-      " Es gibt sowieso keine Alternative";
+      "Saltos!<br/>" +
+      "So geht's weiter: Du verlierst jetzt ALLE Bienen, alle Multiplier und alle Saltos.<br/>" +
+      "<b>ABER du bekommst eine goldene Biene!</b><br/>" +
+      "Goldene Bienen haben unterschiedliche Farben!<br/>" +
+      "Es gibt sowieso keine Alternative";
     el.buttons = [
       { text: "Erstmal Screenshot machen", role: "cancel" },
       { text: "Let's do it!", handler: () => resetAndGoldenBee() },
@@ -327,13 +328,11 @@ const Home: React.FC = () => {
             </IonCol>
           </IonRow>
           <IonRow className="ion-justify-content-center">
-            {Array<number>(state.goldenBienen)
-              .fill(0)
-              .map(() => (
-                <IonCol size="auto">
-                  <img src={bluebee} width="54" alt="Goldene Biene" />
-                </IonCol>
-              ))}
+            {getGoldenBienenArray(state).map((src) => (
+              <IonCol size="auto">
+                <img src={src} width="54" alt="Goldene Biene" />
+              </IonCol>
+            ))}
           </IonRow>
           <IonRow className="ion-justify-content-center">
             {/* This part shows the informations */}

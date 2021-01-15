@@ -19,7 +19,7 @@ import Axios from "axios";
 import React, { useContext, useState } from "react";
 import { generateToast } from "../globals";
 
-import bluebee from "../res/bluebee.png";
+import goldenbiene from "../res/biene.png";
 import avatar from "../res/avatar.svg";
 import { AppContext } from "../store/State";
 
@@ -147,7 +147,7 @@ const PageLeaderboard: React.FC = () => {
                 <img
                   slot="end"
                   alt="Golden"
-                  src={bluebee}
+                  src={goldenbiene}
                   height="25"
                   className="margin-auto"
                 />
