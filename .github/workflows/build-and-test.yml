@@ -1,7 +1,7 @@
 name: Test And Build
 on: [push]
 jobs:
-  setup:
+  doall:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -12,27 +12,11 @@ jobs:
           node-version: 12
       - name: Installing
         run: npm ci
-  test:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
       - name: Testing
         run: npm test
-  build:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
       - name: Building
         run: npm run build
-  capacitor-copy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
       - name: Copy to native apps
         run: npx cap copy
-  capacitor-update-Android:
-    needs: capacitor-copy
-    runs-on: ubuntu-latest
-    steps:
       - name: Update Android Dependencies
         run: npx cap update android
