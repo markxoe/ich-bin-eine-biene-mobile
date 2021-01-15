@@ -18,19 +18,19 @@
 /* Wenn die Biene die Klasse bienerotate bekommt, rotiert sie */
 
 .bienerotate {
-  animation: rotation 0.2s reverse;
+  animation: rotation 0.2s reverse ease-in-out;
 }
 
 .bienerotate-level-2 {
-  animation: rotation 0.15s reverse;
+  animation: rotation 0.15s reverse ease-in-out;
 }
 
 .bienerotate-level-3 {
-  animation: rotation 0.1s reverse;
+  animation: rotation 0.1s reverse ease-in-out;
 }
 
 .bienerotate-level-4 {
-  animation: rotation 0.07s reverse;
+  animation: rotation 0.07s reverse ease-in-out;
 }
 
 .bieneautorotate {
