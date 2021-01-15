@@ -9,6 +9,7 @@ export interface stateType {
     multiplierLevel: number;
     autoRotatingBees: number[];
   };
+  goldenBienen: number;
   settings: {
     clickButtonForBee: boolean;
     newUI: boolean;

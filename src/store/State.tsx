@@ -15,6 +15,7 @@ const initialState: stateType = {
     multiplierLevel: 0,
     autoRotatingBees: [],
   },
+  goldenBienen: 0,
   settings: {
     clickButtonForBee: false,
     newUI: true,
@@ -183,6 +184,27 @@ let reducer = (state: stateType, action: actionType): stateType => {
         lastSaveAt: action.payload,
       };
     }
+
+    case "addGoldenBiene": {
+      return {
+        ...state,
+        goldenBienen: state.goldenBienen + 1,
+      };
+    }
+
+    case "resetManyThings": {
+      return {
+        ...state,
+        biene: {
+          ...state.biene,
+          additionalBienen: [],
+          multiplierLevel: 0,
+          autoRotatingBees: [],
+          clickCounter: 0,
+          rotateSpeedLevel: 0,
+        },
+      };
+    }
   }
 
   return state;
@@ -206,6 +228,7 @@ export const saveState = async (
   dispatch: React.Dispatch<actionType>
 ) => {
   if (Date.now() > state.lastSaveAt + 3000) {
+    console.log("Saving...");
     await Storage.set({
       key: StoreKeyPrefix + "state",
       value: JSON.stringify(state),

@@ -124,3 +124,11 @@ export const ActionSettingSetNameAtHomePosition = (
   type: "setNameAtHomePosition",
   payload: position,
 });
+
+export const ActionAddGoldenBiene = (): actionType => ({
+  type: "addGoldenBiene",
+});
+
+export const ActionResetManyThings = (): actionType => ({
+  type: "resetManyThings",
+});
