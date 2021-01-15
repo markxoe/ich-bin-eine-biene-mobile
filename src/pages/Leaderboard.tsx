@@ -19,6 +19,7 @@ import Axios from "axios";
 import React, { useContext, useState } from "react";
 import { generateToast } from "../globals";
 
+import goldenbiene from "../res/goldenbee.png";
 import avatar from "../res/avatar.svg";
 import { AppContext } from "../store/State";
 
@@ -35,6 +36,7 @@ const PageLeaderboard: React.FC = () => {
         settingNewUI: boolean;
         settingClickingAid: boolean;
         userImage: string;
+        goldenBienens: number;
       };
     }[]
   >([]);
@@ -137,7 +139,21 @@ const PageLeaderboard: React.FC = () => {
                 <p>{i.user.additionalBeeLength + 1} Bienen</p>
                 <p>{i.user.autoRotatingBeeLength} Autodreher</p>
                 <p>{i.user.multiplierLevel + 1}x Multiplier</p>
+                <p hidden={!i.user.goldenBienens}>
+                  {i.user.goldenBienens} Goldene Bienen
+                </p>
               </IonLabel>
+              {i.user.goldenBienens > 0 ? (
+                <img
+                  slot="end"
+                  alt="Golden"
+                  src={goldenbiene}
+                  height="25"
+                  className="margin-auto"
+                />
+              ) : (
+                ""
+              )}
             </IonItem>
           ))}
         <IonCard>
