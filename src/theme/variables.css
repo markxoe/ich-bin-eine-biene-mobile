@@ -153,6 +153,6 @@ body {
   --ion-color-tint: var(--ion-color-darkpink-tint);
 }
 
-.margin-auto{
+.margin-auto {
   margin: auto;
 }
