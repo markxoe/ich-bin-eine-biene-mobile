@@ -19,7 +19,7 @@ import Axios from "axios";
 import React, { useContext, useState } from "react";
 import { generateToast } from "../globals";
 
-import goldenbiene from "../res/goldenbee.png";
+import bluebee from "../res/bluebee.png";
 import avatar from "../res/avatar.svg";
 import { AppContext } from "../store/State";
 
@@ -140,14 +140,14 @@ const PageLeaderboard: React.FC = () => {
                 <p>{i.user.autoRotatingBeeLength} Autodreher</p>
                 <p>{i.user.multiplierLevel + 1}x Multiplier</p>
                 <p hidden={!i.user.goldenBienens}>
-                  {i.user.goldenBienens} Goldene Bienen
+                  {i.user.goldenBienens} Blaue Biene(n)
                 </p>
               </IonLabel>
               {i.user.goldenBienens > 0 ? (
                 <img
                   slot="end"
                   alt="Golden"
-                  src={goldenbiene}
+                  src={bluebee}
                   height="25"
                   className="margin-auto"
                 />

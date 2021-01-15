@@ -30,7 +30,7 @@ import packagejs from "../../package.json";
 import releaseNotes from "../other/release-notes.json";
 
 import biene from "../res/biene.png";
-import goldenbiene from "../res/goldenbee.png";
+import bluebee from "../res/bluebee.png";
 
 import { AppContext } from "../store/State";
 
@@ -169,15 +169,15 @@ const Home: React.FC = () => {
 
   const reactivatePopup = () => {
     const el = document.createElement("ion-alert");
-    el.header = "Goldene Biene";
-    el.subHeader = "Verliere alles und bekomme eine goldene Bienen";
+    el.header = "Blaue Biene";
+    el.subHeader = "Verliere alles und bekomme eine Blaue Bienen";
     el.message =
       "Du hast offiziell die Biene durchgespielt.<br/>" +
       "Denn du hast mehr als " +
       MAX_VALUE +
       " Saltos!<br/>" +
       " So geht's weiter: Du verlierst jetzt ALLE Bienen, alle multiplier und alle Saltos.<br/>" +
-      " <b>ABER du bekommst eine goldene Biene!</b><br/>" +
+      " <b>ABER du bekommst eine blaue Biene!</b><br/>" +
       " Es gibt sowieso keine Alternative";
     el.buttons = [
       { text: "Erstmal Screenshot machen", role: "cancel" },
@@ -331,7 +331,7 @@ const Home: React.FC = () => {
               .fill(0)
               .map(() => (
                 <IonCol size="auto">
-                  <img src={goldenbiene} width="54" alt="Goldene Biene" />
+                  <img src={bluebee} width="54" alt="Goldene Biene" />
                 </IonCol>
               ))}
           </IonRow>
