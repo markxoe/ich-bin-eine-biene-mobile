@@ -34,7 +34,7 @@ Mark Oude Elberink
 ### [0.12.0] Infinity :recycle:
 
 - Adding Infinity
-- Goldene Biene wenn man durchgespielt hat
+- Blaue Biene wenn man durchgespielt hat
 
 ### [0.11.0] Übermenschliche Biene :bee:
 
