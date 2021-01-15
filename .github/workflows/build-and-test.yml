@@ -21,7 +21,7 @@ jobs:
         with:
           name: web-build-root
   test-capacitor-android:
-    needs: build
+    needs: setup-test-build
     runs-on: ubuntu-latest
     steps:
       - name: Download Artifact
