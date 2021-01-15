@@ -1,7 +1,7 @@
 name: Test And Build
 on: [push]
 jobs:
-  setup-test-build:
+  doall:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -16,18 +16,6 @@ jobs:
         run: npm test
       - name: Building
         run: npm run build
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: web-build-root
-  test-capacitor-android:
-    needs: setup-test-build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: web-build-root
       - name: Copy to native apps
         run: npx cap copy
       - name: Update Android Dependencies
