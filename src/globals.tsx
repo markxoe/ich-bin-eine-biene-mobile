@@ -23,7 +23,7 @@ export const getAdditionalBeePrice = (state: stateType): number => {
         1 +
         state.biene.autoRotatingBees.length * 0.6) *
       Math.pow(
-        1.015,
+        1.00005,
         state.biene.additionalBienen.length +
           state.biene.multiplierLevel +
           state.biene.autoRotatingBees.length
@@ -118,6 +118,7 @@ export const uploadData = (state: stateType) => {
       settingNewUI: boolean;
       settingClickingAid: boolean;
       userImage: string;
+      goldenBienens: number;
     } = {
       userid: state.userUUID,
       autoRotatingBeeLength: state.biene.autoRotatingBees.length,
@@ -127,6 +128,7 @@ export const uploadData = (state: stateType) => {
       settingClickingAid: state.settings.clickButtonForBee,
       settingNewUI: state.settings.newUI,
       userImage: state.userImage,
+      goldenBienens: state.goldenBienen,
     };
 
     Axios.post(

@@ -19,6 +19,7 @@ import Axios from "axios";
 import React, { useContext, useState } from "react";
 import { generateToast } from "../globals";
 
+import goldenbiene from "../res/biene.png";
 import avatar from "../res/avatar.svg";
 import { AppContext } from "../store/State";
 
@@ -35,6 +36,7 @@ const PageLeaderboard: React.FC = () => {
         settingNewUI: boolean;
         settingClickingAid: boolean;
         userImage: string;
+        goldenBienens: number;
       };
     }[]
   >([]);
@@ -65,56 +67,6 @@ const PageLeaderboard: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonCard hidden>
-          <IonCardHeader>
-            <IonAvatar>
-              <img src={avatar} alt="avatar" />
-            </IonAvatar>
-            <IonCardTitle>Ha</IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent>
-            <IonAvatar>
-              <img src={avatar} alt="avatar" />
-            </IonAvatar>
-          </IonCardContent>
-        </IonCard>
-        {/* 
-        <IonItem>
-          <IonAvatar slot="start">
-            <img src={avatar} alt="avatar" />
-          </IonAvatar>
-          <IonLabel>
-            <h2>Torsten Schröder</h2>
-            <p>25 Bienen</p>
-            <p>12 Autodreher</p>
-            <p>34 Multiplier</p>
-          </IonLabel>
-        </IonItem>
-
-        <IonItem>
-          <IonAvatar slot="start">
-            <img src={avatar} alt="avatar" />
-          </IonAvatar>
-          <IonLabel>
-            <h2>Torsten Schröder</h2>
-            <p>25 Bienen</p>
-            <p>12 Autodreher</p>
-            <p>34 Multiplier</p>
-          </IonLabel>
-        </IonItem>
-
-        <IonItem>
-          <IonAvatar slot="start">
-            <img src={avatar} alt="avatar" />
-          </IonAvatar>
-          <IonLabel>
-            <h2>Torsten Schröder</h2>
-            <p>25 Bienen</p>
-            <p>12 Autodreher</p>
-            <p>34 Multiplier</p>
-          </IonLabel>
-        </IonItem> */}
-
         {data
           .sort((a, b) => b.level - a.level)
           .map((i) => (
@@ -137,7 +89,21 @@ const PageLeaderboard: React.FC = () => {
                 <p>{i.user.additionalBeeLength + 1} Bienen</p>
                 <p>{i.user.autoRotatingBeeLength} Autodreher</p>
                 <p>{i.user.multiplierLevel + 1}x Multiplier</p>
+                <p hidden={!i.user.goldenBienens}>
+                  {i.user.goldenBienens} Goldene Biene(n)
+                </p>
               </IonLabel>
+              {i.user.goldenBienens > 0 ? (
+                <img
+                  slot="end"
+                  alt="Golden"
+                  src={goldenbiene}
+                  height="25"
+                  className="margin-auto"
+                />
+              ) : (
+                ""
+              )}
             </IonItem>
           ))}
         <IonCard>
@@ -147,8 +113,9 @@ const PageLeaderboard: React.FC = () => {
           <IonCardContent>
             Kaufe dir so viele Bienen wie möglich
             <br />
-            Autodreher werden nicht gezählt Multiplier zählen weniger als eine
-            Biene
+            Autodreher werden nicht gezählt
+            <br />
+            Multiplier zählen weniger als eine Biene
           </IonCardContent>
         </IonCard>
       </IonContent>

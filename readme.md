@@ -1,5 +1,10 @@
 # Ich bin eine Biene Mobile
 
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/markxoe/ich-bin-eine-biene-mobile/Test%20And%20Build?style=flat-square)
+![GitHub repo size](https://img.shields.io/github/repo-size/markxoe/ich-bin-eine-biene-mobile?style=flat-square)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/markxoe/ich-bin-eine-biene-mobile?style=flat-square)
+![GitHub package.json dynamic](https://img.shields.io/github/package-json/version/markxoe/ich-bin-eine-biene-mobile?style=flat-square)
+
 ## FAQ
 
 ### Hat das einen Sinn?
@@ -25,6 +30,11 @@ Weil ich's kann
 Mark Oude Elberink
 
 ## Changelog
+
+### [0.12.0] Infinity :recycle:
+
+- Adding Infinity
+- Blaue Biene wenn man durchgespielt hat
 
 ### [0.11.0] Übermenschliche Biene :bee:
 

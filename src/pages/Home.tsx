@@ -30,6 +30,7 @@ import packagejs from "../../package.json";
 import releaseNotes from "../other/release-notes.json";
 
 import biene from "../res/biene.png";
+import { getGoldenBienenArray } from "../res/advancementBees/getbee";
 
 import { AppContext } from "../store/State";
 
@@ -37,10 +38,12 @@ import {
   ActionBieneClickIncrease,
   ActionDataLoadedFromMemory,
   ActionStatisticAdd,
+  ActionAddGoldenBiene,
+  ActionResetManyThings,
 } from "../store/Actions";
 
 import { Plugins, Storage, StatusBarStyle, Capacitor } from "@capacitor/core";
-import { StoreKeyPrefix } from "../other/const";
+import { StoreKeyPrefix, MAX_VALUE, MAX_ARRAY_LENGTH } from "../other/const";
 import { useHistory } from "react-router";
 import {
   calculateLevel,
@@ -68,6 +71,8 @@ const Home: React.FC = () => {
   const [canBuy, setCanBuy] = useState<boolean>(false);
 
   const [openLevels, setOpenLevels] = useState<boolean>(false);
+
+  const [disabled, setDisabled] = useState<boolean>(false);
 
   useIonViewWillEnter(async () => {
     PushNotifications.requestPermission()
@@ -153,7 +158,40 @@ const Home: React.FC = () => {
         (state.biene.rotateSpeedLevel < rotateSpeedLevel.max &&
           state.biene.clickCounter > getRotateSpeedLevelPrice(state))
     );
+    if (
+      state.biene.additionalBienen.length > MAX_ARRAY_LENGTH ||
+      state.biene.multiplierLevel > MAX_VALUE ||
+      state.biene.clickCounter > MAX_VALUE
+    ) {
+      setDisabled(true);
+    }
   }, [state]);
+
+  const reactivatePopup = () => {
+    const el = document.createElement("ion-alert");
+    el.header = "Goldene Biene";
+    el.subHeader = "Verliere alles und bekomme eine Goldene Bienen";
+    el.message =
+      "Du hast offiziell die Biene durchgespielt.<br/>" +
+      "Denn du hast mehr als " +
+      MAX_VALUE +
+      "Saltos!<br/>" +
+      "So geht's weiter: Du verlierst jetzt ALLE Bienen, alle Multiplier und alle Saltos.<br/>" +
+      "<b>ABER du bekommst eine goldene Biene!</b><br/>" +
+      "Goldene Bienen haben unterschiedliche Farben!<br/>" +
+      "Es gibt sowieso keine Alternative";
+    el.buttons = [
+      { text: "Erstmal Screenshot machen", role: "cancel" },
+      { text: "Let's do it!", handler: () => resetAndGoldenBee() },
+    ];
+    document.body.appendChild(el);
+    el.present();
+  };
+  const resetAndGoldenBee = () => {
+    dispatch(ActionResetManyThings());
+    dispatch(ActionAddGoldenBiene());
+    setDisabled(false);
+  };
 
   return (
     <IonPage>
@@ -183,7 +221,7 @@ const Home: React.FC = () => {
             }
             className="ion-justify-content-center">
             <IonCol size="auto">
-              <h2 className="ion-text-center">Willkommen {state.userName}</h2>
+              <h2 className="ion-text-center">Willkommen, {state.userName}</h2>
             </IonCol>
           </IonRow>
           <IonRow className="ion-justify-content-center">
@@ -204,13 +242,15 @@ const Home: React.FC = () => {
                   alt="biene"
                   onAnimationEnd={() => {
                     setRotation(false);
-                    dispatch(
-                      ActionBieneClickIncrease(
-                        (1 + state.biene.additionalBienen.length) *
-                          (state.biene.multiplierLevel + 1)
-                      )
-                    );
-                    dispatch(ActionStatisticAdd());
+                    if (!disabled) {
+                      dispatch(
+                        ActionBieneClickIncrease(
+                          (1 + state.biene.additionalBienen.length) *
+                            (state.biene.multiplierLevel + 1)
+                        )
+                      );
+                      dispatch(ActionStatisticAdd());
+                    }
                   }}
                 />
               </div>
@@ -260,16 +300,19 @@ const Home: React.FC = () => {
                     alt="biene"
                     className="bieneautorotate"
                     onAnimationIteration={() => {
-                      dispatch(
-                        ActionBieneClickIncrease(
-                          Math.round(
-                            (1 + state.biene.additionalBienen.length) *
-                              (state.biene.multiplierLevel + 1) *
-                              0.5
-                          ) * Math.min(state.biene.autoRotatingBees.length, 10)
-                        )
-                      );
-                      dispatch(ActionStatisticAdd());
+                      if (!disabled) {
+                        dispatch(
+                          ActionBieneClickIncrease(
+                            Math.round(
+                              (1 + state.biene.additionalBienen.length) *
+                                (state.biene.multiplierLevel + 1) *
+                                0.5
+                            ) *
+                              Math.min(state.biene.autoRotatingBees.length, 10)
+                          )
+                        );
+                        dispatch(ActionStatisticAdd());
+                      }
                     }}
                   />
                 </div>
@@ -283,6 +326,13 @@ const Home: React.FC = () => {
                 + {Math.min(state.biene.autoRotatingBees.length - 1, 9)}
               </IonChip>
             </IonCol>
+          </IonRow>
+          <IonRow className="ion-justify-content-center">
+            {getGoldenBienenArray(state).map((src) => (
+              <IonCol size="auto">
+                <img src={src} width="54" alt="Goldene Biene" />
+              </IonCol>
+            ))}
           </IonRow>
           <IonRow className="ion-justify-content-center">
             {/* This part shows the informations */}
@@ -364,7 +414,15 @@ const Home: React.FC = () => {
             }
             className="ion-justify-content-center">
             <IonCol size="auto">
-              <h2 className="ion-text-center">Willkommen {state.userName}</h2>
+              <h2 className="ion-text-center">Willkommen, {state.userName}</h2>
+            </IonCol>
+          </IonRow>
+          <IonRow className="ion-justify-content-center" hidden={!disabled}>
+            <IonCol size="auto" className="ion-text-center">
+              <p><b>Du bekommst keine Saltos mehr</b></p>
+              <IonButton onClick={() => reactivatePopup()} color="danger">
+                Reaktivieren
+              </IonButton>
             </IonCol>
           </IonRow>
         </IonGrid>

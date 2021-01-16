@@ -1,7 +1,7 @@
 name: Test And Build
 on: [push]
 jobs:
-  build:
+  doall:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -12,9 +12,11 @@ jobs:
           node-version: 12
       - name: Installing
         run: npm ci
-      - name: Building
-        run: npm run build
-        env:
-          CI: ""
       - name: Testing
         run: npm test
+      - name: Building
+        run: npm run build
+      - name: Copy to native apps
+        run: npx cap copy
+      - name: Update Android Dependencies
+        run: npx cap update android

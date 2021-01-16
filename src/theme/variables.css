@@ -152,3 +152,7 @@ body {
   --ion-color-shade: var(--ion-color-darkpink-shade);
   --ion-color-tint: var(--ion-color-darkpink-tint);
 }
+
+.margin-auto {
+  margin: auto;
+}
