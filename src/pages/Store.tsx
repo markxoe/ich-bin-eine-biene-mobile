@@ -49,6 +49,7 @@ import { Plugins } from "@capacitor/core";
 import Confetti from "react-confetti";
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
 import { generateName } from "../functions/namegenerator";
+import { MAX_VALUE } from "../other/const";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 
 const StorePage: React.FC = () => {
@@ -404,6 +405,21 @@ const StorePage: React.FC = () => {
                 </IonCol>
               </IonRow>
             </IonGrid>
+          </IonCardContent>
+        </IonCard>
+        <IonCard>
+          <IonCardHeader>
+            <IonCardTitle>Goldene Biene</IonCardTitle>
+            <IonCardSubtitle className="ion-text-uppercase">
+              Wann bekommst du sie?
+            </IonCardSubtitle>
+          </IonCardHeader>
+          <IonCardContent>
+            <IonProgressBar
+              value={Math.min(state.biene.clickCounter / MAX_VALUE, 1.0)}
+              color="primary"
+            />
+            <p>{state.biene.clickCounter} / {MAX_VALUE} ({(Math.min(state.biene.clickCounter / MAX_VALUE, 1.0)*100).toFixed(4)}%)</p>
           </IonCardContent>
         </IonCard>
 
