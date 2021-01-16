@@ -221,7 +221,7 @@ const Home: React.FC = () => {
             }
             className="ion-justify-content-center">
             <IonCol size="auto">
-              <h2 className="ion-text-center">Willkommen {state.userName}</h2>
+              <h2 className="ion-text-center">Willkommen, {state.userName}</h2>
             </IonCol>
           </IonRow>
           <IonRow className="ion-justify-content-center">
@@ -414,12 +414,12 @@ const Home: React.FC = () => {
             }
             className="ion-justify-content-center">
             <IonCol size="auto">
-              <h2 className="ion-text-center">Willkommen {state.userName}</h2>
+              <h2 className="ion-text-center">Willkommen, {state.userName}</h2>
             </IonCol>
           </IonRow>
           <IonRow className="ion-justify-content-center" hidden={!disabled}>
             <IonCol size="auto" className="ion-text-center">
-              <p>Du bekommst keine Saltos mehr</p>
+              <p><b>Du bekommst keine Saltos mehr</b></p>
               <IonButton onClick={() => reactivatePopup()} color="danger">
                 Reaktivieren
               </IonButton>
