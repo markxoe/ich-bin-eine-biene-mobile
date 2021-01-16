@@ -31,6 +31,10 @@ Mark Oude Elberink
 
 ## Changelog
 
+### [0.12.1] Infinity :recycle:
+- Same as 0.12.0
+- Release Notes vergessen uppsi
+
 ### [0.12.0] Infinity :recycle:
 
 - Adding Infinity
