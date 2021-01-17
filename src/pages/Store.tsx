@@ -33,6 +33,7 @@ import {
   renderValue,
   rotateSpeedLevel,
   uploadData,
+  uploadEvent,
 } from "../globals";
 import {
   ActionBieneAddAdditional,
@@ -383,6 +384,7 @@ const StorePage: React.FC = () => {
                           name: "StoreBuyAutorotater",
                           params: { price: autorotatingPrice },
                         }).catch(() => {});
+                        uploadEvent(state, { type: "BoughtAutorotater" });
                       }
                     }}
                     disabled={

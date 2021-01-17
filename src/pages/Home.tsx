@@ -54,6 +54,7 @@ import {
   renderValue,
   rotateSpeedLevel,
   nameAtHomePositions,
+  uploadEvent,
 } from "../globals";
 
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
@@ -188,6 +189,7 @@ const Home: React.FC = () => {
     el.present();
   };
   const resetAndGoldenBee = () => {
+    uploadEvent(state, { type: "GoldenBee" });
     dispatch(ActionResetManyThings());
     dispatch(ActionAddGoldenBiene());
     setDisabled(false);

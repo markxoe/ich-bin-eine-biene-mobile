@@ -46,7 +46,7 @@ import base from "base-64";
 import { flashOutline } from "ionicons/icons";
 import { stateType } from "../store/types";
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
-import { generateToast, nameAtHomePositions } from "../globals";
+import { generateToast, nameAtHomePositions, uploadEvent } from "../globals";
 
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 const { Share, Clipboard } = Plugins;
@@ -96,6 +96,10 @@ const PageSettings: React.FC = () => {
       name: "SettingsImported",
       params: { success },
     }).catch(() => {});
+    uploadEvent(state, {
+      type: "Import",
+      content: success ? "Success" : "Fail",
+    });
   };
 
   return (
@@ -117,6 +121,7 @@ const PageSettings: React.FC = () => {
               name: "SettingsAdvancedActivated",
               params: {},
             }).catch(() => {});
+            uploadEvent(state, { type: "AdvancedActivated" });
             setTimeout(() => {
               setAdvancedSettings(true);
               event.detail.complete();
@@ -168,6 +173,10 @@ const PageSettings: React.FC = () => {
               Firebase.setUserProperty({
                 name: "SettingsNewUI",
                 value: c.detail.checked ? "true" : "false",
+              });
+              uploadEvent(state, {
+                type: "ChangedNewUI",
+                content: c.detail.checked ? "New" : "Old",
               });
             }}
           />
@@ -290,6 +299,7 @@ const PageSettings: React.FC = () => {
                   name: "SettingsExport",
                   params: {},
                 }).catch(() => {});
+                uploadEvent(state, { type: "Export" });
               }}>
               Backup
             </IonButton>
@@ -345,6 +355,7 @@ const PageSettings: React.FC = () => {
             {
               text: "Ja",
               handler: async () => {
+                uploadEvent(state, { type: "DeleteAll" });
                 Storage.clear();
                 Plugins.App.exitApp();
                 showdeleteAllAlert(false);
