@@ -345,7 +345,10 @@ const Home: React.FC = () => {
                   )
                 }
                 color={
-                  getAutorotatePrice(state) > state.biene.clickCounter
+                  !(
+                    getAutorotatePrice(state) < state.biene.clickCounter &&
+                    state.biene.autoRotatingBees.length < 10
+                  )
                     ? "warning"
                     : "success"
                 }>
@@ -419,7 +422,9 @@ const Home: React.FC = () => {
           </IonRow>
           <IonRow className="ion-justify-content-center" hidden={!disabled}>
             <IonCol size="auto" className="ion-text-center">
-              <p><b>Du bekommst keine Saltos mehr</b></p>
+              <p>
+                <b>Du bekommst keine Saltos mehr</b>
+              </p>
               <IonButton onClick={() => reactivatePopup()} color="danger">
                 Reaktivieren
               </IonButton>
