@@ -107,6 +107,45 @@ export const generateToast = (
   el.present();
 };
 
+export const uploadEvent = (
+  state: stateType,
+  inputData: { type: string; content?: string }
+) => {
+  if (state.userUUID && state.dataLoadedFromMemory) {
+    const data: {
+      userid: string;
+      additionalBeeLength: Number;
+      type: string;
+      content: string;
+    } = {
+      userid: state.userUUID,
+      additionalBeeLength: state.biene.additionalBienen.length,
+      type: inputData.type,
+      content: inputData.content ?? "",
+    };
+    Axios.post(
+      (process.env.react_app_apiurl ??
+        "https://api.ichbineinebiene.toastbrot.org") + "/api/v1/events/upload",
+      data,
+      {
+        timeout: 1000,
+        headers: {
+          auth: calculateHeader(
+            state.userUUID,
+            process.env.react_app_usersapisecret ?? "verysecretalternative",
+            data.additionalBeeLength
+          ),
+        },
+      }
+    )
+      .then(
+        (r) => {},
+        (r) => console.error("Error Posting Results")
+      )
+      .catch(() => {});
+  }
+};
+
 export const uploadData = (state: stateType) => {
   if (state.userUUID && state.dataLoadedFromMemory) {
     const data: {
