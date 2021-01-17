@@ -268,14 +268,16 @@ const StorePage: React.FC = () => {
                 <IonCol>
                   <IonButton
                     onClick={() => {
-                      dispatch(ActionBieneAddAdditional());
-                      dispatch(ActionBieneClickDecrease(additionalBeePrice));
-                      setShowThx(true);
-                      onBuy();
-                      Firebase.logEvent({
-                        name: "StoreBuyAdditionalBee",
-                        params: {},
-                      }).catch(console.error);
+                      if (state.biene.clickCounter > additionalBeePrice) {
+                        dispatch(ActionBieneAddAdditional());
+                        dispatch(ActionBieneClickDecrease(additionalBeePrice));
+                        setShowThx(true);
+                        onBuy();
+                        Firebase.logEvent({
+                          name: "StoreBuyAdditionalBee",
+                          params: {},
+                        }).catch(console.error);
+                      }
                     }}
                     disabled={state.biene.clickCounter < additionalBeePrice}>
                     Neue Biene kaufen
@@ -318,14 +320,18 @@ const StorePage: React.FC = () => {
                 <IonCol>
                   <IonButton
                     onClick={() => {
-                      dispatch(ActionMultiplierIncrease());
-                      dispatch(ActionBieneClickDecrease(multiplierLevelPrice));
-                      setShowThx(true);
-                      onBuy();
-                      Firebase.logEvent({
-                        name: "StoreBuyMultiplier",
-                        params: {},
-                      }).catch(console.error);
+                      if (state.biene.clickCounter > multiplierLevelPrice) {
+                        dispatch(ActionMultiplierIncrease());
+                        dispatch(
+                          ActionBieneClickDecrease(multiplierLevelPrice)
+                        );
+                        setShowThx(true);
+                        onBuy();
+                        Firebase.logEvent({
+                          name: "StoreBuyMultiplier",
+                          params: {},
+                        }).catch(console.error);
+                      }
                     }}
                     disabled={state.biene.clickCounter < multiplierLevelPrice}>
                     Multiplier kaufen
@@ -368,14 +374,16 @@ const StorePage: React.FC = () => {
                 <IonCol>
                   <IonButton
                     onClick={() => {
-                      dispatch(ActionBieneAddAutoRotating(0));
-                      dispatch(ActionBieneClickDecrease(autorotatingPrice));
-                      setShowThx(true);
-                      onBuy();
-                      Firebase.logEvent({
-                        name: "StoreBuyAutorotater",
-                        params: { price: autorotatingPrice },
-                      }).catch(() => {});
+                      if (state.biene.clickCounter >= autorotatingPrice) {
+                        dispatch(ActionBieneAddAutoRotating(0));
+                        dispatch(ActionBieneClickDecrease(autorotatingPrice));
+                        setShowThx(true);
+                        onBuy();
+                        Firebase.logEvent({
+                          name: "StoreBuyAutorotater",
+                          params: { price: autorotatingPrice },
+                        }).catch(() => {});
+                      }
                     }}
                     disabled={
                       state.biene.clickCounter < autorotatingPrice ||
