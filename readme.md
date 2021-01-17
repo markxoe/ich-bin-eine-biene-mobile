@@ -31,6 +31,9 @@ Mark Oude Elberink
 
 ## Changelog
 
+### [0.12.2] Infinity :recycle:
+- Bug fixes
+
 ### [0.12.1] Infinity :recycle:
 - Same as 0.12.0
 - Release Notes vergessen uppsi
