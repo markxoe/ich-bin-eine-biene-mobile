@@ -419,7 +419,13 @@ const StorePage: React.FC = () => {
               value={Math.min(state.biene.clickCounter / MAX_VALUE, 1.0)}
               color="primary"
             />
-            <p>{state.biene.clickCounter} / {MAX_VALUE} ({(Math.min(state.biene.clickCounter / MAX_VALUE, 1.0)*100).toFixed(4)}%)</p>
+            <p>
+              {state.biene.clickCounter} / {MAX_VALUE} (
+              {(
+                Math.min(state.biene.clickCounter / MAX_VALUE, 1.0) * 100
+              ).toFixed(4)}
+              %)
+            </p>
           </IonCardContent>
         </IonCard>
 
