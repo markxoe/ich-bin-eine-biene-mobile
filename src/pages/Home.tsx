@@ -24,7 +24,7 @@ import {
   useIonViewWillEnter,
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
-import { refreshOutline, storefront } from "ionicons/icons";
+import { refreshOutline, storefront, bug } from "ionicons/icons";
 import "./Home.css";
 import packagejs from "../../package.json";
 import releaseNotes from "../other/release-notes.json";
@@ -449,6 +449,32 @@ const Home: React.FC = () => {
             color={canBuy ? "success" : "primary"}
             routerLink="/store">
             <IonIcon icon={storefront} />
+          </IonFabButton>
+        </IonFab>
+
+        <IonFab vertical="bottom" horizontal="start" slot="fixed">
+          <IonFabButton
+            color="light"
+            onClick={() => {
+              const el = document.createElement("ion-alert");
+              el.message =
+                "Du hast einen Bug gefunden oder neue Ideen für die Biene?<br/>Her damit!";
+              el.header = "Bug oder Idee?";
+              el.buttons = [
+                { text: "Nö", role: "cancel" },
+                {
+                  text: "Gönnung",
+                  handler: () =>
+                    Plugins.Browser.open({
+                      url:
+                        "https://github.com/markxoe/ich-bin-eine-biene-mobile/issues",
+                    }),
+                },
+              ];
+              document.body.appendChild(el);
+              el.present();
+            }}>
+            <IonIcon icon={bug} />
           </IonFabButton>
         </IonFab>
 
