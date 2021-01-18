@@ -145,6 +145,7 @@ const Home: React.FC = () => {
           el.subHeader = "Versionshinweise";
           el.message = releaseNotes.message;
           el.buttons = [{ text: "OK", role: "cancel" }];
+          el.translucent = true;
           el.present();
         }
       }
@@ -471,6 +472,7 @@ const Home: React.FC = () => {
                     }),
                 },
               ];
+              el.translucent = true;
               document.body.appendChild(el);
               el.present();
             }}>
