@@ -31,10 +31,18 @@ Mark Oude Elberink
 
 ## Changelog
 
+### [0.13.0] More Infinity :recycle:
+
+- Kleine Änderungen
+  - Bug / Idee Button
+  - Icon Änderung
+
 ### [0.12.2] Infinity :recycle:
+
 - Bug fixes
 
 ### [0.12.1] Infinity :recycle:
+
 - Same as 0.12.0
 - Release Notes vergessen uppsi
 
