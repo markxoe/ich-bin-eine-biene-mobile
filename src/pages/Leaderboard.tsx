@@ -24,6 +24,7 @@ import avatar from "../res/avatar.svg";
 import { AppContext } from "../store/State";
 
 const PageLeaderboard: React.FC = () => {
+  const showNumber = 30;
   const [data, setData] = useState<
     {
       level: number;
@@ -69,6 +70,7 @@ const PageLeaderboard: React.FC = () => {
       <IonContent>
         {data
           .sort((a, b) => b.level - a.level)
+          .slice(0, showNumber)
           .map((i) => (
             <IonItem color={i.user._id === state.userUUID ? "light" : ""}>
               <IonAvatar slot="start">
@@ -106,6 +108,7 @@ const PageLeaderboard: React.FC = () => {
               )}
             </IonItem>
           ))}
+        <IonItem>Und noch {data.length - showNumber} weitere...</IonItem>
         <IonCard>
           <IonCardHeader>
             <IonCardTitle>So wirst du Erster</IonCardTitle>
