@@ -301,7 +301,7 @@ const StorePage: React.FC = () => {
               </IonRow>
               <IonRow>
                 <IonCol>
-                  <h2>Kontostand: {state.biene.additionalBienen.length}/∞</h2>
+                  <h2>Deine weiteren Bienen: {state.biene.additionalBienen.length}/∞</h2>
                 </IonCol>
               </IonRow>
             </IonGrid>
