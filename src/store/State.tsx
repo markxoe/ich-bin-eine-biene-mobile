@@ -1,8 +1,8 @@
-import { Storage } from "@capacitor/core";
+import { Plugins } from "@capacitor/core";
 import React, { useReducer } from "react";
 import { StoreKeyPrefix } from "../other/const";
 import { actionType, stateType, ContextType } from "./types";
-import { nameAtHomePositions } from "../globals";
+import { nameAtHomePositions, uploadEvent } from "../globals";
 
 let AppContext = React.createContext<ContextType>({} as ContextType);
 
@@ -229,10 +229,14 @@ export const saveState = async (
 ) => {
   if (Date.now() > state.lastSaveAt + 3000) {
     console.log("Saving...");
-    await Storage.set({
+    await Plugins.Storage.set({
       key: StoreKeyPrefix + "state",
       value: JSON.stringify(state),
-    }).then(() => console.log("State Saved"));
+    })
+      .then(() => console.log("State Saved"))
+      .catch((e) => {
+        uploadEvent(state, { type: "ErrorSave", content: JSON.stringify(e) });
+      });
     dispatch({ type: "setLastSavedAt", payload: Date.now() });
   }
 };
