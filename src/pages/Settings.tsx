@@ -87,6 +87,9 @@ const PageSettings: React.FC = () => {
       if (_in.isNew !== true) {
         throw Error("Cheating");
       }
+      if (_in.userUUID !== state.userUUID) {
+        throw Error("Cheating");
+      }
       const _in2: stateType = { ...state, ..._in, userUUID: state.userUUID };
       dispatch(ActionSetState(_in2));
       generateToast("Hat funktioniert");
@@ -323,8 +326,18 @@ const PageSettings: React.FC = () => {
             <IonCardSubtitle>Thanks going to</IonCardSubtitle>
           </IonCardHeader>
           <IonCardContent>
-            <p><a className="no-decoration" href="https://my.makesmart.net/user/cooper">Cooper</a></p>
-            <p><a className="no-decoration" href="https://moritz-lerch.de">Moritz</a></p>
+            <p>
+              <a
+                className="no-decoration"
+                href="https://my.makesmart.net/user/cooper">
+                Cooper
+              </a>
+            </p>
+            <p>
+              <a className="no-decoration" href="https://moritz-lerch.de">
+                Moritz
+              </a>
+            </p>
             <p>Mia</p>
             <p>Laurin</p>
           </IonCardContent>
