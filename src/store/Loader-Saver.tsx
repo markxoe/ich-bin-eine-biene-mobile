@@ -10,6 +10,7 @@ import { generateToast } from "../globals";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 
 export const LoaderAndSaver: React.FC = ({ children }) => {
+  const { dispatch, state } = React.useContext(AppContext);
   useEffect(() => {
     if (!state.dataLoadedFromMemory)
       Storage.get({ key: StoreKeyPrefix + "state" }).then(async (result) => {
@@ -47,7 +48,6 @@ export const LoaderAndSaver: React.FC = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const { dispatch, state } = React.useContext(AppContext);
   useEffect(() => {
     if (state.dataLoadedFromMemory) saveState(state, dispatch);
   }, [state, dispatch]);

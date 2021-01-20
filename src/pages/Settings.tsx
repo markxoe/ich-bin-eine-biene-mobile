@@ -110,6 +110,35 @@ const PageSettings: React.FC = () => {
     });
   };
 
+  const advancedSettingsActivate = (event: any) => {
+    const cancel = () => {
+      generateToast("Zurzeit Deaktiviert", 5000, true);
+      event.detail.complete();
+    };
+    fetch(
+      (process.env.react_app_apiurl ??
+        "https://api.ichbineinebiene.toastbrot.org") +
+        "/api/v1/settings/get/advancedActivated"
+    )
+      .then((r) => r.json())
+      .then((r) => {
+        if (r.result.content === "yes") {
+          Firebase.logEvent({
+            name: "SettingsAdvancedActivated",
+            params: {},
+          }).catch(() => {});
+          uploadEvent(state, { type: "AdvancedActivated" });
+          setTimeout(() => {
+            setAdvancedSettings(true);
+            event.detail.complete();
+          }, 2000);
+        } else {
+          cancel();
+        }
+      })
+      .catch(() => cancel());
+  };
+
   return (
     <IonPage>
       <IonHeader translucent>
@@ -125,15 +154,7 @@ const PageSettings: React.FC = () => {
           slot="fixed"
           pullMin={200}
           onIonRefresh={(event) => {
-            Firebase.logEvent({
-              name: "SettingsAdvancedActivated",
-              params: {},
-            }).catch(() => {});
-            uploadEvent(state, { type: "AdvancedActivated" });
-            setTimeout(() => {
-              setAdvancedSettings(true);
-              event.detail.complete();
-            }, 5000);
+            advancedSettingsActivate(event);
           }}>
           <IonRefresherContent
             pullingIcon={flashOutline}
