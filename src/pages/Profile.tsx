@@ -25,12 +25,6 @@ const PageProfile: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
   useEffect(() => {
     if (state.dataLoadedFromMemory) uploadData(state);
-    // Generate Random Name, if no name given
-    if (!state.userName && state.dataLoadedFromMemory)
-      dispatch({
-        type: "setUserName",
-        payload: generateName(),
-      });
   }, [state, dispatch]);
 
   const actionSheesh = () => {
