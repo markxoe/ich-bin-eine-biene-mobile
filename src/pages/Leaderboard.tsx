@@ -14,9 +14,10 @@ import {
   IonTitle,
   IonToolbar,
   useIonViewWillEnter,
+  IonText,
 } from "@ionic/react";
 import Axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { generateToast } from "../globals";
 
 import goldenbiene from "../res/biene.png";
@@ -42,6 +43,21 @@ const PageLeaderboard: React.FC = () => {
     }[]
   >([]);
 
+  const [me, setMe] = useState<{
+    level: number;
+    user: {
+      _id: string;
+      autoRotatingBeeLength: number;
+      additionalBeeLength: number;
+      multiplierLevel: number;
+      userName: string;
+      settingNewUI: boolean;
+      settingClickingAid: boolean;
+      userImage: string;
+      goldenBienens: number;
+    };
+  } | null>(null);
+
   const { state } = useContext(AppContext);
 
   useIonViewWillEnter(() => {
@@ -57,6 +73,14 @@ const PageLeaderboard: React.FC = () => {
       });
   });
 
+  useEffect(() => {
+    data.forEach((i) => {
+      if (i.user._id === state.userUUID) {
+        setMe(i);
+      }
+    });
+  }, [data, state]);
+
   return (
     <IonPage>
       <IonHeader translucent>
@@ -68,6 +92,32 @@ const PageLeaderboard: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
+        <IonCard>
+          <IonCardContent>
+            <h2>
+              Dein Ranking:{" "}
+              <b>
+                <IonText color="warning">
+                  {me
+                    ? data.sort((a, b) => b.level - a.level).indexOf(me) + 1
+                    : "..."}
+                </IonText>{" "}
+                von {data.length}
+              </b>
+            </h2>
+            <h2>
+              Deine Punktzahl:{" "}
+              <b>
+                <IonText color="warning">{me?.level}</IonText>
+              </b>
+            </h2>
+          </IonCardContent>
+        </IonCard>
+        {/* <IonItem>
+          Dein Ranking:{" "}
+          {me ? data.sort((a, b) => b.level - a.level).indexOf(me) : "..."}
+        </IonItem>
+        <IonItem>Deine Punktzahl: {me?.level}</IonItem> */}
         {data
           .sort((a, b) => b.level - a.level)
           .slice(0, showNumber)
@@ -108,7 +158,9 @@ const PageLeaderboard: React.FC = () => {
               )}
             </IonItem>
           ))}
-        <IonItem>Und noch {data.length - showNumber} weitere...</IonItem>
+        <IonItem hidden={data.length < showNumber}>
+          Und noch {data.length - showNumber} weitere...
+        </IonItem>
         <IonCard>
           <IonCardHeader>
             <IonCardTitle>So wirst du Erster</IonCardTitle>
@@ -119,6 +171,8 @@ const PageLeaderboard: React.FC = () => {
             Autodreher werden nicht gezählt
             <br />
             Multiplier zählen weniger als eine Biene
+            <br />
+            Goldene Bienen bringen 10000 Punkte
           </IonCardContent>
         </IonCard>
       </IonContent>
