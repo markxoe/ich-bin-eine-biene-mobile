@@ -131,7 +131,7 @@ const PageSettings: React.FC = () => {
           setTimeout(() => {
             setAdvancedSettings(true);
             event.detail.complete();
-          }, 5000);
+          }, 2000);
         } else {
           cancel();
         }
