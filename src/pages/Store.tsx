@@ -70,7 +70,7 @@ const StorePage: React.FC = () => {
   });
 
   useEffect(() => {
-    uploadData(state);
+    if (state.dataLoadedFromMemory) uploadData(state);
     // Generate Random Name, if User has no Name
     if (!state.userName && state.dataLoadedFromMemory)
       dispatch({
@@ -301,7 +301,10 @@ const StorePage: React.FC = () => {
               </IonRow>
               <IonRow>
                 <IonCol>
-                  <h2>Deine weiteren Bienen: {state.biene.additionalBienen.length}/∞</h2>
+                  <h2>
+                    Deine weiteren Bienen: {state.biene.additionalBienen.length}
+                    /∞
+                  </h2>
                 </IonCol>
               </IonRow>
             </IonGrid>
