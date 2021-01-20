@@ -31,6 +31,10 @@ Mark Oude Elberink
 
 ## Changelog
 
+### [0.13.2] More Infinity :recycle:
+
+- Bug fixes
+
 ### [0.13.1] More Infinity :recycle:
 
 - Highscore verbesserungen
