@@ -88,7 +88,7 @@ const PageLeaderboard: React.FC = () => {
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
-          <IonTitle>Ich bin ein High Score</IonTitle>
+          <IonTitle>Ich bin die Hall of Fame</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>

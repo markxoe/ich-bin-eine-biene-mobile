@@ -78,7 +78,7 @@ const Menu: React.FC = () => {
               color={location.pathname.includes("leader") ? "light" : ""}
               routerLink="/leader">
               <IonIcon slot="start" icon={trophy} />
-              Highscore
+              Hall of Fame
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle autoHide={false}>
