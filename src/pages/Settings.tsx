@@ -23,6 +23,11 @@ import {
   useIonViewDidEnter,
   IonSelect,
   IonSelectOption,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
+  IonCardSubtitle,
 } from "@ionic/react";
 import React, { useContext, useState } from "react";
 import "./Settings.css";
@@ -80,6 +85,9 @@ const PageSettings: React.FC = () => {
     try {
       const _in: importType = JSON.parse(base.decode(ImportInput));
       if (_in.isNew !== true) {
+        throw Error("Cheating");
+      }
+      if (_in.userUUID !== state.userUUID) {
         throw Error("Cheating");
       }
       const _in2: stateType = { ...state, ..._in, userUUID: state.userUUID };
@@ -311,6 +319,29 @@ const PageSettings: React.FC = () => {
             </IonButton>
           </IonItem>
         </IonItemGroup>
+
+        <IonCard>
+          <IonCardHeader>
+            <IonCardTitle>Special People</IonCardTitle>
+            <IonCardSubtitle>Thanks going to</IonCardSubtitle>
+          </IonCardHeader>
+          <IonCardContent>
+            <p>
+              <a
+                className="no-decoration"
+                href="https://my.makesmart.net/user/cooper">
+                Cooper
+              </a>
+            </p>
+            <p>
+              <a className="no-decoration" href="https://moritz-lerch.de">
+                Moritz
+              </a>
+            </p>
+            <p>Mia</p>
+            <p>Laurin</p>
+          </IonCardContent>
+        </IonCard>
 
         <div className="ion-margin-top ion-text-center">
           <img className="bienemini" src={biene} alt="" />

@@ -1,3 +1,7 @@
 .bienemini {
   height: 2rem;
 }
+
+.no-decoration {
+  text-decoration: none;
+}
