@@ -3,7 +3,6 @@ import React, { useReducer } from "react";
 import { StoreKeyPrefix } from "../other/const";
 import { actionType, stateType, ContextType } from "./types";
 import { nameAtHomePositions, uploadEvent } from "../globals";
-import { statsChartOutline } from "ionicons/icons";
 
 let AppContext = React.createContext<ContextType>({} as ContextType);
 
