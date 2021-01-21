@@ -60,6 +60,7 @@ import {
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
 import { KeepAwakePlugin } from "@capacitor-community/keep-awake";
 import { v4, validate } from "uuid";
+import axios from "axios";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 const KeepAwake = Plugins.KeepAwake as KeepAwakePlugin;
 
@@ -130,6 +131,35 @@ const Home: React.FC = () => {
       }
       Firebase.setUserId({ userId: _uuid }).catch(() => {});
       dispatch({ type: "setUserUUID", payload: _uuid });
+
+      
+      axios
+        .get(
+          (process.env.react_app_apiurl ??
+            "https://api.ichbineinebiene.toastbrot.org") +
+            "/api/v1/users2/ban/" +
+            _uuid,
+          {}
+        )
+        .then((r) => {
+          const result: {
+            status: string;
+            result?: { _id: string; reason: string };
+          } = r.data;
+          if (result.status === "ok" && result.result) {
+            // User is banned, show Notification
+            const el = document.createElement("ion-alert");
+            el.backdropDismiss = false;
+            el.message =
+              "Du wurdest gebannt!<br/>Grund: " +
+              result.result.reason +
+              "<br/>Du kannst Ich bin eine Biene ab jetzt nicht mehr nutzen.<br/>Ein Fehler? Tschuldigung sagen? Schicke eine E-Mail an" +
+              ' <a href="mailto:ban@ichbineinebiene.org">ban@ichbineinebiene.org</a>';
+            el.header = "Gebannt!";
+            document.body.appendChild(el);
+            el.present();
+          }
+        });
     });
 
     await Storage.get({ key: StoreKeyPrefix + "lastKnownVersion" }).then(
