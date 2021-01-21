@@ -1,4 +1,4 @@
-import { Plugins } from "@capacitor/core";
+import { Storage } from "@capacitor/core";
 import React, { useReducer } from "react";
 import { StoreKeyPrefix } from "../other/const";
 import { actionType, stateType, ContextType } from "./types";
@@ -231,7 +231,7 @@ export const saveState = async (
     dispatch({ type: "setLastSavedAt", payload: Date.now() });
   if (Date.now() > state.lastSaveAt + 3000) {
     console.log("Saving...");
-    await Plugins.Storage.set({
+    await Storage.set({
       key: StoreKeyPrefix + "state",
       value: JSON.stringify(state),
     })
