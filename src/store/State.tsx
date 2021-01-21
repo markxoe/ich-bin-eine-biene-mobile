@@ -227,6 +227,8 @@ export const saveState = async (
   state: stateType,
   dispatch: React.Dispatch<actionType>
 ) => {
+  if (state.lastSaveAt > Date.now())
+    dispatch({ type: "setLastSavedAt", payload: Date.now() });
   if (Date.now() > state.lastSaveAt + 3000) {
     console.log("Saving...");
     await Plugins.Storage.set({
