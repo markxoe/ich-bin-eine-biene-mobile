@@ -31,6 +31,10 @@ Mark Oude Elberink
 
 ## Changelog
 
+### [0.13.4] More Infinity :recycle:
+
+- Bug Fix, so groß wie eine Wespe
+
 ### [0.13.3] More Infinity :recycle:
 
 - Bug fixes
