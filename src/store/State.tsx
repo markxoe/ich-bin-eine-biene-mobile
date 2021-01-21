@@ -3,6 +3,7 @@ import React, { useReducer } from "react";
 import { StoreKeyPrefix } from "../other/const";
 import { actionType, stateType, ContextType } from "./types";
 import { nameAtHomePositions, uploadEvent } from "../globals";
+import { statsChartOutline } from "ionicons/icons";
 
 let AppContext = React.createContext<ContextType>({} as ContextType);
 
@@ -227,6 +228,8 @@ export const saveState = async (
   state: stateType,
   dispatch: React.Dispatch<actionType>
 ) => {
+  if (state.lastSaveAt > Date.now())
+    dispatch({ type: "setLastSavedAt", payload: Date.now() });
   if (Date.now() > state.lastSaveAt + 3000) {
     console.log("Saving...");
     await Plugins.Storage.set({
