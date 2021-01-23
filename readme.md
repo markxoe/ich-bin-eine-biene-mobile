@@ -31,6 +31,10 @@ Mark Oude Elberink
 
 ## Changelog
 
+### [0.13.5] More Infinity :recycle:
+
+- Profil Name / Bild Richtlinien
+
 ### [0.13.4] More Infinity :recycle:
 
 - Bug Fix, so groß wie eine Wespe
