@@ -12,9 +12,11 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  isPlatform,
+  IonCard,
 } from "@ionic/react";
 import React, { useContext, useEffect } from "react";
-import { uploadData } from "../globals";
+import { uploadData, generateToast } from "../globals";
 import { AppContext } from "../store/State";
 import { CameraResultType, Plugins } from "@capacitor/core";
 import avatar from "../res/avatar.svg";
@@ -121,7 +123,13 @@ const PageProfile: React.FC = () => {
           </IonButton>
         </IonItem>
         <IonItemDivider>Erweitere Infos</IonItemDivider>
-        <IonItem>Deine ID: {state.userUUID}</IonItem>
+        <IonItem
+          onClick={() => {
+            Plugins.Clipboard.write({ string: state.userUUID });
+            generateToast("ID Kopiert", 1000, true);
+          }}>
+          Deine ID: {state.userUUID}
+        </IonItem>
       </IonContent>
     </IonPage>
   );
