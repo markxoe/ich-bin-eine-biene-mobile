@@ -1,6 +1,10 @@
 import { stateType } from "./store/types";
 import Axios from "axios";
+import packagejs from "../package.json"
 import calculateHeader from "./functions/calculateauthorization";
+import { getPlatforms } from "@ionic/react";
+
+
 
 export const rotateSpeedLevel = {
   max: 3,
@@ -182,6 +186,8 @@ export const uploadData = (state: stateType) => {
             process.env.react_app_usersapisecret ?? "verysecretalternative",
             data.additionalBeeLength
           ),
+          version: packagejs.version,
+          platforms: getPlatforms().join(" ")
         },
       }
     )

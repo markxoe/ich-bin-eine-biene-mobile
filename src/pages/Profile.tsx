@@ -12,9 +12,14 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardSubtitle,
+  IonCardContent,
 } from "@ionic/react";
 import React, { useContext, useEffect } from "react";
-import { uploadData } from "../globals";
+import { uploadData, generateToast } from "../globals";
 import { AppContext } from "../store/State";
 import { CameraResultType, Plugins } from "@capacitor/core";
 import avatar from "../res/avatar.svg";
@@ -121,7 +126,44 @@ const PageProfile: React.FC = () => {
           </IonButton>
         </IonItem>
         <IonItemDivider>Erweitere Infos</IonItemDivider>
-        <IonItem>Deine ID: {state.userUUID}</IonItem>
+        <IonItem
+          onClick={() => {
+            Plugins.Clipboard.write({ string: state.userUUID });
+            generateToast("ID Kopiert", 1000, true);
+          }}>
+          Deine ID: {state.userUUID}
+        </IonItem>
+        <IonCard>
+          <IonCardHeader>
+            <IonCardTitle>Namensregeln</IonCardTitle>
+            <IonCardSubtitle>
+              Verstoß kann zu dauerhaftem Bann führen
+            </IonCardSubtitle>
+          </IonCardHeader>
+          <IonCardContent>
+            <ul>
+              <li>Keine Werbung für sich/andere</li>
+              <li>Kein Name der als unangemessen empfunden werden könnte</li>
+              <li>Nichts anstößiges</li>
+              <li>Nichts ultra langweiliges</li>
+            </ul>
+          </IonCardContent>
+        </IonCard>
+        <IonCard>
+          <IonCardHeader>
+            <IonCardTitle>Bildregeln</IonCardTitle>
+            <IonCardSubtitle>
+              Verstoß kann zu dauerhaftem Bann führen
+            </IonCardSubtitle>
+          </IonCardHeader>
+          <IonCardContent>
+            <ul>
+              <li>Keine Anstößigen Inhalte</li>
+              <li>Keine Bilder, die als unangemessen empfunden werden können</li>
+              <li>Der Rest erklärt sich von selber</li>
+            </ul>
+          </IonCardContent>
+        </IonCard>
       </IonContent>
     </IonPage>
   );
