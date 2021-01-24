@@ -15,6 +15,7 @@ export interface stateType {
     newUI: boolean;
     deactivateStoreConfetti: boolean;
     nameathomeposition: nameAtHomePositions;
+    multiplyPrices: boolean;
   };
   statisticsRotations: number;
   settingMaxNumberDisplayedBees: number;

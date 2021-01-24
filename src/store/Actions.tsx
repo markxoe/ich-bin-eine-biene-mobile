@@ -132,3 +132,8 @@ export const ActionAddGoldenBiene = (): actionType => ({
 export const ActionResetManyThings = (): actionType => ({
   type: "resetManyThings",
 });
+
+export const ActionSetMultiplyPrices = (activated: boolean): actionType => ({
+  type: "setMultiplyPrices",
+  payload: activated,
+});
