@@ -132,7 +132,6 @@ const Home: React.FC = () => {
       Firebase.setUserId({ userId: _uuid }).catch(() => {});
       dispatch({ type: "setUserUUID", payload: _uuid });
 
-      
       axios
         .get(
           (process.env.react_app_apiurl ??
@@ -159,7 +158,8 @@ const Home: React.FC = () => {
             document.body.appendChild(el);
             el.present();
           }
-        });
+        })
+        .catch(() => {});
     });
 
     await Storage.get({ key: StoreKeyPrefix + "lastKnownVersion" }).then(
