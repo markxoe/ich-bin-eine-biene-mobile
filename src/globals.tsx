@@ -1,10 +1,8 @@
 import { stateType } from "./store/types";
 import Axios from "axios";
-import packagejs from "../package.json"
+import packagejs from "../package.json";
 import calculateHeader from "./functions/calculateauthorization";
 import { getPlatforms } from "@ionic/react";
-
-
 
 export const rotateSpeedLevel = {
   max: 3,
@@ -31,7 +29,8 @@ export const getAdditionalBeePrice = (state: stateType): number => {
         state.biene.additionalBienen.length +
           state.biene.multiplierLevel +
           state.biene.autoRotatingBees.length
-      )
+      ) *
+      (state.settings.multiplyPrices ? 10.0 : 1.0)
   );
 };
 export const getMultiplierPrice = (state: stateType): number => {
@@ -187,7 +186,7 @@ export const uploadData = (state: stateType) => {
             data.additionalBeeLength
           ),
           version: packagejs.version,
-          platforms: getPlatforms().join(" ")
+          platforms: getPlatforms().join(" "),
         },
       }
     )

@@ -44,6 +44,7 @@ import {
   ActionSettingsSetClickButtonForBee,
   ActionSettingsSetNewUI,
   ActionSettingSetNameAtHomePosition,
+  ActionSetMultiplyPrices,
 } from "../store/Actions";
 
 import { Plugins, Storage } from "@capacitor/core";
@@ -187,6 +188,15 @@ const PageSettings: React.FC = () => {
         </IonItem>
         <IonItemDivider>Allgemein</IonItemDivider>
 
+        <IonItem>
+          <IonLabel>Höhere Preise</IonLabel>
+          <IonToggle
+            checked={state.settings.multiplyPrices}
+            onIonChange={(e) => {
+              dispatch(ActionSetMultiplyPrices(e.detail.checked));
+            }}
+          />
+        </IonItem>
         <IonItem>
           <IonLabel>Neues User Interface</IonLabel>
           <IonToggle

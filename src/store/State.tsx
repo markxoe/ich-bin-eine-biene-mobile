@@ -21,6 +21,7 @@ const initialState: stateType = {
     newUI: true,
     deactivateStoreConfetti: false,
     nameathomeposition: nameAtHomePositions.top,
+    multiplyPrices: false,
   },
   statisticsRotations: 0,
   settingMaxNumberDisplayedBees: 20,
@@ -202,6 +203,16 @@ let reducer = (state: stateType, action: actionType): stateType => {
           autoRotatingBees: [],
           clickCounter: 0,
           rotateSpeedLevel: 0,
+        },
+      };
+    }
+
+    case "setMultiplyPrices": {
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          multiplyPrices: action.payload,
         },
       };
     }
