@@ -61,6 +61,7 @@ import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics
 import { KeepAwakePlugin } from "@capacitor-community/keep-awake";
 import { v4, validate } from "uuid";
 import axios from "axios";
+import { APIgetWarning } from "../functions/api";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 const KeepAwake = Plugins.KeepAwake as KeepAwakePlugin;
 
@@ -75,6 +76,8 @@ const Home: React.FC = () => {
   const [openLevels, setOpenLevels] = useState<boolean>(false);
 
   const [disabled, setDisabled] = useState<boolean>(false);
+
+  const [warning, setWarning] = useState<boolean | string>(false);
 
   useIonViewWillEnter(async () => {
     PushNotifications.requestPermission()
@@ -160,6 +163,9 @@ const Home: React.FC = () => {
           }
         })
         .catch(() => {});
+      APIgetWarning(state).then((r) => {
+        setWarning(r);
+      });
     });
 
     await Storage.get({ key: StoreKeyPrefix + "lastKnownVersion" }).then(
@@ -464,6 +470,12 @@ const Home: React.FC = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
+        <IonItem color="warning" hidden={warning === false}>
+          <p>
+            {warning}. Schreibe ggf. eine E-Mail an{" "}
+            <a href="mailto:ban@ichbineinebiene.org">ban@ichbineinebiene.org</a>
+          </p>
+        </IonItem>
 
         <IonFab
           hidden={!state.settings.clickButtonForBee}
