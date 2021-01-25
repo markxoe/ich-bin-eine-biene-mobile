@@ -22,6 +22,9 @@ import {
   IonToast,
   IonToolbar,
   useIonViewDidEnter,
+  IonItem,
+  IonToggle,
+  IonLabel,
 } from "@ionic/react";
 import { AppContext } from "../store/State";
 import {
@@ -43,6 +46,7 @@ import {
   ActionMultiplierIncrease,
   ActionRotateSpeedLevelIncrease,
   ActionSetState,
+  ActionSetMultiplyPrices,
 } from "../store/Actions";
 import { RefresherEventDetail } from "@ionic/core";
 import { flashOutline } from "ionicons/icons";
@@ -358,7 +362,9 @@ const StorePage: React.FC = () => {
               </IonRow>
               <IonRow>
                 <IonCol>
-                  <h2>Deine Multiplier: {state.biene.multiplierLevel}/∞</h2>
+                  <h2>
+                    Dein Multiplier: x {state.biene.multiplierLevel + 1}/∞
+                  </h2>
                 </IonCol>
               </IonRow>
             </IonGrid>
@@ -441,6 +447,16 @@ const StorePage: React.FC = () => {
             </p>
           </IonCardContent>
         </IonCard>
+
+        <IonItem>
+          <IonLabel>Höhere Preise</IonLabel>
+          <IonToggle
+            checked={state.settings.multiplyPrices}
+            onIonChange={(e) => {
+              dispatch(ActionSetMultiplyPrices(e.detail.checked));
+            }}
+          />
+        </IonItem>
 
         <IonToast
           isOpen={showThx}

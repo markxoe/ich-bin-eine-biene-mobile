@@ -31,6 +31,12 @@ Mark Oude Elberink
 
 ## Changelog
 
+### [0.14.0] Chicken Cats :rooster: :cat:
+
+- Warnung vor Bann
+- Freiwillige Preiserhöhung
+- Multiplieranzeige ist jetzt im Store genauso wie auf Home
+
 ### [0.13.5] More Infinity :recycle:
 
 - Profil Name / Bild Richtlinien
