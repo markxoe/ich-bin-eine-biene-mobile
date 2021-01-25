@@ -6,8 +6,8 @@ android {
         applicationId "org.toastbrot.ichbineinebienemobile"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 30
-        versionName "0.13.5"
+        versionCode 31
+        versionName "0.14.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
