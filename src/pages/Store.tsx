@@ -358,7 +358,9 @@ const StorePage: React.FC = () => {
               </IonRow>
               <IonRow>
                 <IonCol>
-                  <h2>Deine Multiplier: {state.biene.multiplierLevel}/∞</h2>
+                  <h2>
+                    Dein Multiplier: x {state.biene.multiplierLevel + 1}/∞
+                  </h2>
                 </IonCol>
               </IonRow>
             </IonGrid>
