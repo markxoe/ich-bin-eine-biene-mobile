@@ -62,7 +62,6 @@ import { KeepAwakePlugin } from "@capacitor-community/keep-awake";
 import { v4, validate } from "uuid";
 import axios from "axios";
 import { APIgetWarning } from "../functions/api";
-import { secureUpload } from "../functions/upload";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 const KeepAwake = Plugins.KeepAwake as KeepAwakePlugin;
 
@@ -563,7 +562,6 @@ const Home: React.FC = () => {
             </IonItem>
           </IonContent>
         </IonModal>
-        <IonButton onClick={()=>secureUpload(state)}>Lel</IonButton>
       </IonContent>
     </IonPage>
   );
