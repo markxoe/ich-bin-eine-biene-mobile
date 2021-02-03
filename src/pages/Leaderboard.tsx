@@ -172,7 +172,7 @@ const PageLeaderboard: React.FC = () => {
             <br />
             Multiplier zählen weniger als eine Biene
             <br />
-            Goldene Bienen bringen 10000 Punkte
+            Goldene Bienen bringen 100000 Punkte
           </IonCardContent>
         </IonCard>
       </IonContent>
