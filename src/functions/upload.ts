@@ -51,9 +51,7 @@ export const secureUpload = async (state: stateType) => {
     message: message.fromText(toBeEncrypted),
     publicKeys: _publicKeyArmored,
   });
-  console.log(out.data);
   const uploadOut = base64.encode(out.data);
-  console.log(uploadOut);
 
   await axios
     .post(
