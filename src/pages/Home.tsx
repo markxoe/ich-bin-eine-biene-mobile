@@ -22,9 +22,16 @@ import {
   IonToolbar,
   isPlatform,
   useIonViewWillEnter,
+  IonFabList,
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
-import { refreshOutline, storefront, bug } from "ionicons/icons";
+import {
+  refreshOutline,
+  storefront,
+  bug,
+  logoDiscord,
+  planet,
+} from "ionicons/icons";
 import "./Home.css";
 import packagejs from "../../package.json";
 import releaseNotes from "../other/release-notes.json";
@@ -496,30 +503,37 @@ const Home: React.FC = () => {
         </IonFab>
 
         <IonFab vertical="bottom" horizontal="start" slot="fixed">
-          <IonFabButton
-            color="light"
-            onClick={() => {
-              const el = document.createElement("ion-alert");
-              el.message =
-                "Du hast einen Bug gefunden oder neue Ideen für die Biene?<br/>Her damit!";
-              el.header = "Bug oder Idee?";
-              el.buttons = [
-                { text: "Nö", role: "cancel" },
-                {
-                  text: "Gönnung",
-                  handler: () =>
-                    Plugins.Browser.open({
-                      url:
-                        "https://github.com/markxoe/ich-bin-eine-biene-mobile/issues",
-                    }),
-                },
-              ];
-              el.translucent = true;
-              document.body.appendChild(el);
-              el.present();
-            }}>
-            <IonIcon icon={bug} />
+          <IonFabButton color="light">
+            <IonIcon icon={planet} />
           </IonFabButton>
+          <IonFabList side="top">
+            <IonFabButton
+              onClick={() => {
+                const el = document.createElement("ion-alert");
+                el.message =
+                  "Du hast einen Bug gefunden oder neue Ideen für die Biene?<br/>Her damit!";
+                el.header = "Bug oder Idee?";
+                el.buttons = [
+                  { text: "Nö", role: "cancel" },
+                  {
+                    text: "Gönnung",
+                    handler: () =>
+                      Plugins.Browser.open({
+                        url:
+                          "https://github.com/markxoe/ich-bin-eine-biene-mobile/issues",
+                      }),
+                  },
+                ];
+                el.translucent = true;
+                document.body.appendChild(el);
+                el.present();
+              }}>
+              <IonIcon icon={bug} />
+            </IonFabButton>
+            <IonFabButton href="https://ichbineinebiene.org/dc/">
+              <IonIcon icon={logoDiscord} />
+            </IonFabButton>
+          </IonFabList>
         </IonFab>
 
         <IonModal
