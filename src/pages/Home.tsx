@@ -62,6 +62,7 @@ import {
   rotateSpeedLevel,
   nameAtHomePositions,
   uploadEvent,
+  generateToast,
 } from "../globals";
 
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
@@ -213,24 +214,35 @@ const Home: React.FC = () => {
   }, [state]);
 
   const reactivatePopup = () => {
-    const el = document.createElement("ion-alert");
-    el.header = "Goldene Biene";
-    el.subHeader = "Verliere alles und bekomme eine Goldene Bienen";
-    el.message =
-      "Du hast offiziell die Biene durchgespielt.<br/>" +
-      "Denn du hast mehr als " +
-      MAX_VALUE +
-      "Saltos!<br/>" +
-      "So geht's weiter: Du verlierst jetzt ALLE Bienen, alle Multiplier und alle Saltos.<br/>" +
-      "<b>ABER du bekommst eine goldene Biene!</b><br/>" +
-      "Goldene Bienen haben unterschiedliche Farben!<br/>" +
-      "Es gibt sowieso keine Alternative";
-    el.buttons = [
-      { text: "Erstmal Screenshot machen", role: "cancel" },
-      { text: "Let's do it!", handler: () => resetAndGoldenBee() },
-    ];
-    document.body.appendChild(el);
-    el.present();
+    if (
+      state.biene.additionalBienen.length > MAX_ARRAY_LENGTH ||
+      state.biene.multiplierLevel > MAX_VALUE ||
+      state.biene.clickCounter > MAX_VALUE
+    ) {
+      const el = document.createElement("ion-alert");
+      el.header = "Goldene Biene";
+      el.subHeader = "Verliere alles und bekomme eine Goldene Bienen";
+      el.message =
+        "Du hast offiziell die Biene durchgespielt.<br/>" +
+        "Denn du hast mehr als " +
+        MAX_VALUE +
+        "Saltos!<br/>" +
+        "So geht's weiter: Du verlierst jetzt ALLE Bienen, alle Multiplier und alle Saltos.<br/>" +
+        "<b>ABER du bekommst eine goldene Biene!</b><br/>" +
+        "Goldene Bienen haben unterschiedliche Farben!<br/>" +
+        "Es gibt sowieso keine Alternative";
+      el.buttons = [
+        { text: "Erstmal Screenshot machen", role: "cancel" },
+        { text: "Let's do it!", handler: () => resetAndGoldenBee() },
+      ];
+      document.body.appendChild(el);
+      el.present();
+    } else {
+      generateToast(
+        "Okay, irgendwas stimmt nicht! Starte die Biene bitte neu!"
+      );
+      setDisabled(false);
+    }
   };
   const resetAndGoldenBee = () => {
     uploadEvent(state, { type: "GoldenBee" });
