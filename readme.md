@@ -5,6 +5,12 @@
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/markxoe/ich-bin-eine-biene-mobile?style=flat-square)
 ![GitHub package.json dynamic](https://img.shields.io/github/package-json/version/markxoe/ich-bin-eine-biene-mobile?style=flat-square)
 
+## NEU - Discord Server
+
+[![Neu: Discord Server](https://img.shields.io/badge/NEU-DISCORD%20SERVER-orange?style=flat-square)](https://discord.gg/fh3sVAtrB9)
+
+Link: https://discord.gg/fh3sVAtrB9
+
 ## FAQ
 
 ### Hat das einen Sinn?
