@@ -31,6 +31,12 @@ Mark Oude Elberink
 
 ## Changelog
 
+### [0.14.1] Chicken Cats :rooster: :cat:
+
+- Discord Link
+- Erweiterte Hall of Fame
+- Mini Bug Fix
+
 ### [0.14.0] Chicken Cats :rooster: :cat:
 
 - Warnung vor Bann
