@@ -5,6 +5,12 @@
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/markxoe/ich-bin-eine-biene-mobile?style=flat-square)
 ![GitHub package.json dynamic](https://img.shields.io/github/package-json/version/markxoe/ich-bin-eine-biene-mobile?style=flat-square)
 
+## NEU - Discord Server
+
+[![Neu: Discord Server](https://img.shields.io/badge/NEU-DISCORD%20SERVER-orange?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/fh3sVAtrB9)
+
+Link: https://discord.gg/fh3sVAtrB9
+
 ## FAQ
 
 ### Hat das einen Sinn?
@@ -188,3 +194,15 @@ Mark Oude Elberink
 ### [0.1.0] Initial Release :alien:
 
 - Ja, gibt's wenig zu sagen
+
+## Rechtliche Hinweise
+
+Das dekompilieren der `.apk` oder `.aab` ist illegal und kann verfolgt werden.
+
+Das weiterverbreiten der APK mit Gewinn ist zurzeit illegal.
+
+Beiträge (Commits, Pull Requests, etc.) zu diesem Repository sind erlaubt.
+
+## Weiteres
+
+Dieses Repository versucht den [GitEmoji](https://gitmoji.dev/) Standard zu verwenden.
