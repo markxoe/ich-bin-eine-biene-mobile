@@ -194,3 +194,15 @@ Mark Oude Elberink
 ### [0.1.0] Initial Release :alien:
 
 - Ja, gibt's wenig zu sagen
+
+## Rechtliche Hinweise
+
+Das dekompilieren der `.apk` oder `.aab` ist illegal und kann verfolgt werden.
+
+Das weiterverbreiten der APK mit Gewinn ist zurzeit illegal.
+
+Beiträge (Commits, Pull Requests, etc.) zu diesem Repository sind erlaubt.
+
+## Weiteres
+
+Dieses Repository versucht den [GitEmoji](https://gitmoji.dev/) Standard zu verwenden.
