@@ -15,6 +15,7 @@ import {
   IonToolbar,
   useIonViewWillEnter,
   IonText,
+  IonButton,
 } from "@ionic/react";
 import Axios from "axios";
 import React, { useContext, useState, useEffect } from "react";
@@ -25,7 +26,7 @@ import avatar from "../res/avatar.svg";
 import { AppContext } from "../store/State";
 
 const PageLeaderboard: React.FC = () => {
-  const showNumber = 30;
+  const [showNumber, setShowNumber] = useState<number>(30);
   const [data, setData] = useState<
     {
       level: number;
@@ -158,9 +159,16 @@ const PageLeaderboard: React.FC = () => {
               )}
             </IonItem>
           ))}
+
         <IonItem hidden={data.length < showNumber}>
           Und noch {data.length - showNumber} weitere...
         </IonItem>
+        <IonItem hidden={data.length < showNumber}>
+          <IonButton onClick={() => setShowNumber((i) => i + 20)}>
+            20 mehr anzeigen
+          </IonButton>
+        </IonItem>
+
         <IonCard>
           <IonCardHeader>
             <IonCardTitle>So wirst du Erster</IonCardTitle>
@@ -172,7 +180,7 @@ const PageLeaderboard: React.FC = () => {
             <br />
             Multiplier zählen weniger als eine Biene
             <br />
-            Goldene Bienen bringen 10000 Punkte
+            Goldene Bienen bringen 100000 Punkte
           </IonCardContent>
         </IonCard>
       </IonContent>

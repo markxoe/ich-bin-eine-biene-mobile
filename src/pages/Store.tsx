@@ -55,11 +55,13 @@ import Confetti from "react-confetti";
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
 import { generateName } from "../functions/namegenerator";
 import { MAX_VALUE } from "../other/const";
+import { useLocation } from "react-router";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 
 const StorePage: React.FC = () => {
   const { state, dispatch } = useContext(AppContext);
   const [showThx, setShowThx] = useState<boolean>(false);
+  const location = useLocation();
 
   const additionalBeePrice = getAdditionalBeePrice(state);
   const rotateSpeedLevelPrice = getRotateSpeedLevelPrice(state);
@@ -74,14 +76,15 @@ const StorePage: React.FC = () => {
   });
 
   useEffect(() => {
-    if (state.dataLoadedFromMemory) uploadData(state);
+    if (state.dataLoadedFromMemory && location.pathname.includes("store"))
+      uploadData(state);
     // Generate Random Name, if User has no Name
     if (!state.userName && state.dataLoadedFromMemory)
       dispatch({
         type: "setUserName",
         payload: generateName(),
       });
-  }, [state, dispatch]);
+  }, [state, dispatch, location.pathname]);
 
   useEffect(() => {
     const _values: { name: string; value: string }[] = [

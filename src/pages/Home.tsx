@@ -22,9 +22,16 @@ import {
   IonToolbar,
   isPlatform,
   useIonViewWillEnter,
+  IonFabList,
 } from "@ionic/react";
 import React, { useContext, useEffect, useState } from "react";
-import { refreshOutline, storefront, bug } from "ionicons/icons";
+import {
+  refreshOutline,
+  storefront,
+  bug,
+  logoDiscord,
+  planet,
+} from "ionicons/icons";
 import "./Home.css";
 import packagejs from "../../package.json";
 import releaseNotes from "../other/release-notes.json";
@@ -55,6 +62,7 @@ import {
   rotateSpeedLevel,
   nameAtHomePositions,
   uploadEvent,
+  generateToast,
 } from "../globals";
 
 import { FirebaseAnalyticsPlugin } from "@capacitor-community/firebase-analytics";
@@ -206,24 +214,35 @@ const Home: React.FC = () => {
   }, [state]);
 
   const reactivatePopup = () => {
-    const el = document.createElement("ion-alert");
-    el.header = "Goldene Biene";
-    el.subHeader = "Verliere alles und bekomme eine Goldene Bienen";
-    el.message =
-      "Du hast offiziell die Biene durchgespielt.<br/>" +
-      "Denn du hast mehr als " +
-      MAX_VALUE +
-      "Saltos!<br/>" +
-      "So geht's weiter: Du verlierst jetzt ALLE Bienen, alle Multiplier und alle Saltos.<br/>" +
-      "<b>ABER du bekommst eine goldene Biene!</b><br/>" +
-      "Goldene Bienen haben unterschiedliche Farben!<br/>" +
-      "Es gibt sowieso keine Alternative";
-    el.buttons = [
-      { text: "Erstmal Screenshot machen", role: "cancel" },
-      { text: "Let's do it!", handler: () => resetAndGoldenBee() },
-    ];
-    document.body.appendChild(el);
-    el.present();
+    if (
+      state.biene.additionalBienen.length > MAX_ARRAY_LENGTH ||
+      state.biene.multiplierLevel > MAX_VALUE ||
+      state.biene.clickCounter > MAX_VALUE
+    ) {
+      const el = document.createElement("ion-alert");
+      el.header = "Goldene Biene";
+      el.subHeader = "Verliere alles und bekomme eine Goldene Bienen";
+      el.message =
+        "Du hast offiziell die Biene durchgespielt.<br/>" +
+        "Denn du hast mehr als " +
+        MAX_VALUE +
+        "Saltos!<br/>" +
+        "So geht's weiter: Du verlierst jetzt ALLE Bienen, alle Multiplier und alle Saltos.<br/>" +
+        "<b>ABER du bekommst eine goldene Biene!</b><br/>" +
+        "Goldene Bienen haben unterschiedliche Farben!<br/>" +
+        "Es gibt sowieso keine Alternative";
+      el.buttons = [
+        { text: "Erstmal Screenshot machen", role: "cancel" },
+        { text: "Let's do it!", handler: () => resetAndGoldenBee() },
+      ];
+      document.body.appendChild(el);
+      el.present();
+    } else {
+      generateToast(
+        "Okay, irgendwas stimmt nicht! Starte die Biene bitte neu!"
+      );
+      setDisabled(false);
+    }
   };
   const resetAndGoldenBee = () => {
     uploadEvent(state, { type: "GoldenBee" });
@@ -496,30 +515,37 @@ const Home: React.FC = () => {
         </IonFab>
 
         <IonFab vertical="bottom" horizontal="start" slot="fixed">
-          <IonFabButton
-            color="light"
-            onClick={() => {
-              const el = document.createElement("ion-alert");
-              el.message =
-                "Du hast einen Bug gefunden oder neue Ideen für die Biene?<br/>Her damit!";
-              el.header = "Bug oder Idee?";
-              el.buttons = [
-                { text: "Nö", role: "cancel" },
-                {
-                  text: "Gönnung",
-                  handler: () =>
-                    Plugins.Browser.open({
-                      url:
-                        "https://github.com/markxoe/ich-bin-eine-biene-mobile/issues",
-                    }),
-                },
-              ];
-              el.translucent = true;
-              document.body.appendChild(el);
-              el.present();
-            }}>
-            <IonIcon icon={bug} />
+          <IonFabButton color="light">
+            <IonIcon icon={planet} />
           </IonFabButton>
+          <IonFabList side="top">
+            <IonFabButton
+              onClick={() => {
+                const el = document.createElement("ion-alert");
+                el.message =
+                  "Du hast einen Bug gefunden oder neue Ideen für die Biene?<br/>Her damit!";
+                el.header = "Bug oder Idee?";
+                el.buttons = [
+                  { text: "Nö", role: "cancel" },
+                  {
+                    text: "Gönnung",
+                    handler: () =>
+                      Plugins.Browser.open({
+                        url:
+                          "https://github.com/markxoe/ich-bin-eine-biene-mobile/issues",
+                      }),
+                  },
+                ];
+                el.translucent = true;
+                document.body.appendChild(el);
+                el.present();
+              }}>
+              <IonIcon icon={bug} />
+            </IonFabButton>
+            <IonFabButton href="https://ichbineinebiene.org/dc/">
+              <IonIcon icon={logoDiscord} />
+            </IonFabButton>
+          </IonFabList>
         </IonFab>
 
         <IonModal

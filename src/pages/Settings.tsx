@@ -365,7 +365,9 @@ const PageSettings: React.FC = () => {
               </a>
             </p>
             <p>
-              <a className="no-decoration" href="https://moritz-lerch.de">
+              <a
+                className="no-decoration"
+                href="https://github.com/MoritzLerch">
                 Moritz
               </a>
             </p>
