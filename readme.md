@@ -7,7 +7,7 @@
 
 ## NEU - Discord Server
 
-[![Neu: Discord Server](https://img.shields.io/badge/NEU-DISCORD%20SERVER-orange?style=flat-square&logo=discord&logoColor=white)](https://discord.gg/fh3sVAtrB9)
+[![Neu: Discord Server](https://img.shields.io/badge/NEU-DISCORD%20SERVER-orange?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/fh3sVAtrB9)
 
 Link: https://discord.gg/fh3sVAtrB9
 
