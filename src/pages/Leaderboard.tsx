@@ -16,6 +16,10 @@ import {
   useIonViewWillEnter,
   IonText,
   IonButton,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonCardSubtitle,
 } from "@ionic/react";
 import Axios from "axios";
 import React, { useContext, useState, useEffect } from "react";
@@ -119,6 +123,37 @@ const PageLeaderboard: React.FC = () => {
           {me ? data.sort((a, b) => b.level - a.level).indexOf(me) : "..."}
         </IonItem>
         <IonItem>Deine Punktzahl: {me?.level}</IonItem> */}
+        <IonGrid>
+          <IonRow>
+            {data.length > 1 ? (
+              <LeaderThing
+                cardColor="success"
+                user={data[1].user}
+                place={"2ter"}
+              />
+            ) : (
+              ""
+            )}
+            {data.length > 0 ? (
+              <LeaderThing
+                cardColor="success"
+                user={data[0].user}
+                place={"1ter"}
+              />
+            ) : (
+              ""
+            )}
+            {data.length > 2 ? (
+              <LeaderThing
+                cardColor="success"
+                user={data[2].user}
+                place={"3ter"}
+              />
+            ) : (
+              ""
+            )}
+          </IonRow>
+        </IonGrid>
         {data
           .sort((a, b) => b.level - a.level)
           .slice(0, showNumber)
@@ -185,6 +220,31 @@ const PageLeaderboard: React.FC = () => {
         </IonCard>
       </IonContent>
     </IonPage>
+  );
+};
+
+const LeaderThing: React.FC<{
+  user: { userName: string; userImage: string };
+  place: string;
+  cardColor?: string;
+}> = ({ user, place, cardColor = "" }) => {
+  return (
+    <IonCol>
+      <IonCard color={cardColor}>
+        <IonCardHeader>
+          <IonCardTitle>{place}</IonCardTitle>
+          <IonCardSubtitle>{user.userName}</IonCardSubtitle>
+        </IonCardHeader>
+        <IonCardContent>
+          <IonAvatar slot="start">
+            <img
+              src={(user.userImage ?? "") !== "" ? user.userImage : avatar}
+              alt="avatar"
+            />
+          </IonAvatar>
+        </IonCardContent>
+      </IonCard>
+    </IonCol>
   );
 };
 
