@@ -125,20 +125,20 @@ const PageLeaderboard: React.FC = () => {
         <IonItem>Deine Punktzahl: {me?.level}</IonItem> */}
         <IonGrid>
           <IonRow>
-            {data.length > 1 ? (
-              <LeaderThing
-                cardColor="success"
-                user={data[1].user}
-                place={"2ter"}
-              />
-            ) : (
-              ""
-            )}
             {data.length > 0 ? (
               <LeaderThing
                 cardColor="success"
                 user={data[0].user}
                 place={"1ter"}
+              />
+            ) : (
+              ""
+            )}
+            {data.length > 1 ? (
+              <LeaderThing
+                cardColor="success"
+                user={data[1].user}
+                place={"2ter"}
               />
             ) : (
               ""
