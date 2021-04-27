@@ -41,6 +41,10 @@ export const getAutorotatePrice = (state: stateType): number => {
   return Math.round(getAdditionalBeePrice(state) * 3);
 };
 
+export const getDragonPrice = (state: stateType): number => {
+  return 100000;
+};
+
 export const renderValue = (value: number): string => {
   if (value > 1000000) {
     return value.toExponential(4);
