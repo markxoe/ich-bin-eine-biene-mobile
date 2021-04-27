@@ -14,6 +14,7 @@ const initialState: stateType = {
     additionalBienen: [],
     multiplierLevel: 0,
     autoRotatingBees: [],
+    dragons: 0,
   },
   goldenBienen: 0,
   settings: {
@@ -203,6 +204,7 @@ let reducer = (state: stateType, action: actionType): stateType => {
           autoRotatingBees: [],
           clickCounter: 0,
           rotateSpeedLevel: 0,
+          dragons: 0,
         },
       };
     }
@@ -213,6 +215,15 @@ let reducer = (state: stateType, action: actionType): stateType => {
         settings: {
           ...state.settings,
           multiplyPrices: action.payload,
+        },
+      };
+    }
+    case "addDragon": {
+      return {
+        ...state,
+        biene: {
+          ...state.biene,
+          dragons: state.biene.dragons + 1,
         },
       };
     }
