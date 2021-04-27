@@ -37,6 +37,7 @@ import packagejs from "../../package.json";
 import releaseNotes from "../other/release-notes.json";
 
 import biene from "../res/biene.png";
+import dragon from "../res/dragon.png";
 import { getGoldenBienenArray } from "../res/advancementBees/getbee";
 
 import { AppContext } from "../store/State";
@@ -391,6 +392,15 @@ const Home: React.FC = () => {
                 <img src={src} width="54" alt="Goldene Biene" />
               </IonCol>
             ))}
+          </IonRow>
+          <IonRow className="ion-justify-content-center">
+            {Array(state.biene.dragons)
+              .fill(0)
+              .map(() => (
+                <IonCol size="auto">
+                  <img src={dragon} width="54" alt="Drache" />
+                </IonCol>
+              ))}
           </IonRow>
           <IonRow className="ion-justify-content-center">
             {/* This part shows the informations */}
