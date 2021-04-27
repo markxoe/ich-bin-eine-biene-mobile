@@ -165,6 +165,7 @@ export const uploadData = (state: stateType) => {
       settingClickingAid: boolean;
       userImage: string;
       goldenBienens: number;
+      dragons: number;
     } = {
       userid: state.userUUID,
       autoRotatingBeeLength: state.biene.autoRotatingBees.length,
@@ -175,6 +176,7 @@ export const uploadData = (state: stateType) => {
       settingNewUI: state.settings.newUI,
       userImage: state.userImage,
       goldenBienens: state.goldenBienen,
+      dragons: state.biene.dragons,
     };
 
     Axios.post(

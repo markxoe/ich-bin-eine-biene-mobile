@@ -40,6 +40,7 @@ const PageLeaderboard: React.FC = () => {
         settingClickingAid: boolean;
         userImage: string;
         goldenBienens: number;
+        dragons?: number;
       };
     }[]
   >([]);
@@ -56,6 +57,7 @@ const PageLeaderboard: React.FC = () => {
       settingClickingAid: boolean;
       userImage: string;
       goldenBienens: number;
+      dragons?: number;
     };
   } | null>(null);
 
@@ -145,6 +147,7 @@ const PageLeaderboard: React.FC = () => {
                 <p hidden={!i.user.goldenBienens}>
                   {i.user.goldenBienens} Goldene Biene(n)
                 </p>
+                <p hidden={!i.user.dragons}>{i.user.dragons ?? 0} Drachen</p>
               </IonLabel>
               {i.user.goldenBienens > 0 ? (
                 <img
