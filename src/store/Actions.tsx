@@ -137,3 +137,5 @@ export const ActionSetMultiplyPrices = (activated: boolean): actionType => ({
   type: "setMultiplyPrices",
   payload: activated,
 });
+
+export const ActionAddDragon = (): actionType => ({ type: "addDragon" });

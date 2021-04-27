@@ -8,6 +8,7 @@ export interface stateType {
     additionalBienen: number[];
     multiplierLevel: number;
     autoRotatingBees: number[];
+    dragons: number;
   };
   goldenBienen: number;
   settings: {
