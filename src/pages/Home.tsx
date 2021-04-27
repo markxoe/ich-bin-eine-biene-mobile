@@ -467,6 +467,9 @@ const Home: React.FC = () => {
               <IonChip hidden={!state.settings.newUI} color="warning">
                 Saltos: {renderValue(state.biene.clickCounter)}
               </IonChip>
+              <IonChip hidden={state.biene.dragons <= 0} color="warning">
+                Drachen: {renderValue(state.biene.dragons)}
+              </IonChip>
               <IonChip
                 onClick={() => setOpenLevels(true)}
                 color={calculateLevel(state).levelColor}>
