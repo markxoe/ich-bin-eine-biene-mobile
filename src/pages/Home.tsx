@@ -37,6 +37,7 @@ import packagejs from "../../package.json";
 import releaseNotes from "../other/release-notes.json";
 
 import biene from "../res/biene.png";
+import dragon from "../res/dragon.png";
 import { getGoldenBienenArray } from "../res/advancementBees/getbee";
 
 import { AppContext } from "../store/State";
@@ -70,6 +71,7 @@ import { KeepAwakePlugin } from "@capacitor-community/keep-awake";
 import { v4, validate } from "uuid";
 import axios from "axios";
 import { APIgetWarning } from "../functions/api";
+import Confetti from "react-confetti";
 const Firebase = Plugins.FirebaseAnalytics as FirebaseAnalyticsPlugin;
 const KeepAwake = Plugins.KeepAwake as KeepAwakePlugin;
 
@@ -86,6 +88,8 @@ const Home: React.FC = () => {
   const [disabled, setDisabled] = useState<boolean>(false);
 
   const [warning, setWarning] = useState<boolean | string>(false);
+
+  const [runningConfetti, setRunningConfetti] = useState<boolean>(false);
 
   useIonViewWillEnter(async () => {
     PushNotifications.requestPermission()
@@ -253,6 +257,22 @@ const Home: React.FC = () => {
 
   return (
     <IonPage>
+      <Confetti
+        recycle={false}
+        gravity={0.8}
+        initialVelocityX={{ min: -10, max: 10 }}
+        initialVelocityY={{ min: -15, max: 0 }}
+        confettiSource={{
+          h: 50,
+          w: 50,
+          x: window.innerWidth / 2 - 25,
+          y: window.innerHeight / 2 - 25,
+        }}
+        friction={0.999}
+        numberOfPieces={50}
+        tweenDuration={500}
+        run={runningConfetti}
+      />
       <IonHeader>
         <IonToolbar>
           <IonButtons collapse slot="start">
@@ -393,6 +413,15 @@ const Home: React.FC = () => {
             ))}
           </IonRow>
           <IonRow className="ion-justify-content-center">
+            {Array(state.biene.dragons)
+              .fill(0)
+              .map(() => (
+                <IonCol size="auto" onClick={() => setRunningConfetti(true)}>
+                  <img src={dragon} width="54" alt="Drache" />
+                </IonCol>
+              ))}
+          </IonRow>
+          <IonRow className="ion-justify-content-center">
             {/* This part shows the informations */}
             <IonCol size="auto" class="ion-text-center">
               <IonChip
@@ -437,6 +466,9 @@ const Home: React.FC = () => {
               </IonChip>
               <IonChip hidden={!state.settings.newUI} color="warning">
                 Saltos: {renderValue(state.biene.clickCounter)}
+              </IonChip>
+              <IonChip hidden={state.biene.dragons <= 0} color="warning">
+                Drachen: {renderValue(state.biene.dragons)}
               </IonChip>
               <IonChip
                 onClick={() => setOpenLevels(true)}

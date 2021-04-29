@@ -37,6 +37,7 @@ import {
   rotateSpeedLevel,
   uploadData,
   uploadEvent,
+  getDragonPrice,
 } from "../globals";
 import {
   ActionBieneAddAdditional,
@@ -47,6 +48,7 @@ import {
   ActionRotateSpeedLevelIncrease,
   ActionSetState,
   ActionSetMultiplyPrices,
+  ActionAddDragon,
 } from "../store/Actions";
 import { RefresherEventDetail } from "@ionic/core";
 import { flashOutline } from "ionicons/icons";
@@ -68,6 +70,8 @@ const StorePage: React.FC = () => {
   const multiplierLevelPrice = getMultiplierPrice(state);
 
   const autorotatingPrice = getAutorotatePrice(state);
+
+  const dragonPrice = getDragonPrice(state);
 
   const [confettiChilds, setConfettiChilds] = useState<JSX.Element[]>([]);
 
@@ -425,6 +429,56 @@ const StorePage: React.FC = () => {
                 <IonCol>
                   Deine Autodreher: {state.biene.autoRotatingBees.length}/10
                 </IonCol>
+              </IonRow>
+            </IonGrid>
+          </IonCardContent>
+        </IonCard>
+        <IonCard>
+          <IonCardHeader>
+            <IonCardTitle>Drache</IonCardTitle>
+            <IonCardSubtitle className="ion-text-uppercase">
+              Macht garnix
+            </IonCardSubtitle>
+          </IonCardHeader>
+          <IonCardContent>
+            <IonGrid>
+              <IonRow>
+                <IonCol>
+                  <IonButton
+                    onClick={() => {
+                      if (state.biene.clickCounter >= dragonPrice) {
+                        dispatch(ActionAddDragon());
+                        dispatch(ActionBieneClickDecrease(dragonPrice));
+                        setShowThx(true);
+                        onBuy();
+                        Firebase.logEvent({
+                          name: "StoreBuyDragon",
+                          params: { price: dragonPrice },
+                        }).catch(() => {});
+                        uploadEvent(state, { type: "BoughtDragon" });
+                      }
+                    }}
+                    disabled={state.biene.clickCounter < dragonPrice}>
+                    Drachen kaufen
+                  </IonButton>
+                </IonCol>
+                <IonCol>
+                  <h2>Preis: {renderValue(dragonPrice)}</h2>
+                  <IonProgressBar
+                    color={
+                      state.biene.clickCounter < dragonPrice
+                        ? "danger"
+                        : "success"
+                    }
+                    value={Math.min(
+                      state.biene.clickCounter / dragonPrice,
+                      1.0
+                    )}
+                  />
+                </IonCol>
+              </IonRow>
+              <IonRow>
+                <IonCol>Deine Drachen: {state.biene.dragons}/∞</IonCol>
               </IonRow>
             </IonGrid>
           </IonCardContent>
