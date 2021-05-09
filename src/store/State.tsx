@@ -26,6 +26,7 @@ const initialState: stateType = {
   },
   statisticsRotations: 0,
   settingMaxNumberDisplayedBees: 20,
+  settingMaxNumberDisplayedDragons: 10,
   userUUID: "",
   userName: "",
   userImage: "",
@@ -137,6 +138,13 @@ let reducer = (state: stateType, action: actionType): stateType => {
       return {
         ...state,
         settingMaxNumberDisplayedBees: action.payload,
+      };
+    }
+
+    case "settingSetMaxDisplayDragon": {
+      return {
+        ...state,
+        settingMaxNumberDisplayedDragons: action.payload,
       };
     }
 
