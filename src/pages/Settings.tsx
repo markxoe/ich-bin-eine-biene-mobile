@@ -40,6 +40,7 @@ import { AppContext } from "../store/State";
 import {
   ActionSetState,
   ActionSettingSetMaxDisplayBiene,
+  ActionSettingSetMaxDisplayDragon,
   ActionSettingSetStoreConfettiDeactivated,
   ActionSettingsSetClickButtonForBee,
   ActionSettingsSetNewUI,
@@ -280,6 +281,27 @@ const PageSettings: React.FC = () => {
               );
             }}
             value={state.settingMaxNumberDisplayedBees}
+            min={5}
+            snaps={true}
+            step={5}
+            pin={true}
+            max={100}>
+            <IonText slot="start">5</IonText>
+            <IonText slot="end">100</IonText>
+          </IonRange>
+        </IonItem>
+
+        <IonItemDivider>Anzahl der maximal angezeigten Drachen</IonItemDivider>
+        <IonItem>
+          <IonRange
+            onIonChange={(e) => {
+              dispatch(
+                ActionSettingSetMaxDisplayDragon(
+                  parseInt(e.detail.value as any) ?? 10
+                )
+              );
+            }}
+            value={state.settingMaxNumberDisplayedDragons}
             min={5}
             snaps={true}
             step={5}

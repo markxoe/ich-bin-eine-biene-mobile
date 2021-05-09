@@ -141,6 +141,13 @@ let reducer = (state: stateType, action: actionType): stateType => {
       };
     }
 
+    case "settingSetMaxDisplayDragon": {
+      return {
+        ...state,
+        settingMaxNumberDisplayedDragons: action.payload,
+      };
+    }
+
     case "setUserUUID": {
       return {
         ...state,
