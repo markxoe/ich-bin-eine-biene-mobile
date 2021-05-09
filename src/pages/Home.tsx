@@ -413,13 +413,27 @@ const Home: React.FC = () => {
             ))}
           </IonRow>
           <IonRow className="ion-justify-content-center">
-            {Array(state.biene.dragons)
+            {Array(
+              Math.min(
+                state.biene.dragons,
+                state.settingMaxNumberDisplayedDragons
+              )
+            )
               .fill(0)
               .map(() => (
                 <IonCol size="auto" onClick={() => setRunningConfetti(true)}>
                   <img src={dragon} width="54" alt="Drache" />
                 </IonCol>
               ))}
+            <IonCol
+              size="auto"
+              hidden={
+                state.biene.dragons <= state.settingMaxNumberDisplayedDragons
+              }>
+              <IonChip color="success">
+                + {state.biene.dragons - state.settingMaxNumberDisplayedDragons}
+              </IonChip>
+            </IonCol>
           </IonRow>
           <IonRow className="ion-justify-content-center">
             {/* This part shows the informations */}

@@ -107,6 +107,13 @@ export const ActionSettingSetMaxDisplayBiene = (
   payload: newNumber,
 });
 
+export const ActionSettingSetMaxDisplayDragon = (
+  newNumber: number
+): actionType => ({
+  type: "settingSetMaxDisplayDragon",
+  payload: newNumber,
+});
+
 /**
  * Setzt die Einstellung für die Deaktivierung des Konfettis
  * @param newBool
