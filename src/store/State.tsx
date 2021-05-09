@@ -26,6 +26,7 @@ const initialState: stateType = {
   },
   statisticsRotations: 0,
   settingMaxNumberDisplayedBees: 20,
+  settingMaxNumberDisplayedDragons: 10,
   userUUID: "",
   userName: "",
   userImage: "",

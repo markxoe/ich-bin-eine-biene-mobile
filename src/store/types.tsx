@@ -20,6 +20,7 @@ export interface stateType {
   };
   statisticsRotations: number;
   settingMaxNumberDisplayedBees: number;
+  settingMaxNumberDisplayedDragons: number;
   userUUID: string;
   userName: string;
   userImage: string;
